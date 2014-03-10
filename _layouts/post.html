@@ -9,9 +9,9 @@ layout: default
   </a>
 </p>
 {% include meta.html %}
+{% include post_social.html %}
 
 <h1 class="title">{{ page.title }}</h1>
-{% include post_social.html %}
 
 
 <div id="post">
@@ -28,3 +28,5 @@ layout: default
     {% endfor %}
   </ul>
 </div>
+
+{% include comments.html %}
