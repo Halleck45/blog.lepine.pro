@@ -1,0 +1,108 @@
+---
+layout: post
+title: Le point sur les limites du typage de PHP
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- php
+- php 5.4
+- type hinting
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+  _syntaxhighlighter_encoded: '1'
+---
+<h2>Les limites</h2>
+PHP a ceci de particulier qu'il est est un <strong>langage de typage faible</strong> (le type des variables peut changer en cours de route), mais qu'il <strong>autorise un typage fort partiel des paramètres de fonctions</strong> pour ce qui concerne les objets et les tableaux. On pourra ainsi écrire :
+
+{% highlight php %}function test(array $argument) {
+    (...)
+}{% endhighlight %}
+
+&nbsp;
+
+{% highlight php %}function test(monObjet $argument) {
+    (...)
+}{% endhighlight %}
+
+mais par contre il n'est <strong>pas possible de typer les paramètres de méthodes pour les types scalaires</strong> (entier, chaînes de caractères...)
+
+{% highlight php %}function test(string $argument) {
+    // qui a dit que PHP ne savait pas être drôle ?
+    // Argument 1 passed to test() must be an instance of string, string given
+}{% endhighlight %}
+
+Pourtant, ça semble bien souvent manquer : combien de fois vois t-on des tests de type dans un code ?
+
+{% highlight php %}function test($argument) {
+    if(!is_string($argument)) {
+        throw new InvalidArgumentException(&amp;quot;eh ! on voulait une chaîne !&amp;quot;);
+    }
+}{% endhighlight %}
+
+Bref, on se retrouve avec du code pas vraiment utile (qui n'est ni métier ni applicatif), qui, bien souvent, nuit à la lecture et à la bonne compréhension des sources.
+<h2>Les <strike>solutions</strike> pistes</h2>
+il existe cependant des solutions, ou au moins des tentatives de solutions, pour pallier à ces inconvénients.
+<h3>Patch</h3>
+La première provient d'un modification du langage lui-même, sous forme d'un patch ou d'une extension. <a href="http://ilia.ws/archives/207-Type-Hinting-Conclusion.html">Ilia Alshanetsky</a> propose depuis longtemps un patch pour PHP 5.3. Ce patch, complet, modifie le comportement du parseur, mais complète également Reflection.
+Malheureusement, l'utilisation de ce patch nécessite de devoir patcher systématiquement PHP, avec d'autant plus de risques que le patch n'est pas officiel. Mais surtout ce patch n'est pas mis à jour, et n'est plus compatible avec les versions récentes de PHP 5.3 (ne parlons même pas de <a href="http://blog.lepine.pro/php/ca-vous-dit-dinstaller-lalpha-de-php-5-4" title="Ca vous dit d’installer l’alpha de PHP 5.4 ?">PHP 5.4</a> :-) )
+<h3>La Standard Php Libary</h3>
+Bon, c'est un idée, mais il y en a eu d'autres. Marcus Börger et David Coallier ont développé l'<a href="http://pecl.php.net/package/SPL_Types">extension PECL SPL_Types</a> pour insérer ce comportement dans la <a href="http://php.net/manual/en/book.spl-types.php">SPL</a>.
+
+Ici, pas vraiment de typage fort scalaire, mais une surcouche à utiliser :
+{% highlight php %}function test(SplInt $integer){
+    // (...)
+}
+
+$value = new SplInt(5);
+test($value);{% endhighlight %}
+
+Ça semble marcher, mais personnellement je trouve ca peu élégant et pas vraiment optimal : quid de la compatibilité avec des librairies externes qui n'utiliseront pas les typages Spl ? Et bon, on ne type pas les scalaires ; dans notre exemple ce qui suit ne fonctionnera pas, ce qui montre en soi que cette solution n'est qu'une rustine :
+
+{% highlight php %}assert(5 instanceof SplInt); // faux
+assert(is_int( new SplInt(5) )); // faux{% endhighlight %}
+<h3>La rustine de la mort qui tue</h3>
+Très vite, de nombreux développeurs ont eu l'idée de passer par un gestionnaire d'erreur personnalisé pour résoudre ce problème. Personnellement, je l'avais mis en place sur un framework dans une ancienne boite. À l'époque j'avais trouvé ça tout seul et ça m'avait bien amusé. Après j'avais fait des benchs et je l'avais vite retiré ;-)
+
+L'idée est d'intercepter les erreurs, d'analyser le message de l'erreur et de voir s'il correspond pas à un problème de type. Si c'est le cas on fait nous même le contrôle "a la main", sinon on renvoie vers le gestionnaire d'erreur par défaut.
+
+Voici une version basique :
+
+{% highlight php %}set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    if(preg_match('!must be an instance of (\w*), (\w*) given!', $errstr, $matches)) {
+        $matches[2] = str_replace('double','float', $matches[2]);
+        return strtolower($matches[1]) == strtolower($matches[2]);
+    }
+});{% endhighlight %}En 6 petites lignes de code, magique : on peut désormais écrire ceci :
+{% highlight php %}function example1(integer $v) {
+    echo 'Cool, integer was given !'.PHP_EOL;
+}
+function example2(string $v) {
+    echo 'Cool, string was given !'. PHP_EOL;
+}
+function example3(float $v) {
+    echo 'Cool, float was given !';
+}
+function example4(boolean $v) {
+    echo 'Cool, boolean was given !';
+}
+function example5(object $v) {
+    echo 'Cool, object was given !';
+}
+function example6(resource $v) {
+    echo 'Cool, resource was given !';
+}{% endhighlight %}
+N'oubliez pas que <strong>c'est catastrophique côté perf </strong>:-)
+
+<h3>Conclusion</h3>
+Bref, on se retrouve avec des rustines et pas vraiment des solutions exploitables en production. Pourtant, si je comprend que le typage fort puisse gêner, <strong>je trouve que le typage des paramètres et des retours de de fonction (comme en Java par exemple) manque beaucoup</strong>, et pourrait apporter du grain dans la professionnalisation du langage. 
+
+D'ailleurs, si on observe bien, on retrouve tout de même de <a href="https://wiki.php.net/rfc/typechecking">nombreuses RFC à ce sujet</a>, et le sujet à été débattu à de nombreuses reprises, et par de nombreuses "figures" de PHP (<a href="https://wiki.php.net/rfc/typecheckingparseronly">Derick Rethans</a>, <a href="http://sebastian-bergmann.de/archives/900-Scalar-Type-Hints-in-PHP-5.3.99.html">Sebastian Bergmann</a>...), on a même un <a href="http://schlueters.de/blog/archives/139-Scalar-type-hints-in-PHP-trunk.html">moment que c'était bon</a>. Aux dernières nouvelles (mais je dois avouer que je ne sais pas trop ce qu'il en est ) il me semble que l'introduction du typage fort des arguments des fonctions reste très largement discutée, voire contestée, et qu'alors même on l'espérait pour php 5.4, elle n'est prévue dans aucune des futures versions sur les rails.
+
+<strong>Quel est votre avis sur la question ?</strong> Le typage fort des paramètres et des retours de fonctions vous manque t-il au quotidien ? Ou bien au contraire trouvez-vous que c'est justement la force de PHP que d'offrir une grande souplesse aux développeurs et de s'en passer ? <strong>Etes-vous déçus de ne pas avoir cette nouveauté dans PHP 5.4 ?</strong>

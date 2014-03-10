@@ -1,0 +1,51 @@
+---
+layout: post
+title: ! 'Behat : liens et ressources utiles'
+categories:
+- industrialisation
+- PHP
+- Ressources et tutos PHP
+tags:
+- behat
+- PIC
+- qualité
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+  _syntaxhighlighter_encoded: '1'
+---
+Ce billet fait suite à :
+<ul>
+	<li><a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum">Behat – jour 1 : comment tester son produit SCRUM ?</a></li>
+	<li><a title="Behat – jour 2 : Installation et premiers tests" href="http://blog.lepine.pro/php/behat-jour-2-installation-et-premiers-tests">Behat – jour 2 : Installation et premiers tests</a></li>
+	<li><a title="Behat – jour 3 : Tester une application web avec Mink" href="http://blog.lepine.pro/php/behat-jour-3-tester-une-application-web-avec-mink">Behat – jour 3 : Tester une application web avec Mink</a></li>
+	<li><a title="Behat – jour 4 : API Mink, Sous-contextes et Hooks" href="http://blog.lepine.pro/php/behat-jour-4-api-mink-sous-contextes-et-hooks">Behat – jour 4 : API Mink, Sous-contextes et Hooks</a></li>
+</ul>
+Pour ce dernier billet du tutoriel Behat, j'avais prévu de parler la mise en place de Behat au sein d'une plate-forme d'intégration continue (PIC). Je me suis rendu compte qu'il y avait déjà quelques bons tutos là dessus. Je vous propose donc plutôt une petite liste de liens que je vous invite à découvrir pour aller plus loin avec Behat.
+<h2>Contextes prêts à l'usage</h2>
+Le <a href="https://github.com/gabrielpillet/BehatCH" target="_blank">BehatCH</a>, développé par <a href="http://team-fusion.pmsipilot.com/" target="_blank">PMSIpilot</a> est ce que j'ai trouvé de plus complet pour apporter des bonnes bases à un projet. regardez surtout le <a href="https://github.com/gabrielpillet/BehatCH/blob/master/features/bootstrap/contexts/BrowserContext.php" target="_blank">BrowserContext</a> et le <a href="https://github.com/gabrielpillet/BehatCH/blob/master/features/bootstrap/contexts/TableContext.php" target="_blank">TableContext</a>, qui permettent d'écrire des choses comme :
+
+{% highlight gherkin %}
+I wait "5" seconds until I see "element"
+I should see "5" elements
+The 1st column of the 1st row in the "table" table should contain "Lorem"
+{% endhighlight %}
+
+Vous pouvez également utiliser les <a href="https://github.com/Behat/CommonContexts" target="_blank">Extra Contexts</a> mis à disposition par l'auteur de Behat, qui sont eux moins axés outils mais plus à mon sens comme des composants pour créer d'autres outils.
+<h2>Blogs intéressants sur Behat</h2>
+Pour les blogs francophones, je vous recommande les blog de <a href="http://team-fusion.pmsipilot.com/" target="_blank">PMSIpilot</a> et de <a href="http://knplabs.fr/blog" target="_blank">knpLabs</a> (bon, ok c'est plus souvent en anglais qu'en français :-) ...).
+
+Pour les anglohpones, vous pouvez jeter un oeil sur le blog de <a href="http://lestbddphp.wordpress.com" target="_blank">Shashikant Jagtap</a>, de l'<a href="http://everzet.com/" target="_blank">auteur même de Behat</a>, ou aussi sur <a href="http://www.craftitonline.com/category/bdd/" target="_blank">craftItOnline</a>
+<h2>Plate-forme d'intégration continue et Behat</h2>
+Avant toute chose sachez que Behat permet très facilement de générer des rapports en XML, au format JUnit :
+
+{% highlight bash %}behat -f junit --out ./report{% endhighlight %}
+
+Voici un tutoriel pour installer <a href="http://lestbddphp.wordpress.com/2012/01/03/behat-with-sauce-labs-and-jenkins/" target="_blank">Behat sur Jenkins</a>, et en voici <a href="http://team-fusion.pmsipilot.com/679/creer-un-job-behat-dans-hudson/" target="_blank">un autre pour Hudson</a>
+
+Bonne lecture ! :-) N'hésitez pas si vous avez des ressources à suggérer à les mettre en commentaire

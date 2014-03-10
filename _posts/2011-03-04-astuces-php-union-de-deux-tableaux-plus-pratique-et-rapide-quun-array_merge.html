@@ -1,0 +1,86 @@
+---
+layout: post
+title: ! 'plus rapide et facile qu''un array_merge : l''opérateur +'
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- array_merge
+- performance
+- php
+- tableau
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  _syntaxhighlighter_encoded: '1'
+  seo_follow: 'false'
+  seo_noindex: 'false'
+  image: ''
+---
+Aujourd'hui, j'ai envie de partager avec vous une astuce PHP peu connue, mais qui est bien pratique : l'union (+) de deux tableaux
+
+Utiliser la fonction array_merge est un vrai casse-tête quand il s'agit  de fusionner des tableaux en préservant les clefs.
+
+Or il existe un opérateur bien pratique : <strong>l'opérateur +</strong>, qui fusionne deux tableaux :<!--more-->
+
+{% highlight php %}$t1 = array('a','b','d');
+$t2 = array(3 =&gt; 'f',4 =&gt; 'g');
+$t3 = $t1 + $t2;
+print_r($t3);
+Array
+(
+    [0] =&gt; a
+    [1] =&gt; b
+    [2] =&gt; d
+    [3] =&gt; f
+    [4] =&gt; g
+)
+{% endhighlight %}
+
+Pratique non ?
+
+Et en plus, utiliser l'opérateur + est légèrement (à peine) plus rapide qu'un array_merge classique (sur 10 000 occurrences de fusion de deux petits tableaux en PHP 5.3, sous Ubuntu, j'obtiens un très léger écart de 0.05 secondes ^^)
+
+Attention, le comportement en cas de clefs communes est différent entre array_merge et + :
+
+{% highlight php %}
+$array1 = array(
+    'brand' =&gt; 'peugeot',
+    'car' =&gt; '206',
+    'color' =&gt; 'red'
+);
+$array2 = array(
+    'brand' =&gt; 'renault',
+    'car' =&gt; 'scenic',
+    'color' =&gt; 'blue'
+);
+{% endhighlight %}
+
+Avec array_merge : la dernière valeur rencontrée écrase la précédente :
+{% highlight php %}
+$array4 = array_merge($array1, $array2);
+print_r($array4);
+Array
+(
+    [brand] =&gt; renault
+    [car] =&gt; scenic
+    [color] =&gt; blue
+)
+{% endhighlight %}
+
+Avec l'opérateur +, la première valeur est conservée :
+{% highlight php %}
+$array3 = $array1 + $array2;
+print_r($array3);
+Array
+(
+    [brand] =&gt; peugeot
+    [car] =&gt; 206
+    [color] =&gt; red
+)
+{% endhighlight %}
+
+<em>Merci à gege2061 de m'avoir fait remarquer une absence dans ce billet, désormais corrigée ;-)</em>

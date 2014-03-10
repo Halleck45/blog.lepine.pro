@@ -252,3 +252,21 @@ i.fa-hn {
   font-size: smaller;
   padding-bottom: 10px
 }
+
+
+/* --- jeff --- */
+.meta_wrapper {
+    text-align: right;
+    font-size:0.8em;
+}
+.tag_list_in_post li {
+    display:inline-block;
+    margin-left:10px;
+}
+.tag_list_in_post a {
+    color:#aaa;
+}
+
+.post_social {
+    text-align: right;
+}

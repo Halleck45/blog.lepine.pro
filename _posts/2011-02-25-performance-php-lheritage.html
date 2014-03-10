@@ -1,0 +1,74 @@
+---
+layout: post
+title: ! 'Performance PHP : l''héritage'
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- performance
+- php
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+Quand on parle d'orienté objet, une crainte récurrente est celle de la performance.Or le moteur PHP Objet est très bien optimisé :
+
+(les benchs suivants portent sur des moyennes de tests executés 10 000 fois minimum, sous Linux en PHP 5.3.3 standard, et sont exprimés en secondes)
+<h2>Héritage</h2>
+Contrairement aux idées reçus, instancier une classe qui en hérite de plusieurs autres n'est pas plus lent qu'instancier une classe mère :
+<h3>Appel de classes statiques (secondes):</h3>
+<!-- body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: "Arial"; font-size: x-small; } -->
+<table style="height: 56px;" border="0" cellspacing="0" width="312" frame="VOID" rules="NONE"><colgroup><col width="95"></col><col width="95"></col><col width="108"></col></colgroup>
+<tbody>
+<tr>
+<td width="95" height="17" align="CENTER" bgcolor="#333333"><strong><span style="color: #ffffff;">Occurrences</span></strong></td>
+<td width="95" align="CENTER" bgcolor="#333333"><strong><span style="color: #ffffff;">4 héritages</span></strong></td>
+<td width="108" align="CENTER" bgcolor="#333333"><strong><span style="color: #ffffff;">aucun héritage</span></strong></td>
+</tr>
+<tr>
+<td height="17" align="RIGHT" bgcolor="#333333"><strong><span style="color: #ffffff;">10000</span></strong></td>
+<td align="RIGHT">0,7106118202</td>
+<td align="RIGHT">0,7099120617</td>
+</tr>
+<tr>
+<td height="17" align="RIGHT" bgcolor="#333333"><strong><span style="color: #ffffff;">1000</span></strong></td>
+<td align="RIGHT">0,0733890533</td>
+<td align="RIGHT">0,0721051693</td>
+</tr>
+</tbody>
+</table>
+<h3>
+
+[caption id="attachment_23" align="aligncenter" width="300" caption="test de Performance PHP 5.3 : héritage et appels statiques"]<a href="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage1.gif"><img class="size-medium wp-image-23" title="php-5-3-performance-heritage1" src="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage1-300x232.gif" alt="test de Performance PHP 5.3 : héritage et appels statiques" width="300" height="232" /></a>[/caption]</h3>
+<h3>Appel de classes instanciées (secondes):</h3>
+<!-- body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: "Arial"; font-size: x-small; } -->
+<table border="0" cellspacing="0" frame="VOID" rules="NONE"><colgroup><col width="95"></col><col width="95"></col><col width="108"></col></colgroup>
+<tbody>
+<tr>
+<td width="95" height="17" align="CENTER" bgcolor="#333333"><strong><span style="color: #ffffff;">Occurrences</span></strong></td>
+<td width="95" align="LEFT" bgcolor="#333333"><strong><span style="color: #ffffff;">4 héritages</span></strong></td>
+<td width="108" align="LEFT" bgcolor="#333333"><strong><span style="color: #ffffff;">aucun héritage</span></strong></td>
+</tr>
+<tr>
+<td height="17" align="RIGHT" bgcolor="#333333"><strong><span style="color: #ffffff;">10000</span></strong></td>
+<td align="RIGHT">0,7323720455</td>
+<td align="RIGHT">0,7246758938</td>
+</tr>
+<tr>
+<td height="17" align="RIGHT" bgcolor="#333333"><strong><span style="color: #ffffff;">1000</span></strong></td>
+<td align="RIGHT">0,0770690441</td>
+<td align="RIGHT">0,0738449097</td>
+</tr>
+</tbody>
+</table>
+[caption id="attachment_24" align="aligncenter" width="296" caption="test de Performance PHP 5.3 : héritage et appels sur des instances"]<a href="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage-instances.gif"><img class="size-full wp-image-24" title="php-5-3-performance-heritage-instances" src="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage-instances.gif" alt="test de Performance PHP 5.3 : héritage et appels sur des instances" width="296" height="292" /></a>[/caption]
+
+La différence est négligeable, même sur une grosse application.
+
+En conclusion, l'utilisation massive de l'héritage ne nuit pas à la performance d'une application...

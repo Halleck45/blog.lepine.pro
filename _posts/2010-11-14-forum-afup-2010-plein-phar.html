@@ -1,0 +1,80 @@
+---
+layout: post
+title: ! 'Forum AFUP 2010 : Plein PHAR'
+categories:
+- Forum AFUP
+- PHP
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _wp_old_slug: ''
+---
+Première conférence intéressante : <strong>Plein Phar, de Fréderic Hardy</strong>.
+
+Je vous livre mes notes en vrac, en espérant que ce soit lisible :<!--more-->
+<h2>Introduction</h2>
+Phar = JAR en Java (archive qui regroupe et éventuellement compresse plusieurs fichiers en un)
+<ul>
+	<li>Concaténer plusieurs fichiers en 1</li>
+	<li>Compression (zLib, Tar…)</li>
+	<li>Sécurité : openSSL possible, signatures</li>
+	<li>Executable ou non</li>
+</ul>
+Peut être inclus très facilement en PHP :
+
+require "phar://...";
+<h2>Structure</h2>
+Un fichier Pahr contient:
+<ul>
+	<li>Un fichier de démarrage (<strong>Stub</strong>) en PHP
+<ul>
+	<li>Environnement</li>
+	<li>Autoload</li>
+	<li>Configuration</li>
+</ul>
+</li>
+	<li>Un <strong>manifeste </strong>(structure)</li>
+	<li>les <strong>fichiers</strong></li>
+	<li>[Éventuellement une <strong>Signature</strong>]</li>
+</ul>
+<h2>Métadonnées</h2>
+Utilisation possible de metadonnées (un peu comme les annotations). On peut y mettre n'importe quoi : Auteur, release, version…
+
+Je pense que ça peut être très pertinent de les utiliser pour gérer les versions : si avec un SVN c'est assez simple, le SVN ne fonctionne que dans un seul sens (on connaît la version en amont). Pour un serveur qui déploie souvent, sur des serveurs clients dont il n'est pas maître, prévoir une surcouche des versions par le Phar permet de mettre en place des systèmes de mise à jour automatique... Bref, une piste à creuser.
+<h2>Compression</h2>
+3 extensions :
+-    Phar
+-    PharTar
+-    PharZip
+Il est possible de créer ses propres extensions, mais il vaut mieux utiliser ces 3 principales
+<h2>Point de montage</h2>
+On peut monter dans le phar des fichiers externes (mount)
+<h2>Test unitaires</h2>
+A la création, le stub n’est pas testé. Une fois le phar créé, les erreurs sont difficiles à gérer et opaques.
+
+On peut utiliser des tests unitaires pour :
+<ul>
+	<li> S’assurer que les données sont complètes (utilisation de la signature)</li>
+	<li>S’assurer des injections de dépendance</li>
+	<li>En utilisant des mocks (objets répliquant virtuels d’objets, qui permettent de modifier son comportement. Ex : créer un mock d’une connexion mysql)</li>
+</ul>
+<h2>Performance</h2>
+Varie selon l’environnement.
+<ul>
+	<li>Compressé : chute des perfs de 10/15%. C’est résolu par l’utilisation de phar.cache_list. (mais on a évidemment de l'autre côté des gains de Ram)</li>
+	<li>Standard : baisse de 2/3%</li>
+</ul>
+Phar est compatible avec APC (et ça c'est une bonne chose ^^)
+<h2>Obfuscation</h2>
+Un phar n’est pas obfuscé ! Il ne faut pas compter dessus pour protéger le code (même s'il n'existe aucune solution ultime, Phar n'en est pas du tout une)
+<h2>Déploiement et SVN</h2>
+Une bonne idée : il suffit d’utiliser Hudson pour regénerer le Phar à chaque commit
+<h2>Avec le Zend Framework</h2>
+On peut imaginer mettre tous les fichiers du ZF dans un Phar, puis mettre le controller frontal dans le Stub.
+<h2>Ressources</h2>
+Un bon tutoriel (et au passage un bon blog) : <a href="http://blog.pascal-martin.fr/post/php-5.3-phar-php-archive">http://blog.pascal-martin.fr/post/php-5.3-phar-php-archive</a>
+
+Voici mes notes en vrac. Cette conférence m'a donnée pas mal d'idée, je pense que je vais m'en servir dès lundi. Prochaine étape la prod' ?

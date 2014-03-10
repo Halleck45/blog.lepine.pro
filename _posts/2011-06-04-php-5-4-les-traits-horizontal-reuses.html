@@ -1,0 +1,291 @@
+---
+layout: post
+title: ! 'PHP 5.4 : les Traits (Horizontal Reuses)'
+categories:
+- Actus PHP
+- PHP
+- Ressources et tutos PHP
+tags:
+- orienté objet
+- php
+- php 5.4
+status: publish
+type: post
+published: true
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+PHP 5.4 offre son lot de nouveautés, dont les <strong>Traits</strong>. Un trait permet d'injecter dans une classe des méthodes d'une ou plusieurs autres "classes" (des traits):
+
+{% highlight php %}
+trait Color {
+	public function getColor() {
+		return 'blue';
+	}
+}
+
+class Vehicle {}
+
+class Car extends Vehicle {
+	use Color;
+}
+
+$myCar = new Car;
+echo $myCar->getColor(); // blue
+{% endhighlight %}
+
+On voit ici l'intérêt du trait : <strong>reporter sur une entité un aspect "fonctionnel" d'une classe</strong>. On peut imaginer une classe Car presque vide mais fonctionnelle :
+
+
+{% highlight php %}
+trait Color {
+	public function getColor() {
+		(...)
+	}
+
+	public function changeColor() {
+		(...)
+	}
+}
+
+trait Selling {
+	use Price; // un trait peut utiliser un autre trait
+	public function buy() {
+		(...)
+	}
+}
+
+class Car {
+	use Color, Selling;
+}
+{% endhighlight %}
+
+<strong>Attention toutefois</strong> : les Traits rompent avec les aspects classique de la programmation par Interface (de l'orienté objet donc) ou de la programmation par Contrat :
+la classe Car <strong>n'implémente PAS une Interface</strong> Color ou Selling, elles ne fait que <strong>reporter, utiliser, <span style="text-decoration: underline;">horizontalement</span></strong>.
+
+Ce point est très important et dangereux, car en PHP un principe de base est la verticalité des classes et le respect du principe de substitution de Liskov : un objet qui travaille avec un autre objet Y doit pouvoir continuer à fonctionner de la même façon lorsqu'on substitue à cet objet Y un autre objet Z de même Interface.
+<h2>Un Trait peut s'assurer de la présence d'une méthode dans la classe</h2>
+Il est possible de s'assurer dans un Trait de la présence de certaines méthodes dans la classe qui l'utilise :
+
+{% highlight php %}
+trait Selling {
+	(...)
+	abstract public function getCarBrand();
+}
+class Car {
+	use Color, Selling;
+	protected $_brand;
+
+	public function getCarBrand() {
+		return 'Ma marque est '.$this->_brand;
+	}
+}
+{% endhighlight %}
+
+<h2>Portée des méthodes</h2>
+
+Il est possible de préciser certaines informations lors de la déclaration du trait dans une classe :
+
+{% highlight php %}
+trait Selling {
+	(...)
+	public function getConstructorPrice() {};
+}
+
+class Car {
+	use Selling {
+		getConstructorPrice as private // la méthode getCarBrand est rendue privée
+	}
+}
+
+$myCar = new Car;
+$myCar->getConstructorPrice(); // Error
+{% endhighlight %}
+
+<h2>Priorité des Traits</h2>
+
+Que faire si une classe utilisent des traits qui contiennent les mêmes méthodes ? Tout est prévu :
+
+{% highlight php %}
+trait Selling {
+	public function exampleDuplicateMethod() {}
+}
+trait Color {
+	public function exampleDuplicateMethod() {}
+}
+class Car {
+	use Selling, Color {
+		Color::exampleDuplicateMethod insteadof Selling;
+	}
+}
+{% endhighlight %}
+
+<h2>Cas pratique : le singleton</h2>
+
+Il est temps de voir un cas pratique :-) Il est pratique en PHP de créer une classe abstraite Singleton, que l'on serait tentée d'hériter à chaque fois que l'on a besoin d'un singleton. Malheureusement, PHP ne permet pas l'héritage multiple, et on se prive alors peut-être d'un héritage fonctionnel plus intéressant pour notre classe. L'utilisation des Traits résouts partiellement ce problème :
+
+{% highlight php %}
+trait Singleton {
+	public static function getInstance() {
+		(...)
+	}
+}
+
+class Example extends MotherExample {
+	use Singleton;
+}
+$obj = Example::getInstance();
+{% endhighlight %}
+
+Pratique non ? (n'oubliez pas qu'un singleton c'est plus que ça, là il ne s'agit que d'un exemple)
+<h2>Et PHP 5.3 dans tout ça ?</h2>
+Les Traits n'existent pas en PHP 5.3, pourtant cette version du language risque d'être longtemps utilisée. Il existe une astuce simple pour simuler ces traits en PHP 5.x : la relation de Composition et l'utilisation massive des méthodes magiques :
+
+Nous allons commencer par créer notre classe Child1, en lui donnant un tableau (nommé $_tTraits) qui contiendra la liste des classes dont on souhaite qu'elle puisse les utiliser comme des Traits.
+
+{% highlight php %}
+
+class Trait1{
+    public function method1() {
+        echo 'Cette fonction est dans le Trait 1';
+    }
+}
+class Trait2 {
+    public $attribute2 = 'demo';
+    public function method2() {
+        echo 'Cette fonction est dans le Trait 2';
+    }
+}
+
+class Child extends Parent1 {
+    private $_tTraits  = array('Trait1', 'Trait2');
+}
+{% endhighlight %}
+
+Maintenant, nous allons automatiquement instancier ces classes lors de la construction de l'objet. Ces instances seront stockées, nous nous en serviront pour reporter les actions effectuées sur la classe vers les classes Traits.
+
+{% highlight php %}
+class Child extends Parent1 {
+    private $_tTraits = array('Trait1', 'Trait2');
+    private $_tTraitsInstances   = array();  // ce tableau contient toutes les instances créées par le constructeur
+
+    /**
+     * Constructeur
+     * création des instances de chaque classe Trait
+     */
+    public function __construct() {
+        // ::::: build instance for each Trait class :::::
+        foreach($this->_tTraits as $className) {
+		$this->_tTraitsInstances[] = new $className;
+	}
+    }
+}
+{% endhighlight %}
+
+Ensuite, nous allons reporter chaque appel de méthode, si elle n'existe pas dans Child1, vers l'un de ses Traits, si cette méthode existe.
+
+{% highlight php %}
+/**
+ * Méthode magique __call()
+ * On va reporter chaque appel sur une des instances des classes mères
+ * @param string $funcName
+ * @param array $tArgs
+ * @return mixed
+ */
+public function __call($funcName, $tArgs) {
+    foreach($this->_tTraitsInstances as &$object) {
+        if(method_exists($object, $funcName)) {
+		return call_user_func_array(array($object, $funcName), $tArgs);
+	}
+    }
+    throw new Exception("The $funcName method doesn't exist");
+}
+{% endhighlight %}
+
+Désormais, tout appel de méthode de Child1 est reporté, si elle n'existe pas dans Child1 même, vers une de ses classes Traits. Il est donc possible de surcharger une méthode de ces classes Traits simplement en la déclarant dans Child1.
+
+Enfin, nous allons reporter toutes les lectures d'attributes (accesseurs) vers les attributs des instances des classes Traits:
+
+{% highlight php %}
+/**
+ * Méthode magique __get()
+ * On va reporter chaque lecture d'attribut (accesseur) sur une des instances des classes mères
+ * @param string $varName
+ * @return mixed
+ */
+public function __get($varName) {
+    foreach($this->_tTraitsInstances as &$object) {
+        $tDefinedVars   = get_defined_vars($object);
+        if(property_exists($object, $funcName)) return $object->{$varName};
+    }
+    throw new Exception("The $varName attribute doesn't exist");
+}
+{% endhighlight %}
+
+Pour au final avoir:
+
+{% highlight php %}
+class Child extends Parent1 {
+	private $_tTraits          = array('Trait1', 'Trait2');
+	private $_tTraitsInstances   = array();
+
+	/**
+	* Constructeur
+	* création des instances de chaque classe Trait
+	*/
+	public function __construct() {
+	// ::::: build instance for each Trait class :::::
+	foreach($this->_tTraits as $className) {
+		$this->_tTraitsInstances[] = new $className;
+	}
+	}
+
+	/**
+	 * Méthode magique __call()
+	 * On va reporter chaque appel sur une des instances des classes mères
+	 * @param string $funcName
+	 * @param array $tArgs
+	 * @return mixed
+	 */
+	public function __call($funcName, $tArgs) {
+	    foreach($this->_tTraitsInstances as &$object) {
+		if(method_exists($object, $funcName)) {
+			return call_user_func_array(array($object, $funcName), $tArgs);
+		}
+	    }
+	    throw new Exception("The $funcName method doesn't exist");
+	}
+
+	/**
+	 * Méthode magique __get()
+	 * On va reporter chaque lecture d'attribut (accesseur) sur une des instances des classes mères
+	 * @param string $varName
+	 * @return mixed
+	 */
+	public function __get($varName) {
+	    foreach($this->_tTraitsInstances as &$object) {
+		$tDefinedVars   = get_defined_vars($object);
+		if(property_exists($object, $funcName)) return $object->{$varName};
+	    }
+	    throw new Exception("The $varName attribute doesn't exist");
+	}
+}
+{% endhighlight %}
+
+Nous avons tout ce qu'il nous faut pour pouvoir utiliser notre classe :
+
+{% highlight php %}
+$oObject = new Child;
+
+// appel d'une méthode d'un Trait
+$oObject->method2(); // affiche "Cette fonction est dans le Trait 1"
+
+// lecture d'une variable
+echo $oObject->attribute2; // affiche "demo"
+{% endhighlight %}
+
+Vous voilà prêt à utiliser les Traits en PHP :-) Pour plus d'info, vous pouvez consulter la <a href="https://wiki.php.net/rfc/horizontalreuse">RFC de PHP sur les Traits</a>.

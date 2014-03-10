@@ -1,0 +1,156 @@
+---
+layout: post
+title: Tour d'horizon des Callbacks en PHP
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- callback
+- performance
+- php
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+  _syntaxhighlighter_encoded: '1'
+---
+Je suis toujours étonné de voir de nombreux développeurs PHP, pourtant habitués à travailler avec des callbacks en JavaScript, connaître si peu voire pas du tout les callbacks PHP.
+
+C'est pourquoi je vous propose aujourd'hui un <strong>petit rappel des callbacks en PHP</strong> :<!--more-->
+
+Un callback, c'est quoi ? En un mot, <strong>Un callback est une référence vers un code exécutable</strong>.
+
+L'utilisation de callbacks est très fréquente dans certains langages. Un exemple simple en JavaScript :
+
+[javascript]
+<a onclick="doAnything()">example</a>
+[/javascript]
+
+La fonction doAnything() est un callback, qui sera exécuté à chaque clic sur le lien.
+<h2>Création d'un callback en PHP</h2>
+En PHP, les callbacks peuvent être définis de nombreuses manières :
+<h3>Fonction anonyme</h3>
+{% highlight php %}
+$callback = function() {
+    echo "un callback dans une fonction anonyme";
+};
+{% endhighlight %}
+
+<h3>Fonction existante</h3>
+Les callbacks peuvent référer une fonction existante. Dans ce cas, on utilise le nom de la fonction comme callback :
+
+{% highlight php %}
+$callback = 'maFonction';
+{% endhighlight %}
+
+<h3>Méthode de classe existante</h3>
+De la même façon, on peut référer une méthode de classe, avec cette fois quelques subtilités :
+
+{% highlight php %}
+$callback = array('NomDeLaClass','maMethode');
+{% endhighlight %}
+
+Equivaut à :
+
+{% highlight php %}
+$obj = new NomDeLaClass;
+$callback = array($obj,'maMethode');
+{% endhighlight %}
+
+Ou encore (méthode statique) :
+
+{% highlight php %}
+$callback = array('NomDeLaClass::maMethodeStatique');
+{% endhighlight %}
+
+<h3>Cas particuliers</h3>
+Pour accéder au parent de la classe actuelle, utilisez le mot clef "parent" de cette façon :
+
+{% highlight php %}
+$callback = array('parent::maMethode');
+{% endhighlight %}
+
+et cela de la même façon pour self et static :
+
+{% highlight php %}
+$callback = array('self::maMethode');
+$callback = array('static::maMethode');
+{% endhighlight %}
+
+<h2>Appeler/Exécuter un callback</h2>
+le plus simple est sans doute d'utiliser la fonction <a title="Documentaiton de call_user_func()" href="http://php.net/manual/fr/function.call-user-func.php" target="_blank"><strong>call_user_func</strong></a> :
+
+{% highlight php %}
+call_user_func($callback);
+{% endhighlight %}
+
+le moins élégant (c'est le moins qu'on puisse dire :-)) est d'utiliser la syntaxe suivante :
+
+{% highlight php %}
+$callback();
+{% endhighlight %}
+
+<h2>Passage de paramètres et références</h2>
+Nous allons nous attarder maintenant sur les paramètres à passer au callback. C'est simple :
+
+{% highlight php %}
+$callback($param1, $param2);
+// ou
+call_user_func($callback, $param1, $param2);
+{% endhighlight %}
+
+la fonction call_user_func a une soeur, <strong>call_user_func_array</strong>, qui permet de passer les paramètres sous forme de tableau :
+
+{% highlight php %}
+call_user_func_array($callback, array($param1, $param2));
+{% endhighlight %}
+
+Jusque là, c'est simple. <strong>Il faut juste faire attention au passages de paramètres par référence</strong>. En effet, la fonction call_user_func() ne passe pas les paramètres par référence :
+
+{% highlight php %}
+function test(&$val) {
+}
+call_user_func('test', $value);
+// Warning: Parameter 1 to test()
+// expected to be a reference, value given
+{% endhighlight %}
+
+Il faut ruser et passer par call_user_func_array() en forçant la référence :
+
+{% highlight php %}
+function test(&$a) {
+}
+call_user_func_array('test',array(&$value));
+// Cette fois c'est bon
+{% endhighlight %}
+
+<h2>Performances</h2>
+Les appels de fonctions de type callback sont plus lents que des appels de fonction directs. Voici un bench sur 1 million d'itérations :
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2011/06/bench-callbacks-php-5-3.jpg"><img title="Bench Callbacks en PHP 5.3" src="http://blog.lepine.pro/wp-content/uploads/2011/06/bench-callbacks-php-5-3.jpg" alt="Bench Callbacks en PHP 5.3" width="400" height="231" /></a>
+
+Certes il y a une différence, mais dans application standard <strong>cette différence est généralement négligeable</strong>.
+
+<h2>Le mot de la fin</h2>
+Vous me direz que PHP n'est pas à la base un langage où l'utilisation massive des callbacks est pertinente. Mais bien utilisé, les callbacks peuvent significativement alléger le code, et en voici un exemple trivial :
+
+{% highlight php %}
+$array=array('pomme','peche','poire','abricot');
+array_walk($array, function(&$item) {
+    $item = strtoupper($item);
+});
+print_r($array);
+//Array
+//(
+//    [0] => POMME
+//    [1] => PECHE
+//    [2] => POIRE
+//    [3] => ABRICOT
+//)
+{% endhighlight %}
+
+Et vous, vous avez l'habitude d'utiliser des callbacks, ou bien vous réservez ça pour d'autres langages ?

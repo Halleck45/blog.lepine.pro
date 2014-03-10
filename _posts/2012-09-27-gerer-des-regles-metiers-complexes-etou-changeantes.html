@@ -1,0 +1,293 @@
+---
+layout: post
+title: Gérer des règles métiers complexes et/ou changeantes
+categories:
+- Design Pattern
+- PHP
+- Ressources et tutos PHP
+tags:
+- orienté objet
+- pattern
+status: publish
+type: post
+published: true
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+<p>Désolé d'avance pour la longueur de ce billet ; comme ça fait longtemps que mon blog n'a pas été mis à jour, j'en profite pour faire un mini-tutoriel sur un sujet qui me tient à coeur : comment gérer les règles métier, autrement dit les Spécifications fonctionnelles, dans un projet php ?</p>
+
+<p>
+Je pense qu'on a tous (enfin, on devrait :-) ) avoir en tête les principes <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>. Ces principes sont étroitement liées à la notion de Complexité Cyclomatique, qui elle, est moins connue.
+</p>
+
+<p>
+Derrière ce terme barbare, que vous connaissez bien si vous faites du test unitaire ou si vous utilisez des outils tels que <a href="http://pdepend.org/">PHPDepend</a>, se cache en réalité quelque chose de simple : si chaque bloc conditionnel de votre projet est un noeud, la complexité cyclomatique est la somme de l'ensemble des chemins empruntable dans votre projet.
+</p>
+
+<p>
+De cette manière, le code suivant :
+</p<
+
+{% highlight php %}
+if c1
+    a()
+else
+    b()
+
+if c2
+    c()
+else
+    d()
+{% endhighlight %}
+
+<p>
+a une complexité cyclomatique plus élevée que
+</p>
+
+{% highlight php %}
+if c1
+    a()
+else
+    b()
+{% endhighlight %}
+
+<p>
+Un programme maintenable est en général un programme dont la complexité cyclomatique est la plus faible possible. Et c'est justement l'enjeu de la POO de nous fournir un moyen de concevoir des applications de Complexité cyclomatique faible.
+</p>
+
+<p>
+Bon, ça c'est pour comprendre le principe. Après on me dit souvent : "<strong>oui, mais moi comment je fais pour gérer mes différents cas possibles si je dois limiter mes if() ?</strong>"
+</p>
+
+<p>
+Prenez cet exemple :
+</p>
+<ul>
+<li>on a un panier de produits</li>
+<li>on ne peut ajouter que des produits en stock</li>
+<li>on ne peut ajouter que 20 produits maximum</li>
+<li>la règle ci-dessus ne s'applique pas en période de fêtes</li>
+<li><strong>les règles ci-dessus sont susceptibles de changer souvent</strong></li>
+</ul>
+
+<p>
+Générallement on imbrique des if(), du coup on se retrouve avec un arbre applicatif assez large, c'est-à-dire de nombreux chemins possibles. A terme :
+</p>
+<ul>
+<li>on a un risque de changement du code source très important (à chaque fois qu'on ajoute une règle métier)</li>
+<li>on gère mal l'ajout de nouvelles règles</li>
+<li>très vite l'algorithme devient imbuvable car trop complexe</li>
+</ul>
+
+<p>
+C'est là qu'intervient la notion <strong>Specification</strong> (bon, je sais il est temps, l'intro était longue ;-) )
+</p>
+
+<p>
+Ce pattern répond à : "Comment gérer mes règles métier dans mon projet". Il est généralement associé au DDD (Domain Driven Design), mais on peut l'appliquer dans n'importe quel contexte qui s'y prête.
+</p>
+
+<p>
+L'idée est la suivante : chaque règle métier va être représentée par un objet (une Spécification), à qui l'on va demander si la règle est respectée :
+</p>
+
+{% highlight php %}
+$anyObject = new StdClass;
+$specification = new MySpecification;
+$isOk = $specification-&gt;isSatisfedBy($anyObject);
+{% endhighlight %}
+
+<p>
+Là où ça devient puissant, c'est qu'on va pouvoir créer des Spécifications composites pour créer des règles métiers complexes à partir d'un ensemble de règles simples :
+</p>
+
+{% highlight php %}
+$anyObject = new StdClass;
+$specification =
+    new MySpecification1()
+    -&gt;and(new MySpecification2())
+    -&gt;and(
+        new MySpecification3()
+        -&gt;or(new MySpecification4())
+    );
+;
+$isOk = $specification-&gt;isSatisfedBy($anyObject);
+{% endhighlight %}
+
+<p>
+Vous voyez les avantages : vous pouvez désormais appliquer n'importe quelle règle métier sans avoir à imbriquer plein de if() ; si vous souhaitez tester unitairement une règle, vous pouvez mocker les autres ; vos règles sont facilement évolutives...
+</p>
+
+<p>
+Bon concrètement comment ça se passe ? Il faut commencer par créer notre contrat pour le fonctionnement de nos Spécifications :
+</p>
+
+
+{% highlight php %}
+interface SpecificationInterface {
+
+    public function isSatisfiedBy($object);
+
+    public function andSpec(SpecificationInterface $specification);
+
+    public function orSpec(SpecificationInterface $specification);
+
+    public function notSpec(SpecificationInterface $specification);
+}
+{% endhighlight %}
+
+<p>
+Ensuite, pour permettre la création de Spécification composite il faut créer une classe abstraite générique pour nos spécifications.
+</p>
+
+{% highlight php %}
+abstract class Specification implements SpecificationInterface {
+
+    public function andSpec(SpecificationInterface $specification) {
+        return new AndSpecification($this, $specification);
+    }
+
+    public function orSpec(SpecificationInterface $specification) {
+        return new OrSpecification($this, $specification);
+    }
+
+    public function notSpec(SpecificationInterface $specification) {
+        return new NotSpecification($this);
+    }
+
+}
+{% endhighlight %}
+
+<p>
+Il ne nous reste plus qu'à déterminer le comportement de chacunes de nos structures de contrôle :
+</p>
+
+<p>Pour le "et":</p>
+{% highlight php %}
+class AndSpecification extends Specification implements SpecificationInterface {
+
+    private $specification1;
+    private $specification2;
+
+    function __construct(SpecificationInterface $specification1, SpecificationInterface $specification2) {
+        $this-&gt;specification1 = $specification1;
+        $this-&gt;specification2 = $specification2;
+    }
+
+    public function isSatisfiedBy($object) {
+        return $this-&gt;specification1-&gt;isSatisfiedBy($object)
+                &amp;&amp; $this-&gt;specification2-&gt;isSatisfiedBy($object);
+    }
+
+}
+{% endhighlight %}
+
+<p>
+Pour le "ou" :
+</p>
+
+{% highlight php %}
+class OrSpecification extends Specification implements SpecificationInterface {
+
+    private $specification1;
+    private $specification2;
+
+    function __construct(SpecificationInterface $specification1, SpecificationInterface $specification2) {
+        $this-&gt;specification1 = $specification1;
+        $this-&gt;specification2 = $specification2;
+    }
+
+    public function isSatisfiedBy($object) {
+        return $this-&gt;specification1-&gt;isSatisfiedBy($object)
+                ||  $this-&gt;specification2-&gt;isSatisfiedBy($object);
+    }
+}
+{% endhighlight %}
+
+<p>
+Et enfin pour le "non" :
+</p>
+
+{% highlight php %}
+class NotSpecification extends Specification implements SpecificationInterface {
+
+    private $specification;
+
+    public function __construct($specification) {
+        $this-&gt;specification = $specification;
+    }
+
+    public function isSatisfiedBy($object) {
+        return !$this-&gt;specification-&gt;isSatisfiedBy($object);
+    }
+}
+{% endhighlight %}
+
+<p>
+Ca y est, on vient de se créer le minimum vital pour gérer nos règles métiers. Ca, c'est fait une bonne fois pour toute...
+</p>
+
+<p>
+Maintenant dans notre projet il suffit de faire hériter nos règles de la classe Specification. Par exemple :
+</p>
+
+{% highlight php %}
+class SpecLePannierPeutEtreRempli extends Specification {
+    public function isSatisfiedBy($customer) {
+        return(boolean)  $x; // la condition de notre règle ici
+    }
+}
+
+class SpecOnEstEnPeriodeDeFetes extends Specification {
+    public function isSatisfiedBy($customer) {
+        return (boolean) $x; // la condition de notre règle ici
+    }
+}
+
+class SpecLeProduitEstEnStock extends Specification {
+    public function isSatisfiedBy($customer) {
+        return (boolean) $x; // la condition de notre règle ici
+    }
+}
+{% endhighlight %}
+
+<p>
+Et après il suffit simplement d'utiliser nos règles. Depuis PHP 5.4 on peut utiliser une interface fluide sur nos constructeurs, nous voici donc avec :
+</p>
+
+{% highlight php %}
+$specification =
+    new SpecLeProduitEstEnStock()
+    -&gt;and(SpecLePannierPeutEtreRempli())
+    -&gt;and(
+        new SpecIlResteDeLaPlaceDansLePannier()
+        -&gt;or(new SpecOnEstEnPeriodeDeFetes())
+    );
+
+if($specification-&gt;isSatisfedBy(specification)) {
+    $panier-&gt;ajouterProduit($produit);
+} else {
+    throw new ArticleNePeutPasEtreMisDansLePannierException('...');
+}
+{% endhighlight %}
+
+<p>
+Pour synthétiser :
+</p>
+
+<ul>
+<li>la Spécification permet de gérer des règles métiers</li>
+<li>elle permet de combiner n règles métiers dynamiquement</li>
+<li>elle facilite la gestion du changement fonctionnel</li>
+<li>elle facile la lisibilité des règles</li>
+<li>elle vous permet de mocker certaines parties des règles métier</li>
+<li>ce n'est pas un remède miracle, mais elle mérite d'être plus utilisé ^^</li>
+</ul>
+
+<p>
+N'hésitez pas à laisser vos retours sur ce pattern Specification, je suis curieux de savoir s'il est utilisé massivement ou non ? Ou peut-être utilisez-vous déjà un framework de gestion de règles métier, comme ceux qu'il existe dans le monde du Java ?
+</p>

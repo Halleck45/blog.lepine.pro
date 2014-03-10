@@ -1,0 +1,84 @@
+---
+layout: post
+title: ! 'BDD : produit mal pensé, développement raté'
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- BDD
+- behat
+- php
+- scrum
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  seo_noindex: 'false'
+  _syntaxhighlighter_encoded: '1'
+  seo_follow: 'false'
+  image: ''
+---
+Ce billet, non technique, peut surprendre, mais je pense qu'en tant que développeur il faut comprendre un minimum ce que doit être une spécification, surtout si on veut faire du Développement Piloté par le Comportement. Cela fait quelques temps que j'avais en tête de rédiger ce petit billet, alors allons-y :-)
+
+Rédiger des tests d'acceptation / tests de recette n'est certes pas mon métier, mais à force de l'expliquer, de le décrire, bref, à force de tenter de former des gens, je crois que je commencer à comprendre ce qui est si difficile dans ce travail de clarification.
+
+En un mot : la majorité des gens est déformée par son expérience professionnelle passée ; trop habitués aux SFG, aux SFD et autres specs bien verbeuses. Fournir une spécification claire et précise, alors que cela devrait être naturelle et facile, semble au contraire contre intuitif.
+
+Au risque de dire des choses évidentes, lorsqu'on fournit des spécifications à un développeur, ce n'est pas pour lui dire comment il doit faire son travail, mais pour lui décrire ce qu'il souhaite possible pour l'utilisateur. Une application, sans utilisateur pour la manipuler, est une coquille vide.
+
+Un produit, au contraire, place les utilisateurs (<strong>qui ont donc un rôle</strong>) au centre. Le produit est donc constitué par ce que l'utilisateur peur faire avec (son <strong>comportement</strong>).
+
+J'insiste, l'application n'a en aucun cas un comportement ; non, c'est la manière dont l'utilisateur interagit avec l'application qui constitue un comportement. On ne dit pas "cette application peut" mais "cette application permet"...
+
+Bref, tout ça pour dire quoi ? Et bien que si la personne qui rédige les spécifications n'a pas cette vision du produit, l'utilisation de tests automatisés (Behat) risque d'être contre productive.
+
+<h2>Un peu de concret</h2>
+
+Je vais prendre un exemple que j'ai pu voir récemment. Il s'agit de spécifier un import de données dans une application :
+
+{% highlight gherkin %}Fonctionnalité: pouvoir importer des événement
+  Afin d'ajouter des événements dans l'application depuis un fichier d'import
+  En tant que Batch
+  Je dois pouvoir importer un événement
+
+  Scénario :
+    Etant donné que je reçois un fichier d'import valide
+    Et que je reçois un événement valide
+    En tant que Batch
+    Je dois pouvoir importer un événement
+{% endhighlight %}
+
+Au premier coup d'oeil, le développeur voit que quelque chose cloche dans cette fonctionnalité. En tant que Batch ?! Hum, bizarre, mais oui c'est vrai, c'est bien un batch qui va s'en charger. Je reçois cette spéc, elle me paraît logique, je vais donc l'implémenter.
+
+Oui, mais NON. Si on implémente cette fonctionnalité on fonce dans le mur ! Que se passera t-il ? Tout d'abord on est tributaire du moyen technique utilisé. On pourrait très bien envoyer l'info <a href="http://www.rfc1149.net/rfc1149.html" target="_blank">par pigeon voyageur</a> pour une raison x ou y, et dans ce cas la fonctionnalité deviendrait invalide.
+
+Autre souci : quel bénéfice l'utilisateur tire t-il ? Aucun. Non non, aucun. On se moque que l'application puisse importer de la donnée, ça c'est le moyen. Non, la vrai fonctionnalité c'est de pouvoir intégrer des nouvelles données dans l'application. Et là j'ai un bénéfice pour l'utilisateur. J'ai donc aussitôt proposé ceci :
+
+{% highlight gherkin %}Fonctionnalité: pouvoir intégrer mes nombreux événements dans l'application
+  Afin d'ajouter rapidement plusieurs événements
+  En tant qu'utilisateur qui a le droit d'ajouter par lots des événements
+  Je dois pouvoir intégrer de nouveaux événements rapidement
+
+  Scénario :
+    Etant donné que je fournis une liste d'événements
+    Et que ces événements sont valides
+    Quand je demande à intégrer cette liste d'événements
+    Alors je dois pouvoir constater que ces événements ont bien été ajoutés
+{% endhighlight %}
+
+Pas grand chose n'est changé, mais tout change. Certes, ce n'est toujours pas parfait, mais désormais, quelque soit le moyen technique utilisé (transfert par pigeons voyageurs, clef USB, FTP...), la spécification de la fonctionnalité restera valable.
+
+Plus encore, le développeur comprend tout de suite le souhait du client. Après c'est son rôle à lui, développeur (ou un ergonome, un architecte, mais surtout pas au fonctionnel) de déterminer comment satisfaire la demande du client. Et là, utiliser Behat a un sens.
+
+Un autre exemple : le taxi. On peut dire que ça consiste à demander de l'argent à un client afin de le transporter dans une voiture. Mais on peut aussi dire qu'il s'agit de transporter une ou plusieurs personnes d'un point A à un point B. Et là ça marche, car en tant que client, mon souhait c'est bel et bien de me rendre quelque part. Et là surtout, la spécification reste valable qu'on parle de taxi moto, de calèche...
+
+<h2>Impact sur les dates de livraison du projet</h2>
+
+Un autre avantage fondamental est le contrôle que cela offre au propriétaire sur la date de livraison. En découpant le produit en fonctionnalités fondamentales, claires et simples, il devient facile de mettre de côté certaines fonctionnalités pour gagner un peu de temps, quitte à les ajouter plus tard.
+
+Dans l'exemple du taxi, si je monte ma compagnie, je vais pouvoir dire ceci : "On du retard. Nous allons donc laisser de côté la fonctionnalité de paiement. Certes je vais perdre de l'argent un temps, mais au moins je serai visible. Nous ajouterons la fonctionnalité de paiement, qui n'est pas fondamentale pour l'instant, dans 15 jours."
+
+A mon avis, les développeurs doivent en être conscients, au risque sinon d'aboutir à un échec du projet. <strong>Pour faire de Développement Piloté par le Comportement, il FAUT un comportement</strong>, et donc un produit clair dont le coeur est l'utilisateur.
+
+Après, c'est mon ressenti, je serai curieux de connaître le vôtre sur cette question :-)

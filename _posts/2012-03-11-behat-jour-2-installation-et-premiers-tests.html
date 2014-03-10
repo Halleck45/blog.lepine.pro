@@ -1,0 +1,212 @@
+---
+layout: post
+title: ! 'Behat – jour 2 : Installation et premiers tests'
+categories:
+- industrialisation
+- PHP
+- Ressources et tutos PHP
+tags:
+- behat
+- php
+- qualité
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+  _thumbnail_id: '444'
+---
+Maintenant qu'on a vu <a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum">à quoi sert Behat</a>, il est temps de passer à la pratique...
+
+<em>Vous trouverez une archive contenant toutes les sources de ce billet en bas de cette page.</em>
+<h2>Installer Behat</h2>
+Le plus simple à mon goût : passer par pear :
+
+{% highlight php %}pear channel-discover pear.symfony.com
+pear channel-discover pear.behat.org
+pear install behat/behat{% endhighlight %}
+
+Un petit test pour vérifier que tout s'est bien passé :
+
+{% highlight bash %}behat --version{% endhighlight %}
+<h2>Démarrer un projet</h2>
+Voici la structure initiale de mon exemple :
+
+{% highlight bash %}mkdir -p  application/library tests/product{% endhighlight %}
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-arbo.jpg"><img class="alignnone size-full wp-image-417" title="Arborescence du projet Behat" src="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-arbo.jpg" alt="Arborescence du projet Behat" width="152" height="105" /></a>
+
+Placez-vous dans le dossier tests/product, puis tapez :
+
+{% highlight bash %}behat --init{% endhighlight %}
+
+Cela a pour effet de créer les dossiers nécessaires à votre projet :
+<ul>
+	<li><strong>features</strong> : les fichiers de fonctionnalité *.feature</li>
+	<li><strong>features/bootstrap</strong> : les classes nécessaires au fonctionnement des fonctionnalités (contextes)</li>
+	<li><strong>features/bootstrap/FeatureContext.php</strong> : le contexte principal</li>
+</ul>
+<h2>Première fonctionnalité</h2>
+Il est temps de démarrer. Notre client (product owner) souhaite une application dans laquelle on puisse gérer un compte bancaire : on peut consulter son solde, ajouter des sous, en retirer... et on n'a pas le droit d'être découvert.
+
+Le fichier de fonctionnalité livré par notre client ressemble à ceci >feature/banque.feature< :
+
+{% highlight gherkin %}# language: fr
+Fonctionnalité: posséder un compte bancaire
+  Afin de gérer les comptes bancaires des utilisateurs
+  En tant que client
+  Je dois être capable d'effectuer des opérations basique sur mon compte
+
+  Scénario: Avoir un compte bancaire valide
+    Etant donné que je suis un nouveau client
+    Alors je dois avoir "0" euros sur mon compte
+
+  Scénario: Retirer de l'argent sur mon compte
+    Etant donné que je suis un client
+    Et que je possède "50" euros sur mon compte
+    Quand je retire "10" euros
+    Alors je dois avoir "40" euros sur mon compte
+
+  Plan du Scénario: Ajouter de l'argent sur mon compte
+    Etant donné que je suis un client
+    Et que je possède "<soldeInitial>" euros sur mon compte
+    Quand je dépose "<montant>" euros
+    Alors je dois avoir "<soldeFinal>" euros sur mon compte
+
+    Exemples:
+      | soldeInitial    | montant | soldeFinal |
+      | 0               | 10      | 10         |
+      | 15              | 5       | 20         |
+      | 35              | 5       | 40         |
+
+  Scénario: Interdire les découverts
+    Etant donné que je suis un client
+    Quand j'essaye de retirer plus d argent que je n en ai sur mon compte
+    Alors j'ai un message d erreur "Vous ne pouvez pas être à découvert"{% endhighlight %}
+
+Le product owner sait ce qu'il veut, il nous a même donné des exemples pour mieux nous orienter dans notre développement.
+
+Notez au passage le commentaire "# language: fr" au début du fichier. Il indique que notre fonctionnalité est décrite en français.
+<h2>Lancer les tests</h2>
+Il va être temps de lancer behat. Placez-vous dans le dossier tests/product/feature, puis tapez simplement :
+
+{% highlight bash %}behat --lang=fr{% endhighlight %}
+
+(<em>N'oubliez pas de préciser la langue, vu qu'on travaille pour l'instant en français</em>). On va dérouler ensemble le résultat de cette commande :
+<h3>Rappel de la fonctionnalité</h3>
+On commence par un rappel de la fonctionnalité et des scénarios testés.
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-scenario.jpg"><img class="aligncenter size-medium wp-image-426" title="Fonctionnalité Behat" src="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-scenario-251x300.jpg" alt="Fonctionnalité Behat" width="251" height="300" /></a>
+
+S'il y avait eu des erreurs, le texte aurait été écrit en <span style="color: #ff0000;">rouge</span>, et si tout avait été ok,<span style="color: #008000;"> il serait vert</span>. Là le texte est<span style="color: #ff9900;"> orange</span> : il n'a pas encore de signification par rapport à notre produit.
+<h3>Bilan du test</h3>
+On a ensuite des informations sur les tests :
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-result1.jpg"><img class="aligncenter size-full wp-image-431" title="Behat - résultats : en attente" src="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-result1.jpg" alt="Behat - résultats : en attente" width="242" height="58" /></a>
+<h2>Donner du sens aux fonctionnalités</h2>
+Toutes nos étapes sont en attente de définition. En effet, on n'a rien qui fait le lien entre les scénarios (les souhaits du product owner) et notre produit (le code source). C'est là que Behat va être à mon sens magique : il nous fournit le code PHP nécessaire pour créer ce lien, avec pour chaque phrase :
+<ul>
+	<li>l'<strong>annotation</strong> qui permet de <strong>faire le lien</strong> (<em>@Given /^que je suis un nouveau client$/</em>)</li>
+	<li>la <strong>méthode</strong> a insérer pour <strong>donner du sens</strong> à cette phrase (<em>public function queJeSuisUnNouveauClient()</em>)</li>
+	<li>les<strong> valeurs de cas</strong> du scénario (encadrés par des guillemets), qui sont fournis en <strong>paramètres</strong> de la méthode</li>
+</ul>
+Voici donc la dernière étape du traitement du résultat de la commande :
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-result3.jpg"><img class="aligncenter size-medium wp-image-435" title="Behat : donner du sens aux fonctionnalités" src="http://blog.lepine.pro/wp-content/uploads/2012/03/day2-behat-result3-300x103.jpg" alt="Behat : donner du sens aux fonctionnalités" width="300" height="103" /></a>
+
+Behat nous fourni le code a copier-coller vers la classe qui gère notre contexte principal, à savoir la classe <strong>FeatureContext</strong> contenue dans /features/bootstrap/FeatureContext.php. Allons -y : copiez le code dans le fichier <FeatureContext.php>.
+
+Vous pouvez constater que chaque méthode lance une exception de type <strong>PendingException</strong>. Cela signifie qu'il va falloir modifier ces méthodes pour les relier à notre application.
+
+Pour vous simplifier la vie, je vous propose de télécharger directement le code nécessaire au bon fonctionnement de ces tests :<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/Account.php_.zip"> Account.php</a>, à placer dans application/library. Sinon libre à vous d'écrire le code qui correspondra à l'application ; en soit, peu importe le code, ce qui nous intéresse c'est le produit ;-)
+
+Nous allons maintenant convertir le texte (langue naturelle) en code (source) :
+
+{% highlight php %}
+<!--?php use Behat\Behat\Context\ClosuredContextInterface,     Behat\Behat\Context\TranslatedContextInterface,     Behat\Behat\Context\BehatContext,     Behat\Behat\Exception\PendingException; use Behat\Gherkin\Node\PyStringNode,     Behat\Gherkin\Node\TableNode; require_once 'PHPUnit/Autoload.php'; require_once 'PHPUnit/Framework/Assert/Functions.php'; require_once __DIR__ . '/../../../../application/library/Account.php'; use \MyApp\Account as Account; /**  * Features context.  */ class FeatureContext extends BehatContext {     /**      * Testes account      *      * @var \MyApp\Account      */     private $_account;     /**      * Contains the last exception      *      * @var \Exception      */     private $_lastException;     /**      * @Given /^que je suis un nouveau client$/      */     public function queJeSuisUnNouveauClient() {         $this--->_account = new Account;
+    }
+
+    /**
+     * @Then /^je dois avoir "([^"]*)" euros sur mon compte$/
+     */
+    public function jeDoisAvoirEurosSurMonCompte($balance) {
+        assertEquals($balance, $this->_account->getBalance());
+    }
+
+    /**
+     * @Given /^que je suis un client$/
+     */
+    public function queJeSuisUnClient() {
+        if(is_null($this->_account)) {
+            $this->_account = new Account;
+        }
+    }
+
+    /**
+     * @Given /^que je possède "([^"]*)" euros sur mon compte$/
+     */
+    public function queJePossedeEurosSurMonCompte($balance) {
+        $this->_account->setBalance($balance);
+    }
+
+    /**
+     * @Given /^je retire "([^"]*)" euros$/
+     */
+    public function jeRetireEuros($amount) {
+        $this->_account->takeMoney($amount);
+    }
+
+    /**
+     * @Given /^je dépose "([^"]*)" euros$/
+     */
+    public function jeDeposeEuros($amount) {
+        $this->_account->addMoney($amount);
+    }
+
+    /**
+     * @Given /^j\'essaye de retirer plus d argent que je n en ai sur mon compte$/
+     */
+    public function jEssayeDeRetirerPlusDArgentQueJeNEnAiSurMonCompte() {
+        try {
+            $this->_account->setBalance(50);
+        $this->_account->takeMoney(100);
+        } catch (\Exception $e) {
+            $this->_lastException = $e;
+        }
+    }
+
+    /**
+     * @Given /^j\'ai un message d erreur "([^"]*)"$/
+     */
+    public function jAiUnMessageDErreur($message) {
+        assertEquals($message, $this->_lastException->getMessage());
+    }
+
+}
+{% endhighlight %}
+
+Vous constaterez que :
+<ul>
+	<li>on utilise PHPUnit en mode "fonction" pour nos assertions</li>
+	<li>chaque méthode correspond à une phase d'un scénario</li>
+	<li>on fait ce qu'on veut à l'intérieur de notre contexte ^^</li>
+	<li>c'est simple : il ne faut même pas 3 minutes pour écrire ce code</li>
+</ul>
+<h2>L'heure de vérité</h2>
+Le suspense est à son comble : notre code correspond t--il au souhait du client quant à son produit ?
+
+{% highlight php %}behat --lang=fr{% endhighlight %}
+
+<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-product-valid.jpg"><img class="aligncenter size-medium wp-image-444" title="Behat : le produit est conforme" src="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-product-valid-300x285.jpg" alt="Behat : le produit est conforme" width="300" height="285" /></a>
+<h2>Conclusion</h2>
+Si besoin voici une archive contenant l'ensemble de ce projet : <a href="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-decouverte-jour2.zip">Découverte de behat - jour 2.zip</a>.
+
+Notre client (product owner) peut désormais s'assurer à tout moment que son produit est valide.Bien plus, il va pouvoir ajuster son produit au fur et à mesure des sprints en vous décrivant clairement son besoin : fini les specs de 500 pages, c'est le product owner qui est maître de son produit ! Et cela grâce à Behat.
+
+La prochaine fois on verra comment mieux organiser son code : sous-contextes, configuration... et surtout comment tester une application web, grâce à Mink. mais en attendant, toute remarque / commentaire est le bienvenu ;-)
+
+Je vous rappelle qu'une <a title="Cheat Sheet Behat" href="http://blog.lepine.pro/php/ressources-tutos-php/cheat-sheet-behat">cheat sheet pour behat</a> est disponible.

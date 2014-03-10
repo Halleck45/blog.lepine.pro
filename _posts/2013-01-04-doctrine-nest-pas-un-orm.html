@@ -1,0 +1,168 @@
+---
+layout: post
+title: Doctrine n'est pas un ORM ?
+categories:
+- PHP
+- réflexion
+tags:
+- doctrine
+- Domain Driven Design
+- php
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+Pour bien commencer l'année, je vous propose de troller un peu sur les ORM. Ce qui suit est mon point de vue et n'engage que moi :)
+
+Selon moi, Doctrine 2 représente un tournant majeur dans le monde de PHP, sans doute plus encore que Symfony2 ou Zend Framework 2. Mais j'ai le sentiment que Doctrine n'est pas utilisé à sa juste valeur...
+<h2>Les ORM classiques</h2>
+Prenons un peu de recul ; qu'est-ce qu'un ORM ? Traditionnellement, un ORM est une technique pour représenter des enregistrements (et leurs relations) sous forme d'objets. Généralement, on implémente pour cela principalement ces patterns :
+
+<dl><dd><strong>Table Data Gateway</strong>:</dd><dt>Un objet est une passerelle vers une table</dt><dd><strong>Active Record</strong>:</dd><dt>Un objet représente un enregistrement et dispose du comportement nécessaire pour implémenter la logique métier de cet enregistrement</dt><dd><strong>Data Access Object</strong>:</dd><dt>Un objet est utilisé pour encapsuler tous les accès vers une source de donnée</dt></dl>
+
+<br />
+<p>C'est ce qui se passe depuis des années, par exemple avec Zend Framework 1 :</p>
+
+{% highlight php %}
+<?php
+// Table Data Gateway
+class TableUsers extends Zend_Db_Table_Abstract {
+    // nom de la table et de la base
+    protected $_name = 'tbl_users';
+    protected $_schema = 'database_name';
+}
+
+$table = new TableUsers;
+// Rowset : jeu de résultat Traversable
+$users = $table-&gt;find(1);
+?&gt;
+{% endhighlight %}
+
+&nbsp;
+
+{% highlight php %}
+<?php
+class User extends Zend_Db_Table_Row_Abstract {
+    
+    public function resetPassword() {
+        $this-&gt;pwd = md5(uniqid());
+    }
+    
+}
+
+$user = $table-&gt;fetchRow(array('id' =&gt; 1));
+$user-&gt;name = 'Jean-François';
+$user-&gt;resetPassword();
+$user-&gt;save();
+?&gt;
+{% endhighlight %}
+<h2>Et les principes SOLID ?</h2>
+Bon, vous allez me dire que des milliers de projets ont été faits de cette manière, et que ça fonctionne.
+
+Oui, ça fonctionne, mais ça tombe en marche : les coûts de maintenance sont nécessairement élevés, vu que <strong>le code ne respecte en rien les principes SOLID</strong>. Et oui, <strong>notre objet User a plusieurs responsabilités</strong> ! Il a la responsabilité de représenter une information, de gérer ses règles métiers, de s'enregistrer... Bref, c'est une God Class (un objet dieu), ce n'est pas de l'orienté objet... Et on fonce dans le mur.
+
+En réalité, <strong>un ORM ne peut pas partir du postulat qu'on va représenter des enregistrements par des objets. Non, il doit faire l'inverse !</strong>
+
+Je m'explique : le principe de la programmation orientée objet est de manipuler des objets. Il existe différents types d'objet : des agrégats, des objets valeurs... Pour conserver un code propre et maintenable, il ne faut se focaliser que sur le comportement des objets que l'on souhaite utiliser). La manière dont ils sont stockés n'a aucune importance. Vraiment aucune ! Si si; j'insiste : aucune ! Après tout, qu'ils soient stockés sous forme de fichiers, d'une base relationnelle, d'un document... tout cela n'impacte pas le comportement de votre application. Non, ça n'aura un impact que sur la couche basse d'infrastructure de votre application, exclusivement.
+
+<h2>L'apport du Domain Driven Design</h2>
+Le Domain Driven Design est une approche qui tente de focaliser la conduite d'un projet informatique sur le besoin métier exclusivement. Très grossièrement, l'idée est de maximiser la communication entre les équipes techniques et les équipes fonctionnelles pour faciliter l'expression du besoin, puis de calquer le code source sur cette expression de besoin. De cette manière, le code source est en permanence le reflet exact du besoin tel qu'il a été exprimé par les fonctionnels.
+
+
+<h3>Identité et entité</h3>
+<a href="http://blog.lepine.pro/php/doctrine-nest-pas-un-orm/attachment/identity_crisis_cat_by_sebreg-d5fcofy-resized" rel="attachment wp-att-662"><img class="aligncenter size-full wp-image-662" alt="Crise d'identité - Domain Driven Design" src="http://blog.lepine.pro/wp-content/uploads/2013/01/identity_crisis_cat_by_sebreg-d5fcofy.resized.jpg" width="200" height="193" /></a>
+
+
+Que nous dit le DDD (Domain Driven Design) ? <strong>Que chaque projet manipule des concepts, des noms communs, qui semblent plus importants que les autres</strong>. Ce pourra être par exemple les mots "acheteur", "panier" et "produit" dans le cas d'une boutique en ligne.
+
+Quelle est la spécificité de ces mots ? C'est qu'ils représente des choses différentiables les unes des autres de manière certaine : chaque produit est unique, chaque acheteur se distingue des autres acheteurs ; bref, chacune des ces choses est unique. On dira dans ce cas que chaque acheteur, chaque produit, <strong>ont une identité propre</strong>.
+
+Cette notion d'identité est fondamentale : une identité est unique, et est marquée par des informations d'état de l'objet à laquelle elle s'applique. Par exemple, mon identité pourrait être marquée par mon numéro de sécurité sociale.
+
+En informatique, on a longtemps oublié cette notion d'identité, en utilisant un "identifiant unique" (id) à la place d'une vraie information. Souvent, par exemple, on stocke des informations sur des comptes bancaires dans une table qui a une colonne "id" et une autre "account_number". 
+
+C'est une erreur conceptuelle : la colonne "id" n'a aucune valeur fonctionnelle. Ce qui fait l'identité du compte, c'est son numéro de compte. C'est donc la colonne "account_number" qui doit être utilisée pour distinguer un compte d'un autre ! Je conçois qu'il est pratique d'ajouter une colonne "id" pour des raisons d'index et de performance dans une table, mais cet "id" ne doit pas être utilisé dans le code source, puisqu'il ne représente rien en terme de métier (fonctionnellement donc).
+
+{% highlight php %}
+<?php
+class Account  {
+    private $accountNumber = 'xxxxxxxxxx';
+}
+?&gt;
+{% endhighlight %}
+
+Ces choses, qui ont une identité, qui sont absolument uniques, sont désignées par le terme d'entités, ou "entity" en anglais dans le monde du Domain Driven Design.
+
+Ah, comme dans Doctrine ? Oui, comme dans Doctrine... Les entités sont des objets qui ont une identité. Simplement, et uniquement.
+
+Dans le DDD, il existe des collections d'entités, que l'on appelle des Agrégats (Aggregate). Oui, toujours comme dans Doctrine :)
+
+
+<h3>Les services</h3>
+
+On a vu qu'il existait des concepts importants dans tout projet informatique, concepts représentés par des noms communs.
+
+<strong>Il existe d'autres concepts très importants, qui sont eux représentés par des verbes</strong> : "acheter", "vendre", "ajouter dans le panier"...
+
+Comment représenter techniquement ces concepts ? En créant, nous dit le DDD, des objets "Services" :
+
+{% highlight php %}
+<?php
+class ServicePanier {
+    
+    public function ajouterProduit(ProduitInterface $produit, PanierInterface $panier) {
+        // ...
+    }
+}
+?&gt;
+{% endhighlight %}
+
+Ces objets services sont justement les objets que votre application doit manipuler. Ils constituent le comportement global de votre application. C'est donc eux qui doivent être utilisés dans les Contrôleurs, et eux seuls.
+
+<h3>Les dépôts / Repositories</h3>
+
+Un projet informatique nécessite souvent de retrouver des informations. Ou plutôt, de retrouver ce qui est désigné fonctionnellement par des noms communs ("acheteur", "panier", "produit"...) et qui possède une identité.
+
+C'est le rôle des dépôts (Repository). Un Repository ne sert qu'à retrouver des informations. Et uniquement selon des critères fonctionnels ; on ne doit pas appeler un repository en passant des tableaux de paramètres... Non, il faut continuer de penser SOLID :
+
+{% highlight php %}
+<?php
+class RepositoryProduit {
+    
+    public function listerProduitsDuPanier(PanierInterface $panier) {
+        // ...
+    }
+    
+    public function recupererProduit($identite) {
+        // ...
+    }
+}
+?&gt;
+{% endhighlight %}
+
+Attendez, on a aussi le concept de Repository dans le DDD, comme dans Doctrine ?! Et oui ! Vous voyez pourquoi je fais tout ce détour par le DDD pour parler de Doctrine :-)
+
+
+<h3>Et bien plus ...</h3>
+
+Il y a encore plein de choses dans le DDD, et j'ai schématisé très grossièrement, mais vous voyez où je veux en venir : <strong>Doctrine n'est pas un ORM classique</strong> (et ne doit pas être utilisé  comme tel), Doctrine est un super outil pour pratiquer l'approche du Domain Driven Design.
+
+<strong>Surtout, la démarche de Doctrine n'est pas de mapper une base de données sur des objets. Non, c'est exactement l'inverse : on part des objets (et donc du besoin fonctionnel) pour ensuite les faire persister.</strong>
+
+De nombreux concepts du DDD sont présents dans Doctrine. Du coup, pourquoi ne pas penser Domain Driven Design dans vos projets Doctrine ? Qu'il s'agisse de projets Symfony 2, Zend Framework 2 (avec le module Doctrine), ou autre... ?
+
+Et dans ce cas, si les entités sont des concepts fonctionnels importants (un panier, un produit, un acheteur...) qui ont une identité... <strong>par pitié ne créez pas d'entités pour vos relations</strong> dans Doctrine. Une table intermédiaire n'est pas une entité. D'ailleurs ça n'existe même pas : il n'existe que des relations entre les objets, tout le reste n'a aucun sens en terme de Programmation Orientée Objet.
+
+Et si vous voulez me répondre que créer des entités-relations dans Doctrine reste pratique vu que ça permet de gérer et contrôler plus facilement certaines relations, je vous répondrai que ce n'est pas à PHP de vérifier la cohérence d'une donnée, mais à un SGBD relationnel, et que le SGBD sera bien meilleur vu qu'il est conçu pour ça.
+
+Je crois que ça devrait être la résolution pour ce début d'année 2013 de tous les développeurs PHP : <strong>arrêtez de voir les ORM comme des solutions pour manipuler des bases de données.</strong>
+
+Voyez plutôt des objets, qui ont des responsabilités, des comportements, parfois même une identité ; et considérez qu'il s'agit plutôt d'un accident quand on doit les persister.
+
+Après tout, si on faisait pas du web, le besoin fonctionnel resterait le même, mais on n'aurait pas besoin de persister nos "acheteurs", "produits" et "paniers". Il suffirait de "livrer", "commander"... Il n'y a que ça qui compte. Pas vrai ? :-)

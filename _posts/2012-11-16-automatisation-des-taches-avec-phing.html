@@ -1,0 +1,176 @@
+---
+layout: post
+title: Automatisation des tâches avec Phing
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- industrialisation
+- phing
+- php
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+Je ne vais pas vous convaincre qu'un bon développeur est un développeur faignant, c'est à dire qui sait employer suffisamment d'énergie à un moment donner pour en gagner plein par la suite... Non, par contre, pour ceux qui ne l'utilisent pas encore, je vais vous montrer qu'on n'a pas besoin de se compliquer la vie lorsqu'on veut automatiser. On peut même s'organiser !
+
+Phing, c'est quoi ? Les mauvaises langues diront que c'est une version instable de Ant. C'est pas totalement faux, mais c'est loin d'être vrai. Phing, c'est un outil d'automatisation de tâches, mais spécialisé et conçu <u><strong>pour</strong></u> PHP, ce qui change vraiment tout, comme vous allez le voir. 
+
+Ce qu'il faut noter également avant de commencer c'est que <a href="http://www.phing.info/docs/guide/stable/">la documentation est très riche</a>, même si elle n'est pas toujours 100% pratique.
+
+<h2>Premiers pas avec Phing</h2>
+L'installation de phing est simple :
+
+{% highlight xml %}
+pear channel-discover pear.phing.info
+pear install phing/phingdocs
+{% endhighlight %}
+
+Il suffit ensuite de créer un fichier build.xml, qui va décrire un certain nombre de tâches que l'on souhaite exécuter :
+
+{% highlight xml %}
+<?xml version="1.0" ?>
+<project name="demo" basedir="." default="example">
+    <target name="example">
+        <echo message="yep, I will create a directory" />
+        <mkdir dir="/my/path/" />
+    </target>
+</project>
+{% endhighlight %}
+
+Rien de bien compliqué : un projet est composé de n tâches (noeud target), identifiées par un nom (attribut name). Si j'ai besoin de créer le dossier "/my/path", il ne me reste plus qu'à exécuter :
+
+{% highlight bash %}phing{% endhighlight %}
+
+Pas besoin de paramètre : vous voyez l'attribut "default" du noeud "project" : c'est la tâche à lancer par défaut si rien n'est précisé, ce qui est le cas ici.
+
+<h2>Un peu plus loin</h2>
+Bon, ok, c'est rigolo... Mais on peut faire plein de choses : il n'y a aucune limite. Vous avez vu le noeud "mkdir". Il en existe des tas : "echo", mais aussi "phpunit", "ftpdeploy", "gitpull", "phpdepend"... Vous commencez à voir pourquoi utiliser Phing est intéressant : il gravite autour des utils PHP. Il existe enfin le noeud "exec", qui permet de lancer une commande classique. 
+
+Un truc bien pratique aussi c'est l'utilisation de variable. Un variable c'est :
+<ul>
+<li>un noeud "property" dans votre fichier xml</li>
+<li>une déclaration dans un fichier de propriété</li>
+<li>un paramètre que vous fournissez lorsque vous lancez phing, avec l'option -D</li>
+</ul>
+
+Chaque variable est réutilisable, il suffit de l'écrire sous la forme ${maVariable}. Soit :
+
+{% highlight xml %}
+<property name="out" value="/my/path/" />
+
+<target name="prepare">
+    <mkdir dir="${out}" />
+</target>
+{% endhighlight %}
+
+Je vais pouvoir écraser la valeur de ${out} en lançant phing :
+
+{% highlight bash %}phing -Dout=/another/path{% endhighlight %}
+
+Je pourrai également importer un fichier de variables :
+{% highlight xml %}
+<!-- file phing.xml -->
+<property file="./my.properties"/>
+
+<!-- file my.properties -->
+out=/another/path
+var2=xxxx
+var3=xxxx
+{% endhighlight %}
+
+Vous trouverez un <a href="https://gist.github.com/3794330">exemple d'utilisation basique de phing</a> pour générer un rapport minimal de vos sources : CodeSniffer pour vos conventions, PHPUnit pour vos tests, phpMessDetector pour le "smell code", rats pour la sécurité, CopyPasteDetector pour les  copier-collers, CodeBrowser pour intégrer tout ça dans un navigateur... 
+
+Vous voyez qu'en quelques lignes de xml on se retrouve à ne plus jamais avoir besoin de lancer ces outils à la main. En un mot : on automatise !
+
+Notez qu'il est possible de gérer la dépendance entre différentes tâches :
+
+{% highlight xml %}
+<target name="t1" depends="t2,t3">
+    <!-- (...) -->
+</target>
+{% endhighlight %}
+Toute exécution de la tâche t1 lancera les tâches t2 et t3.
+
+<h2>Gérer le plan de tâches</h2>
+Ce qui est chouette avec Phing, c'est qu'on peut faire plein de choses. Et même gérer le déroulement de nos tâches... Comment ? Et bien par exemple avec des si et des alors. C'est possible !
+{% highlight xml %}
+<if>
+   <equals arg1="123456" arg2="${valueToCompare}" />
+   <then>
+       <echo message="${valueToCompare}" est égal à 123456" />
+   </then>
+   <else>
+       <echo message="${valueToCompare}" est différent de 123456" />
+   </else>
+</if>
+{% endhighlight %} Pas mal non ? Bien sûr, on peut faire tout ce qui est classique : égal, différent, plus grand que, elseif...
+
+Un autre moyen de gérer notre déroulement est de demander à phing d'interrompre le processus à moins que... à moins qu'une variable donnée soit vraie. Par exemple :
+
+{% highlight xml %}
+<fail unless="myVariable" message="On stoppe tout!" />
+{% endhighlight %}
+
+<h2>Structurer, découper et organiser les tâches Phing</h2>
+Le risque de phing est de se retrouver à devoir copier-coller plein de tâches pour gérer les différents cas . Il existe un moyen simple d'éviter cela : chaque tâche est réutilisable par une autre (un peu à l'image d'une fonction), grâce au noeud "phingCall"
+
+{% highlight xml %}
+<target name="myTask1">
+    <!-- (...) -->
+</target>
+
+<target name="myTask2">
+    <!-- we call myTask1 -->
+    <phingCall target="myTask1" />
+</target>
+{% endhighlight %}
+
+Vous me direz : "Et les variables dans tout ça ? On peut les passer en paramètre ?". Bien sûr :
+
+{% highlight xml %}
+<target name="myTask1">
+    <echo message="ma variable vaut ${myVar}." />
+</target>
+
+<target name="myTask2">
+    <!-- we call myTask1 -->
+    <phingCall target="myTask1">
+        <property name="myVar" value="abcd" />
+    </phingCall>
+</target>
+{% endhighlight %}
+
+Pas mal non ?
+
+Pour organiser un peu mieux vos tâches, il est également possible de découper votre fichier xml en plusieurs sous fichiers, et de les importer (à la manière d'un require en PHP) :
+
+{% highlight xml %}
+<import file="./another-file1.xml"/>
+<import file="./another-file2.xml"/>
+{% endhighlight %}
+
+Les tâches ne sont pas exécutées, mais sont disponibles à l'utilisation lorsque l'on fait un phingCall. Comme un "require" donc...
+
+<h2>Evaluer du PHP</h2>
+Ce qui me plaît le plus avec Phing, c'est la possibilité d'évaluer du code PHP directement, sans se compliquer. Oui c'est possible, je vous ai dit que Phing était justement fait pour PHP.
+
+En plus c'est simple : l'évaluation de l'expression est directement mise dans la variable déclarée dans l'attribut "returnProperty" :
+
+{% highlight xml %}
+<php expression="in_array('curl', get_loaded_extensions())" returnProperty="curlEnabled"/>
+<fail unless="curlEnabled" message="You need cUrl to use it" />
+{% endhighlight %}
+
+<h2>Pour finir</h2>
+Vous le voyez, Phing mérite d'être utilisé. Si vous voulez voir un projet plus complet (et pourquoi pas y contribuer, si si, j'insiste), je vous invite à regarder <a href="http://goo.gl/CerSr">PHPStarter</a>, qui est un simple automate d'installation de sites (téléchargement des sources du framework utilisé, création des virtual hosts...), et qui synthétise tout ce que je viens de présenter.
+
+Enfin, une petite astuce que m'a donnée mon collègue <a href="https://fr.twitter.com/gaspaio">@gaspaio</a>, et à laquelle je n'avais pas pensé : il suffit de définir comme tâche par défaut une tâche qui affiche de l'aide, et vous voici avec un outil encore plus structuré et simple d'utilisation. C'est ce qui se passe <a href="https://github.com/Halleck45/PhpStarter/blob/master/build.xml#L15-L50">par exemple ici</a>.
+
+Phing n'est pas parfait bien entendu, surtout que c'est finalement assez peu utilisé par rapport à son utilité, même si pas mal de monde l'utilise. D'ailleurs je suis curieux : qui l'utilise au quotidien ? De temps en temps ? Jamais ? Et parmi la dernière catégorie, qui compte l'utiliser maintenant ?

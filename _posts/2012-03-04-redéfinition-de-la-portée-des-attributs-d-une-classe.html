@@ -1,0 +1,88 @@
+---
+layout: post
+title: Redéfinition de la portée des attributs d'une classe
+categories:
+- Non classé
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+PHP 5.4 est enfin sorti ; on parle beaucoup des Traits en ce moment, et un point <strike>]me dérange</strike> m'intrigue : la redéfinition de portée d'un attribut d'un trait.
+
+En effet, il est possible d'écrire ceci (à vérifier) :
+
+{% highlight php %}trait TraitExample {
+    protected $value;
+    
+    public function getValue() {
+        return $this-&gt;value;
+    }
+}
+
+class Example {
+    use TraitExample {
+        value as public
+    }
+}
+
+$obj = new Example;
+$obj-&gt;value = 6;
+var_dump($obj-&gt;getValue());{% endhighlight %}
+
+Je trouve que c'est quand même casser le principe fondamental de "boite noire" de la programmation orientée objet. Encore qu'on passe d'un attribut/méthode public vers un attribut /méthode privé, pourquoi pas... mais l'inverse me choque. Pas vous ?
+
+Ceci dit, je me suis un peu amusé (je ne dis pas que c'est propre) à voir ce qu'on pouvait faire dans cet esprit sous PHP 5.3. C'est possible, grâce à Reflection : 
+{% highlight php %}$attribute = new ReflectionProperty($object, $name);
+$attribute-&gt;setAccessible(true);
+$attribute-&gt;setValue($object, $value);
+{% endhighlight %}
+
+On peut imaginer passer par un objet tampon par exemple :
+
+{% highlight php %}<?php
+class Example {
+    private $value = 5;
+    
+    public function getValue() {
+        return $this-&gt;value;
+    }
+}
+
+
+class Example_Proxy {
+    protected $_instance;
+    
+    public function __construct($instance ) {
+        $this-&gt;_instance = $instance;
+    }
+    
+    public function __call($name, $arguments) {
+        return call_user_func_array(array($this-&gt;_instance, $name), $arguments);
+    }
+    
+    public function __get($name) {
+        return $this-&gt;_instance-&gt;$name;
+    }
+    
+    public function __set($name, $value) {
+        $attribute = new ReflectionProperty($this-&gt;_instance, $name);
+        $attribute-&gt;setAccessible(true);
+        $attribute-&gt;setValue($this-&gt;_instance, $value);
+    }
+}
+
+
+$obj = new Example;
+$proxy = new Example_Proxy($obj);
+$proxy-&gt;value = 6;
+var_dump($proxy-&gt;getValue());
+{% endhighlight %}
+
+Bref, ça reste sale, mais c'est un exemple. <strong>Des avis sur la redéfinition de la portée des attributs des traits avec PHP 5.4 ?</strong> je suis le seul que ça choque ?

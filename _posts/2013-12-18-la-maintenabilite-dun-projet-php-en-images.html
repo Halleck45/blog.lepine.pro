@@ -1,0 +1,66 @@
+---
+layout: post
+title: La maintenabilité d'un projet PHP en images
+categories:
+- industrialisation
+- PHP
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+---
+Ça faisait longtemps que je cherchais un outil capable de me fournir un aperçu, très général et visuel, de la maintenabilité d'un projet. Ne trouvant finalement que peu de chose sur le net, je me suis décidé à en coder un rapidement.
+
+Pour illustrer le fonctionnement de cet outil, voici les rapport pour les sources de différents projets PHP :
+
+Symfony2 Component :
+
+<a href="http://halleck45.github.io/PhpMetrics/report/symfony2-component/index.html"><img src="http://halleck45.github.io/PhpMetrics/images/preview-symfony2-component.png" alt="Aperçu du rapport pour Symfony2 Component" /></a>
+
+Zend Framework 2 :
+
+<a href="http://halleck45.github.io/PhpMetrics/report/zendframework2/index.html"><img src="http://halleck45.github.io/PhpMetrics/images/preview-zendframework2.png" alt="Aperçu du rapport pour Zend Framework 2" /></a>
+
+Drupal 7 :
+
+<a href="http://halleck45.github.io/PhpMetrics/report/drupal7/index.html"><img src="http://halleck45.github.io/PhpMetrics/images/preview-drupal7.png" alt="Aperçu du rapport pour Drupal" /></a>
+
+CakePHP 2 :
+
+<a href="http://halleck45.github.io/PhpMetrics/report/cakephp2/index.html"><img src="http://halleck45.github.io/PhpMetrics/images/preview-cakephp.png" alt="Aperçu du rapport pour CakePHP" /></a>
+
+WordPress 3 2 :
+
+<a href="http://halleck45.github.io/PhpMetrics/report/wordpress3/index.html"><img src="http://halleck45.github.io/PhpMetrics/images/preview-wordpress3.png" alt="Aperçu du rapport pour WordPress" /></a>
+
+Chaque cercle représente un fichier. En schématisant, plus le cercle est gros, plus le code est complexe ; la couleur, elle, est représentative de l'indice de maintenabilité.
+
+Pour les plus pressés, <a href="http://halleck45.github.io/PhpMetrics/">l'outil en question est disponible sur Github</a>.
+
+Pour les autres, voici quelques explications.
+
+Avant de commencer, il faut être conscient que <strong>la notion de maintenabilité applicative est bien plus complexe que ne sait le résoudre un tel outil</strong>. Elle dépend de facteurs humains (équipe en charge du projet), environnementaux (contexte de l'entreprise, contraintes de délais), du code source (clarté, simplicité), du choix des outils (présence d'un support, possibilité d'obtenir des formations), etc.
+
+Cet outil ne prétend en aucun cas fournir des chiffres précis sur l'ensemble de ces critères. Non, l'objet de cet outil est de fournir des <strong>indicateurs</strong> à partir d'une analyse statique du code source.
+
+Je n'ai rien inventé : les algorithmes utilisés pour calculer ce type d'indicateurs existent depuis la fin des années 70, et de nombreux IDE (<a href="http://blogs.msdn.com/b/zainnab/archive/2011/05/26/code-metrics-maintainability-index.aspx">Visual Studio par exemple</a>) intègrent nativement des modules de supervision du code basés sur ces mêmes algoritmes pour différents langages de programmation.
+
+L'outil commence d'abord par convertir le code source en tokens, pour calculer le premier indicateur utilisé : les <a href="http://fr.wikipedia.org/wiki/M%C3%A9triques_d'Halstead">métriques d'Ahlstead</a>. Cet indicateur fourni des informations à partir d'un ratio entre le volume du code, la variété et le type de structures manipulées dans un code source. Il fournit :
+
+<ul>
+<li>la <strong>taille</strong> du programme (N) ;
+<li>le <strong>vocabulaire</strong> (n) : en gros, plus le code emploie de fonctions, variables, opérateurs... différents, plus le vocabulaire est riche ;</li>
+<li>le <strong>volume</strong> du programme (V) : ratio entre la taille et le vocabulaire ;</li>
+<li>le niveau de <strong>difficulté</strong> (D) : propension d'erreurs du programme ;</li>
+<li>l'<strong>effort</strong> d'implémentation fourni (E) ;</li>
+<li>le <strong>temps</strong> d'implémentation estimé en secondes (T) ;</li>
+<li>le nombre de <strong>bugs</strong> délivrés (B) : il s'agit d'une estimation du nombre de bugs dans le code source. Ce nombre est idéalement inférieur à 2.</li>
+</ul>
+
+La seconde étape consiste à calculer la <strong>complexité cyclomatique</strong> du code source. De ce côté, je n'ai pas cherché à réinventer la route : j'utilise l'excellent <a href="https://github.com/sebastianbergmann/phploc">phploc</a>.
+
+À partir de ces informations, nous pouvons calculer l'<a href="http://fr.wikipedia.org/wiki/Maintenabilit%C3%A9"><strong>Indice de maintenabilité</strong></a>. Cet indicateur fourni une note, de 0 à 171, où 0 représente un code très difficilement maintenable, et 171 un code maintenable.
+
+Le code source est disponible sur <a href="http://halleck45.github.io/PhpMetrics/">Github: Halleck45/PhpMetrics</a>. Cet outil reste à affiner ; n'hésitez donc surtout pas à proposer des améliorations ou à signaler des anomalies.

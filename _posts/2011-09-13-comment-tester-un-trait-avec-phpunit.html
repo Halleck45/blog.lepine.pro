@@ -1,0 +1,73 @@
+---
+layout: post
+title: Comment tester un Trait avec phpUnit ?
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- php
+- php 5.4
+- test unitaire
+- Trait
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _syntaxhighlighter_encoded: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+Il peut être intéressant dès aujourd'hui de tester un code avec des <a title="PHP 5.4 : les Traits (Horizontal Reuses)" href="http://blog.lepine.pro/php/php-5-4-les-traits-horizontal-reuses" target="_blank">Traits</a>, avec PHP 5.4 (alpha) et phpUnit
+
+Lors de mes premiers tests, je me suis vite rendu compte d'un problème : pour pouvoir tester un trait, c'est à dire un comportement, il faut une classe qui implémente ce comportement :
+
+{% highlight php %}
+trait MyBehavior {
+    public function getAny() {
+        return 'ok';
+    }
+}
+
+class Example {
+    use MyBehavior;
+}
+{% endhighlight %}
+
+Et le test :
+
+{% highlight php %}
+class BehaviorTest extends PHPUnit_Framework_TestCase {
+
+    public function testMyBehavior() {
+        $behavior = new Example;
+        $this-&gt;assertEquals('ok', $behavior-&gt;getAny());
+    }
+}
+{% endhighlight %}
+
+Or ici on voit bien l'erreur : on ne test pas unitairement le comportement du Trait, mais son implémentation dans une classe qui est sujette à modifications.
+
+C'est ici qu'intervient phpUnit 3.6, qui introduit la méthode <strong>getObjectForTrait()</strong>. Grâce à cette méthode, il est possible de tester directement notre comportement.
+
+{% highlight php %}
+trait MyBehavior {
+    public function getAny() {
+        return 'ok';
+    }
+}
+{% endhighlight %}
+
+et le test :
+
+{% highlight php %}
+class BehaviorTest extends PHPUnit_Framework_TestCase {
+    public function testMyBehavior() {
+        $behavior = $this-&gt;getObjectForTrait('MyBehavior');
+        $this-&gt;assertEquals('ok', $behavior-&gt;getAny());
+    }
+}
+{% endhighlight %}
+
+Pratique non ?

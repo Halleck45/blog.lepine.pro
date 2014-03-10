@@ -1,0 +1,270 @@
+---
+layout: post
+title: Mais... on peut faire "ça" en PHP ? Mais c'est horrible !
+categories:
+- PHP
+- Ressources et tutos PHP
+tags:
+- php
+- qualité
+status: publish
+type: post
+published: true
+meta:
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '1'
+  image: ''
+  seo_follow: 'false'
+  seo_noindex: 'false'
+---
+ <p>Pour changer, je ne vais pas parler de ce qui est super avec PHP, mais plutôt de ce qui pue dans PHP. Et oui...</p>
+        <p>
+            Attention, qu'on ne me fasse pas dire ce que je n'ai pas dit : j'adore PHP ! C'est la techno que j'utilise tous les jours,  c'est un beau langage, riche et puissant, mais aussi très souple, et il est facile de faire n'importe quoi avec. Les codes suivants sont des exemples de ce qu'on peut faire grâce (ou à cause) de cette souplesse.
+        </p>
+        <p>
+            Ces techniques sont vraiment crades, mais peuvent parfois, en dernier recours, être utiles. Après, si vous voyez un code qui les utilise, posez-vous la question : est-ce PHP qui est crade, ou bien n'est-ce pas plutôt le développeur derrière qui ne s'est pas posé assez de questions ?
+        </p>
+        
+        
+        <h2>Redéfinir la portée d'un attribut</h2>
+        <p>Commençons doucement. Un attribut privé est un attribut qui n'est accessible que par la classe qui le possède (par définition)... Ah bon ? Et si on essaye de changer sa portée ?</p>
+
+        {% highlight php %}
+class Foo
+{
+
+    private $bar = 5;
+
+    public function bar()
+    {
+        return $this->bar;
+    }
+
+}
+
+$foo = new Foo;
+
+
+$attribute = new ReflectionProperty($foo, 'bar');
+$attribute->setAccessible(true);
+$attribute->setValue($foo, 'nouvelle valeur');
+
+var_dump($foo->bar());
+// string(15) "nouvelle valeur"
+        {% endhighlight %}
+
+<p>Nom de zeus ! On vient de modifier la valeur d'un attribut privé !</p>
+
+        <h2>Lire des attributs privés</h2>
+        <p>On a pu changer la portée d'une variable, mais l'honneur est sauf : il n'est pas possible de lire un attribut privé, tant qu'il reste privé.</p>
+        <p>Bon, il doit bien y avoir une solution, non ? Essayons avec un petit coup de serialize().</p>
+        {% highlight php %}
+class Foo {
+    private $bar = 5;
+}
+
+$foo = new Foo;
+$serialized = serialize($foo);
+
+preg_match('!bar";(.):(.*);!', $serialized, $matches);
+list(,$type,$value) = $matches;
+
+var_dump("bar vaut $value");
+// bar vaut 5
+        {% endhighlight %}
+
+        Facile ! Bien sûr, l'exemple est trivial, il existe des <a href="http://www.sitepoint.com/how-to-expose-phps-private-parts/" target="_blank">solutions plus complètes</a>.
+
+
+        <h2>Hériter... directement de ses grand-parents</h2>
+
+        <p>L'héritage c'est pratique ; un objet hérite de son parent, qui lui-même hérite d'un autre objet, le tout dans une harmonie parfaite.</p>
+        <p>Mais attendez, saviez-vous qu'il est possible d'hériter de sa classe grand-mère, sans passer par sa classe Mère ? (par pitié, n'essayez pas de vous  représenter ce que ça ferait dans la vraie vie)</p>
+
+        {% highlight php %}
+class GrandMother {
+    public $bar;
+    public function foo() {
+        return $this->bar. ' in GrandMother';
+    }
+}
+
+class Mother extends GrandMother {
+    public function foo() {
+        return $this->bar. ' in Mother';
+    }
+}
+
+class Child extends Mother {
+    public function foo() {
+        return GrandMother::foo();
+    }
+}
+
+$child = new Child;
+$child->bar = 'abc';
+var_dump($child->foo());
+// string(18) "abc in GrandMother"
+        {% endhighlight %}
+
+        <p>Il suffit donc de ne pas utiliser le mot-clef "parent", mais directement le nom de la classe Grand-mère. Le contexte ($this) est bel et bien préservé. C'est un reliquat de PHP 4...</p>
+
+
+        <h2>Ne pas donner de nom à une variable</h2>
+
+        <p>Toute variable possède un nom : $i, $foo, $bar... Que se passe t-il si vous tenez de déclarer une variable sans lui donner de nom ?</p>
+
+        {% highlight php %}
+$ = 5;
+// PHP Parse error:  syntax error, unexpected '=', expecting variable
+        {% endhighlight %}
+
+        <p>Arf... Mais attendez, ne peut-on pas utiliser l'évaluation dynamique des noms de variables pour créer une variable dont le nom serait une chaîne vide ? Essayons :</p>
+
+        {% highlight php %}
+$foo = '';
+${$foo} = 5;
+
+print_r(get_defined_vars());
+//    ...
+//    [foo] =>
+//    [] => 5
+//)
+        {% endhighlight %}
+
+        <p>
+            Et bien si, on peut. Constatez au passage que la variable est bien visible dans le get_defined_vars().
+        </p>
+        <p>
+            Du coup, on peut s'amuser à faire plein de trucs pas très utiles, comme nommer sa varaible $0 par exemple :
+        </p>
+        {% highlight php %}
+echo $0;
+// syntax error, unexpected '0' ...
+
+echo ${0};
+// ok
+        {% endhighlight %}
+
+
+        <h2>Transtyper un objet</h2>
+        <p>Un objet est d'une classe donnée. Chaque classe possède un contexte propre (des attributs) et son propre comportement.</p>
+        <p>Du coup il ne devrait pas être possible de réutiliser un objet A pour en faire un objet B. Et pourtant ...</p>
+
+        {% highlight php %}
+class Foo
+{
+
+    public $a = 5;
+    public $b = 6;
+
+}
+
+class Bar
+{
+
+    public $a = 'abc';
+    public $b = 'def';
+
+}
+
+$foo = new Foo;
+$bar = new Bar;
+
+
+$object = convert($foo, 'Bar');
+print_r($object);
+//Bar Object
+//(
+//    [a] => 5
+//    [b] => 6
+//)
+        {% endhighlight %}
+
+        <p>Comment a t-on fait ? C'est assez simple, il suffit une fois de plus de sérializer notre objet, de modifier une valeur dans la chaîne obtenue, puis  de créer un nouvel objet.</p>
+
+        {% highlight php %}
+function convert($object, $class)
+{
+    $serialized = serialize($object);
+
+    $className = get_class($object);
+    $len = strlen($className);
+    $start = $len + strlen($len) + 6;
+
+
+    $serializedInfos = 'O:' . strlen($class) . ':"' . $class . '":';
+    $serializedInfos .= substr($serialized, $start);
+
+    return unserialize($serializedInfos);
+}
+        {% endhighlight %}
+
+        <p>Vous trouverez de <a href="http://www.php.net/manual/en/language.types.type-juggling.php#100460" target="_blank">nombreux exemples</a> sur le net.</p>
+
+        <h2>"Ecouter" les changements d'une variable</h2>
+        <p>
+            Vous connaissez sûrement la fonction JavaScript <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/watch" target="_blank">watch()</a>, très pratique, qui permet d'écouter les changements qui peuvent survenir sur une variable.
+        </p>
+        <p>
+            Vous me voyez venir : il est possible (à grands frais : lenteurs, charge mémoire, etc !) de faire la même chose en PHP. Je vous aurai prévenu : ne faites pas ça en prod !
+        </p>
+        <p>
+            L'idée consiste à utiliser une <a href="http://www.php.net/manual/fr/function.register-tick-function.php" target="_blank">fonction qui va être exécutée à chaque tick</a>, pour observer si la variable que l'on souhaite "écouter" à été modifiée ou non. Si c'est le cas, un simple appel à <a target="_blank" href="http://www.php.net/manual/fr/function.debug-backtrace.php">debug_baktrace()</a> nous permettra de savoir comment cette variable a été modifiée.
+        </p>
+
+        {% highlight php %}
+$var = 'abc';
+
+function tick()
+{
+    global $var, $expectedVar;
+    if (isset($var)) {
+        if (isset($expectedVar) && $var !== $expectedVar) {
+
+            //
+            // La variable a été modifiée
+            $context = debug_backtrace();
+            $where = (isset($context[1]['class']) ? $context[1]['class'] . '::' : '')
+                    . $context[1]['function'] . '()';
+
+            printf('la variable $var a été modifiée par %s (fichier %s, ligne %d), et vaut désormais "%s"'
+                    , $where, $context[1]['file'], $context[1]['line'], $var);
+        }
+        $expectedVar = $var;
+    }
+}
+
+//
+// Enregistrons notre pseudo "écouteur"
+register_tick_function("tick");
+declare(ticks = 1);
+        {% endhighlight %}
+
+        <p>Vérifions :</p>
+
+        {% highlight php %}
+//
+// L'heure du test
+function foo()
+{
+    global $var;
+    $var = 'def';
+}
+
+foo();
+//
+// Affiche :
+//
+// la variable $var a été modifiée par foo()
+// (fichier /home/data/www/jeff/misc/php-berk/watch-var.php, ligne 39),
+// et vaut désormais "def"
+        {% endhighlight %}
+
+
+        <h2>C'est tout ?</h2>
+        <p>J'hésite à aller plus loin : on pourrait parler encore de ce qu'il est possible de faire avec les __PHP_Incomplete_Class, de la confusion possible à utiliser des fonctions comme <a target="_blank" href="http://php.net/class_alias">class_alias()</a> (<a target="_blank" href="http://blog.mageekbox.net/?post/2013/01/17/Modifier-un-espace-de-nom-sans-casser-la-r%C3%A9tro-compatibilit%C3%A9">quoique parfois utile</a>), de ce qu'il est affreusement possible de faire avec <a target="_blank" href="http://php.net/runkit">runkit</a>, dela possibilité de remplacer $_GET par une valeur de notre choix... Mais je crois que ça suffira là :) .</p>
+
+        <p>
+            Bref, vous l'aurez compris, si je suis vraiment convaincu que PHP est un super langage, je vois passer beaucoup de mauvais code, de mauvais développeurs et de mauvaises pratiques, qui me font quotidiennement prendre conscience qu'il est possible de faire vraiment n'importe quoi en développement. Lorsque l'on sort des sentiers battus, on doit avoir une bonne raison et comprendre pourquoi on le fait.</p><p>PHP est un beau langage, ce n'est pas parce qu'il est "facile" de débuter en PHP qu'il faut en faire n'importe quoi. Heureusement, on peut aussi faire de très belles choses avec ! Et c'est justement ça le job d'un développeur.
+        </p>
