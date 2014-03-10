@@ -27,7 +27,7 @@ theme:
   tagline: "Industrialisation, qualité, PHP"
 
   # Google Analytics key, leave blank to ignore
-  google_analytics_key: UA-xxxx-x
+  google_analytics_key: UA-5363554-7
 
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: false
