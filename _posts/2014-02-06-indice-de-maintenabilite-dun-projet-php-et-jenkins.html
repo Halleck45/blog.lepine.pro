@@ -1,6 +1,7 @@
 ---
+permalink: /industrialisation/indice-de-maintenabilite-dun-projet-php-et-jenkins
 layout: post
-title: Indice de maintenabilité d'un projet PHP et Jenkins
+title:  Indice de maintenabilité d'un projet PHP et Jenkins
 categories:
 - industrialisation
 tags:
@@ -13,19 +14,19 @@ meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
 ---
-Dans mon <a href="http://blog.lepine.pro/php/la-maintenabilite-dun-projet-php-en-images" title="La maintenabilité d’un projet PHP en images">dernier billet</a> je vous avais présenté un outil sur lequel je travaille : <a href="https://github.com/Halleck45/PhpMetrics">PhpMetrics</a>. Cet outil permet de calculer différents indicateurs sur le code source, dont l'Indice de Maintenabilité, le Poids des commentaires, la Difficulté d'un code, etc.
+<p>Dans mon <a href="/php/la-maintenabilite-dun-projet-php-en-images" title="La maintenabilité d’un projet PHP en images">dernier billet</a> je vous avais présenté un outil sur lequel je travaille : <a href="https://github.com/Halleck45/PhpMetrics">PhpMetrics</a>. Cet outil permet de calculer différents indicateurs sur le code source, dont l'Indice de Maintenabilité, le Poids des commentaires, la Difficulté d'un code, etc.</p>
 
-Je pense qu'avoir une vision régulière de ce type d'indicateurs est important pour assurer la qualité d'un projet, ou au moins détecter les écarts de qualité assez rapidement. Bien que ce ne soit pas vraiment le rôle de Jenkins d'assurer un tel suivi (mais plutôt d'un outil comme Sonar, par exemple), mais vu que Jenkins reste un outils assez répandu aujourd'hui, je vous propose de voir comment intégrer ces indicateurs de code dans Jenkins.
+<p>Je pense qu'avoir une vision régulière de ce type d'indicateurs est important pour assurer la qualité d'un projet, ou au moins détecter les écarts de qualité assez rapidement. Bien que ce ne soit pas vraiment le rôle de Jenkins d'assurer un tel suivi (mais plutôt d'un outil comme Sonar, par exemple), mais vu que Jenkins reste un outils assez répandu aujourd'hui, je vous propose de voir comment intégrer ces indicateurs de code dans Jenkins.</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2014/02/phpmetrics-chart.png"><img src="http://blog.lepine.pro/wp-content/uploads/2014/02/phpmetrics-chart.png" alt="Graphique PhpMetrics dans Jenkins" width="740" height="342" class="aligncenter size-full wp-image-804" /></a>
+<a href="{{site.url}}/images/2014-02-phpmetrics-chart.png"><img src="{{site.url}}/images/2014-02-phpmetrics-chart.png" alt="Graphique PhpMetrics dans Jenkins" width="740" height="342" class="aligncenter size-full wp-image-804" /></a>
 
-Si vous n'avez jamais utilisé Jenkins, je vous invite à lire les excellents billets de Pascal Martin sur l'<a href="http://blog.pascal-martin.fr/post/integration-continue-jenkins-installation-configuration">installation</a> et la <a href="http://blog.pascal-martin.fr/post/integration-continue-jenkins-projet-php">configuration</a> d'un premier projet PHP. Et si vous êtes un peu fainéant, vous pouvez aussi directement utiliser la procédure d'installation expliquée sur sur <a href="http://jenkins-php.org">jenkins-php.org</a>. 
+<p>Si vous n'avez jamais utilisé Jenkins, je vous invite à lire les excellents billets de Pascal Martin sur l'<a href="http://blog.pascal-martin.fr/post/integration-continue-jenkins-installation-configuration">installation</a> et la <a href="http://blog.pascal-martin.fr/post/integration-continue-jenkins-projet-php">configuration</a> d'un premier projet PHP. Et si vous êtes un peu fainéant, vous pouvez aussi directement utiliser la procédure d'installation expliquée sur sur <a href="http://jenkins-php.org">jenkins-php.org</a>. </p>
 
-Je pars du principe pour la suite que vous avez un job Jenkins fonctionnel.
+<p>Je pars du principe pour la suite que vous avez un job Jenkins fonctionnel.</p>
 
 <h2>Première étape: lancer l'analyse. </h2>
 
-Différentes options s'offrent à vous. Si avoir Java sur votre machine d'intégration ne vous dérange pas, vous pouvez utiliser <a href="http://ant.apache.org/">Ant</a>. Voilà à quoi ressemblera votre fichier build.xml (par exemple):
+<p>Différentes options s'offrent à vous. Si avoir Java sur votre machine d'intégration ne vous dérange pas, vous pouvez utiliser <a href="http://ant.apache.org/">Ant</a>. Voilà à quoi ressemblera votre fichier build.xml (par exemple):</p>
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -41,24 +42,24 @@ Différentes options s'offrent à vous. Si avoir Java sur votre machine d'intég
 </project>
 {% endhighlight %}
 
-Si vous pensez que, finalement, ce n'est peut être pas si pertinent d'avoir [troll]une énorme usine à gaz juste pour lancer deux commandes[/troll], vous pouvez simplement configurer le job pour qu'il exécute les commandes en question directement :
+<p>Si vous pensez que, finalement, ce n'est peut être pas si pertinent d'avoir [troll]une énorme usine à gaz juste pour lancer deux commandes[/troll], vous pouvez simplement configurer le job pour qu'il exécute les commandes en question directement :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2014/02/build-shell.png"><img src="http://blog.lepine.pro/wp-content/uploads/2014/02/build-shell.png" alt="Jenkins et PhpMetrics : confiuration du build - shell" width="699" height="237" class="aligncenter size-full wp-image-805" /></a>
+<a href="{{site.url}}/images/2014-02-build-shell.png"><img src="{{site.url}}/images/2014-02-build-shell.png" alt="Jenkins et PhpMetrics : confiuration du build - shell" width="699" height="237" class="aligncenter size-full wp-image-805" /></a>
 
 <h2>Deuxième étape: le graphique</h2>
 
-Nous allons utiliser le plugin de Jenkins <a href="https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin">Plot</a>, dont c'est justement la spécialité; Il suffit de configurer une étape Post-Build pour ajouter le résultat de la dernière analyse au graphique :
+<p>Nous allons utiliser le plugin de Jenkins <a href="https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin">Plot</a>, dont c'est justement la spécialité; Il suffit de configurer une étape Post-Build pour ajouter le résultat de la dernière analyse au graphique :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2014/02/jenkins-phpmetrics-plot-build.png"><img src="http://blog.lepine.pro/wp-content/uploads/2014/02/jenkins-phpmetrics-plot-build.png" alt="Jenkins et PhpMetrics : configuration de plot" width="708" height="655" class="aligncenter size-full wp-image-806" /></a>
+<a href="{{site.url}}/images/2014-02-jenkins-phpmetrics-plot-build.png"><img src="{{site.url}}/images/2014-02-jenkins-phpmetrics-plot-build.png" alt="Jenkins et PhpMetrics : configuration de plot" width="708" height="655" class="aligncenter size-full wp-image-806" /></a>
 
 <h3>Bonus: le rapport HTML</h3>
 
-PhpMetrics fournit un <a href="http://halleck45.github.io/PhpMetrics/report/demo/v0.0.3/index.html">rapport Html</a> qui offre, je l'espère, un peu de recul sur un code source. N'hésitez pas à installer le plugin <a href="https://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin">Html Publisher</a>, qui vous permettra d'ajouter un lien vers ce rapport HTML dans le menu de votre projet :
+<p>PhpMetrics fournit un <a href="http://halleck45.github.io/PhpMetrics/report/demo/v0.0.3/index.html">rapport Html</a> qui offre, je l'espère, un peu de recul sur un code source. N'hésitez pas à installer le plugin <a href="https://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin">Html Publisher</a>, qui vous permettra d'ajouter un lien vers ce rapport HTML dans le menu de votre projet :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2014/02/jenkins-phpmetrics-htmlreport.png"><img src="http://blog.lepine.pro/wp-content/uploads/2014/02/jenkins-phpmetrics-htmlreport.png" alt="Jenkins et PhpMetrics : HTML Publisher" width="871" height="178" class="aligncenter size-full wp-image-807" /></a>
+<a href="{{site.url}}/images/2014-02-jenkins-phpmetrics-htmlreport.png"><img src="{{site.url}}/images/2014-02-jenkins-phpmetrics-htmlreport.png" alt="Jenkins et PhpMetrics : HTML Publisher" width="871" height="178" class="aligncenter size-full wp-image-807" /></a>
 
 <h2>Le mot de la fin</h2>
 
-Bien évidemment vous pouvez intégrer d'autres courbes: Volume du code, Difficulté... La démarche sera la même que celle présentée ci-dessus.
+<p>Bien évidemment vous pouvez intégrer d'autres courbes: Volume du code, Difficulté... La démarche sera la même que celle présentée ci-dessus.</p>
 
-Je vous rappelle que PhpMetrics est Open Source, et a besoin d'être éprouvé, tant sur les indicateurs fournis que sur la stabilité de l'outils. N'hésitez pas à [lien github issue]remonter les anomalies que vous rencontrerez, ou simplement à me dire si vous l'utilisez : ça me motivera encore plus pour l'enrichir et l'améliorer ;)
+<p>Je vous rappelle que PhpMetrics est Open Source, et a besoin d'être éprouvé, tant sur les indicateurs fournis que sur la stabilité de l'outils. N'hésitez pas à [lien github issue]remonter les anomalies que vous rencontrerez, ou simplement à me dire si vous l'utilisez : ça me motivera encore plus pour l'enrichir et l'améliorer ;)</p>

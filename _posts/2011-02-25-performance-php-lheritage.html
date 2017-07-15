@@ -1,6 +1,7 @@
 ---
+permalink: /php/performance-php-lheritage
 layout: post
-title: ! 'Performance PHP : l''héritage'
+title:  ! 'Performance PHP : l''héritage'
 categories:
 - PHP
 - Ressources et tutos PHP
@@ -17,11 +18,11 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-Quand on parle d'orienté objet, une crainte récurrente est celle de la performance.Or le moteur PHP Objet est très bien optimisé :
+<p>Quand on parle d'orienté objet, une crainte récurrente est celle de la performance.Or le moteur PHP Objet est très bien optimisé :</p>
 
 (les benchs suivants portent sur des moyennes de tests executés 10 000 fois minimum, sous Linux en PHP 5.3.3 standard, et sont exprimés en secondes)
 <h2>Héritage</h2>
-Contrairement aux idées reçus, instancier une classe qui en hérite de plusieurs autres n'est pas plus lent qu'instancier une classe mère :
+<p>Contrairement aux idées reçus, instancier une classe qui en hérite de plusieurs autres n'est pas plus lent qu'instancier une classe mère :</p>
 <h3>Appel de classes statiques (secondes):</h3>
 <!-- body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: "Arial"; font-size: x-small; } -->
 <table style="height: 56px;" border="0" cellspacing="0" width="312" frame="VOID" rules="NONE"><colgroup><col width="95"></col><col width="95"></col><col width="108"></col></colgroup>
@@ -45,7 +46,7 @@ Contrairement aux idées reçus, instancier une classe qui en hérite de plusieu
 </table>
 <h3>
 
-[caption id="attachment_23" align="aligncenter" width="300" caption="test de Performance PHP 5.3 : héritage et appels statiques"]<a href="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage1.gif"><img class="size-medium wp-image-23" title="php-5-3-performance-heritage1" src="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage1-300x232.gif" alt="test de Performance PHP 5.3 : héritage et appels statiques" width="300" height="232" /></a>[/caption]</h3>
+<a href="{{site.url}}/images/2011-02-php-5-3-performance-heritage1.gif"><img class="size-medium wp-image-23" title="php-5-3-performance-heritage1" src="{{site.url}}/images/2011-02-php-5-3-performance-heritage1gif" alt="test de Performance PHP 5.3 : héritage et appels statiques" width="300" height="232" /></a></h3>
 <h3>Appel de classes instanciées (secondes):</h3>
 <!-- body, div, table, thead, tbody, tfoot, tr, th, td, p { font-family: "Arial"; font-size: x-small; } -->
 <table border="0" cellspacing="0" frame="VOID" rules="NONE"><colgroup><col width="95"></col><col width="95"></col><col width="108"></col></colgroup>
@@ -67,8 +68,8 @@ Contrairement aux idées reçus, instancier une classe qui en hérite de plusieu
 </tr>
 </tbody>
 </table>
-[caption id="attachment_24" align="aligncenter" width="296" caption="test de Performance PHP 5.3 : héritage et appels sur des instances"]<a href="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage-instances.gif"><img class="size-full wp-image-24" title="php-5-3-performance-heritage-instances" src="http://blog.lepine.pro/wp-content/uploads/2011/02/php-5-3-performance-heritage-instances.gif" alt="test de Performance PHP 5.3 : héritage et appels sur des instances" width="296" height="292" /></a>[/caption]
+<a href="{{site.url}}/images/2011-02-php-5-3-performance-heritage-instances.gif"><img class="size-full wp-image-24" title="php-5-3-performance-heritage-instances" src="{{site.url}}/images/2011-02-php-5-3-performance-heritage-instances.gif" alt="test de Performance PHP 5.3 : héritage et appels sur des instances" width="296" height="292" /></a>
 
-La différence est négligeable, même sur une grosse application.
+<p>La différence est négligeable, même sur une grosse application.</p>
 
-En conclusion, l'utilisation massive de l'héritage ne nuit pas à la performance d'une application...
+<p>En conclusion, l'utilisation massive de l'héritage ne nuit pas à la performance d'une application...</p>

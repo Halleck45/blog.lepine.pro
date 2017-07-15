@@ -1,6 +1,7 @@
 ---
+permalink: /php/behat-jour-3-tester-une-application-web-avec-mink
 layout: post
-title: ! 'Behat – jour 3 : Tester une application web avec Mink'
+title:  ! 'Behat – jour 3 : Tester une application web avec Mink'
 categories:
 - industrialisation
 - PHP
@@ -21,37 +22,37 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-On a vu précédemment <a href="http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum" title="Behat – jour 1 : comment tester son produit SCRUM ?">ce qu'était Behat</a> et <a title="Behat – jour 2 : Installation et premiers tests" href="http://blog.lepine.pro/php/behat-jour-2-installation-et-premiers-tests">comment tester une application simple en php avec Behat</a>.
+<p>On a vu précédemment <a href="/php/behat-jour-1-comment-tester-son-produit-scrum" title="Behat – jour 1 : comment tester son produit SCRUM ?">ce qu'était Behat</a> et <a title="Behat – jour 2 : Installation et premiers tests" href="/php/behat-jour-2-installation-et-premiers-tests">comment tester une application simple en php avec Behat</a>.</p>
 
-Maintenant allons plus loin et voyons comment tester une application web (à la quelle on accède par un navigateur). Et oui c'est possible ! :-)
+<p>Maintenant allons plus loin et voyons comment tester une application web (à la quelle on accède par un navigateur). Et oui c'est possible ! :-)</p>
 <h2>Behat et ... Mink</h2>
-On l'a dit : Behat permet de tester un produit. Ceci dit, il est rare qu'un client vous demande une application en ligne de commande ; le plus souvent le produit en question va être constitué de pages web. Qu'à cela ne tienne, Behat est très fortement lié à un autre outil : <a href="http://mink.behat.org/" target="_blank">Mink</a>.
+<p>On l'a dit : Behat permet de tester un produit. Ceci dit, il est rare qu'un client vous demande une application en ligne de commande ; le plus souvent le produit en question va être constitué de pages web. Qu'à cela ne tienne, Behat est très fortement lié à un autre outil : <a href="http://mink.behat.org/" target="_blank">Mink</a>.</p>
 
-Mink c'est quoi ? Et bien <strong>Mink va vous permettre</strong> :
+<p>Mink c'est quoi ? Et bien <strong>Mink va vous permettre</strong> :</p>
 <ul>
 	<li>ou bien de <strong>simuler un navigateur</strong> pour interagir avec votre application (produit)</li>
 	<li>ou bien de <strong>piloter un vrai navigateur</strong> (Firefox, Chrome...) pour interagir avec le produit</li>
 </ul>
-Voyons comment le lancer en mode "simulation" dans un premier temps.
+<p>Voyons comment le lancer en mode "simulation" dans un premier temps.</p>
 <h3>Application de test</h3>
-Pour vous éviter de perdre du temps, je vous propose de télécharger une petite page web toute simple qui va correspondre à notre produit de test :
+<p>Pour vous éviter de perdre du temps, je vous propose de télécharger une petite page web toute simple qui va correspondre à notre produit de test :</p>
 <ul>
 	<li>une seule page pour consulter notre compte et ajouter/retirer des sous</li>
 	<li>un formulaire de connexion (pas de mot de passe)</li>
 	<li>les informations sont stockées en session</li>
 </ul>
-Ce qui donne ça : <a href="http://blog.lepine.pro/wp-content/uploads/2012/03/screen-app-exemple-mink.jpg"><img class="alignnone size-medium wp-image-459" title="screen-app-exemple-mink" src="http://blog.lepine.pro/wp-content/uploads/2012/03/screen-app-exemple-mink-208x300.jpg" alt="" width="208" height="300" /></a>
+<p>Ce qui donne ça : <a href="{{site.url}}/images/2012-03-screen-app-exemple-mink.jpg"><img class="alignnone size-medium wp-image-459" title="screen-app-exemple-mink" src="{{site.url}}/images/2012-03-screen-app-exemple-mink.jpg" alt="" width="208" height="300" /></a></p>
 
-Pour télécharger l'application exemple, ça se passe ici : <a href="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-jour3-appli-web1.zip">behat-jour3-appli-web.zip</a> (15 Ko).
+<p>Pour télécharger l'application exemple, ça se passe ici : <a href="{{site.url}}/images/2012-03-behat-jour3-appli-web1.zip">behat-jour3-appli-web.zip</a> (15 Ko).</p>
 <h3>Notre produit web</h3>
-N'oublions pas que le client (product owner) reste le maître de son produit. Il nous fournit donc un fichier de fonctionnalités pour décrire son produit.
+<p>N'oublions pas que le client (product owner) reste le maître de son produit. Il nous fournit donc un fichier de fonctionnalités pour décrire son produit.</p>
 
 <em>Remarque : la fonctionnalité est décrite en anglais ; bien que très actif, <strong>utiliser behat et mink en français reste aujourd'hui très aventureux à mon goût</strong>, ne serait-ce qu'à cause des nombreux apostrophes présents dans notre langue <a href="https://github.com/Behat/Behat/issues/106" target="_blank">qui posent des difficultés</a>.</em>
 
-Fichier bank.feature :
+<p>Fichier bank.feature :</p>
 
 {% highlight gherkin %}
-Feature: Manage a bank account
+<p>Feature: Manage a bank account</p>
   In order to manage my account
   As a logged in user
   I need to be able to add or take mon ey on my account
@@ -90,63 +91,63 @@ Feature: Manage a bank account
     And I should see "Overdrafts are not allowed"
 {% endhighlight %}
 
-Nous voilà prêts :-) Notez que les expressions utilisées (I fill in "xxx" with "xx", etc) ne sont pas anodines, bien au contraire. On va le voir par la suite.
+<p>Nous voilà prêts :-) Notez que les expressions utilisées (I fill in "xxx" with "xx", etc) ne sont pas anodines, bien au contraire. On va le voir par la suite.</p>
 <h2>Installer Mink</h2>
-Rien de plus simple :
+<p>Rien de plus simple :</p>
 
 {% highlight bash %}sudo pear install behat/mink-beta{% endhighlight %}
 
-Maintenant on va "dire" à Behat que l'on souhaite utiliser Mink pour nos tests. Ouvrez le fichier bootstrap/FeatureContext.php, et remplacez
+<p>Maintenant on va "dire" à Behat que l'on souhaite utiliser Mink pour nos tests. Ouvrez le fichier bootstrap/FeatureContext.php, et remplacez</p>
 
 {% highlight php %}class FeatureContext extends BehatContext {
 {% endhighlight %}
 
-par
+<p>par</p>
 
 {% highlight php %}require_once 'mink/autoload.php';
 class FeatureContext extends Behat\Mink\Behat\Context\MinkContext {% endhighlight %}
 
-C'est là que la magie s'opère : Mink dispose déjà de nombreuses expressions disponibles pour tester notre produit web ! On va pouvoir le confirmer en faisant un :
+<p>C'est là que la magie s'opère : Mink dispose déjà de nombreuses expressions disponibles pour tester notre produit web ! On va pouvoir le confirmer en faisant un :</p>
 
 {% highlight bash %}behat -dl --lang=en{% endhighlight %}
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-mink-syntaxe.jpg"><img class="aligncenter size-medium wp-image-464" title="Résultat de la commande behat -dl après avoir installé Mink" src="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-mink-syntaxe-300x278.jpg" alt="Résultat de la commande behat -dl après avoir installé Mink" width="300" height="278" /></a>
+<a href="{{site.url}}/images/2012-03-behat-mink-syntaxe.jpg"><img class="aligncenter size-medium wp-image-464" title="Résultat de la commande behat -dl après avoir installé Mink" src="{{site.url}}/images/2012-03-behat-mink-syntaxe.jpg" alt="Résultat de la commande behat -dl après avoir installé Mink" width="300" height="278" /></a>
 
-Il ne nous reste plus qu'à préparer un petit fichier de configuration, nommé <strong>feature/behat.yml</strong>, qui sera automatiquement lu par behat :
+<p>Il ne nous reste plus qu'à préparer un petit fichier de configuration, nommé <strong>feature/behat.yml</strong>, qui sera automatiquement lu par behat :</p>
 
 {% highlight yaml %}
-default:
+<p>default:</p>
   context:
     parameters:
       base_url: http://localhost/mettez/ici/l/adresse/a/tester
 {% endhighlight %}
 
-Ici nous indiquons simpelment à Mink la racine de base de notre application, pour éviter de la répéter dans chacun de nos tests.
+<p>Ici nous indiquons simpelment à Mink la racine de base de notre application, pour éviter de la répéter dans chacun de nos tests.</p>
 <h3>Tester le produit : Mink crée du sens</h3>
-Il est temps de se lancer et d'exécuter en ligne de commande :
+<p>Il est temps de se lancer et d'exécuter en ligne de commande :</p>
 
 {% highlight bash %}behat{% endhighlight %}
 
-Miracle ^^ : la majorité des expressions utilisées par notre product owner possède déjà un sens. En tant que développeur, il n'y a que deux expressions pour lesquelles je dois donner du sens :
+<p>Miracle ^^ : la majorité des expressions utilisées par notre product owner possède déjà un sens. En tant que développeur, il n'y a que deux expressions pour lesquelles je dois donner du sens :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/mink-resultat-commande1.jpg"><img class="aligncenter size-medium wp-image-466" title="Mink : résultat de la commande 1 : il reste des étapes à définir" src="http://blog.lepine.pro/wp-content/uploads/2012/03/mink-resultat-commande1-300x187.jpg" alt="Mink : résultat de la commande 1 : il reste des étapes à définir" width="300" height="187" /></a>.
+<a href="{{site.url}}/images/2012-03-mink-resultat-commande1.jpg"><img class="aligncenter size-medium wp-image-466" title="Mink : résultat de la commande 1 : il reste des étapes à définir" src="{{site.url}}/images/2012-03-mink-resultat-commande1.jpg" alt="Mink : résultat de la commande 1 : il reste des étapes à définir" width="300" height="187" /></a>.
 
-Quand le product owner spécifie 'I should see "content"', Mink va tout seul faire le lien avec l'assertion "le contenu de la page doit comporter le texte "content".
+<p>Quand le product owner spécifie 'I should see "content"', Mink va tout seul faire le lien avec l'assertion "le contenu de la page doit comporter le texte "content".</p>
 
-Mais bien mieux encore : les champs de mes formulaires ne sont pas reconnus par leur nom ou leur identifiant (name ou id). Non non, <strong>le product owner n'en n'a rien à faire de la structure interne d'une page web ; ce qu'il veut c'est un produit qui à l'écran correspond à ses attentes</strong>. <strong>Les éléments de formulaires sont reconnus par leur libellé</strong> (label).
+<p>Mais bien mieux encore : les champs de mes formulaires ne sont pas reconnus par leur nom ou leur identifiant (name ou id). Non non, <strong>le product owner n'en n'a rien à faire de la structure interne d'une page web ; ce qu'il veut c'est un produit qui à l'écran correspond à ses attentes</strong>. <strong>Les éléments de formulaires sont reconnus par leur libellé</strong> (label).</p>
 <blockquote>le product owner n'en a rien à faire de la structure interne d'une page web ; ce qu'il veut c'est un produit qui, à l'écran, correspond à ses attentes</blockquote>
-Bien sûr, Mink est permissif et on peut tout même cibler un lien, bouton, élément de formulaire... par son identifiant ou son nom... peu importe :-)
+<p>Bien sûr, Mink est permissif et on peut tout même cibler un lien, bouton, élément de formulaire... par son identifiant ou son nom... peu importe :-)</p>
 
-Vous trouverez la <a href="http://blog.lepine.pro/php/ressources-tutos-php/cheat-sheet-behat" title="Cheat Sheet Behat">liste des expressions de base de Mink ici</a>.
+<p>Vous trouverez la <a href="/php/ressources-tutos-php/cheat-sheet-behat" title="Cheat Sheet Behat">liste des expressions de base de Mink ici</a>.</p>
 
 <h2>Donner son sens aux expressions non définies</h2>
-Il nous reste donc deux expressions qui n'ont actuellement pas de signification : "Given I am logged in as ..." et "I have x euro". A nous, développeurs, de les définir dans features/bootstrap/FeatureContext.php.
+<p>Il nous reste donc deux expressions qui n'ont actuellement pas de signification : "Given I am logged in as ..." et "I have x euro". A nous, développeurs, de les définir dans features/bootstrap/FeatureContext.php.</p>
 
-Attention, il y a là un <strong>énorme piège</strong>. Je l'ai vu à chaque fois, le premier réflexe d'un développeur va être de créer un lien entre le code source de l'application et le code disponible dans le fichier FeatureContext.php. Par exemple en créer une instance d'une Zend_Application comme on le ferait pour des tests unitaires d'une application Zend... C'est la dernière chose à faire !
+<p>Attention, il y a là un <strong>énorme piège</strong>. Je l'ai vu à chaque fois, le premier réflexe d'un développeur va être de créer un lien entre le code source de l'application et le code disponible dans le fichier FeatureContext.php. Par exemple en créer une instance d'une Zend_Application comme on le ferait pour des tests unitaires d'une application Zend... C'est la dernière chose à faire !</p>
 
-Non, si le product owner veut un produit web, si Mink nous permet de tester un produit web, continuons de tester un produit web uniquement, et laissons le code de côté :-p .
+<p>Non, si le product owner veut un produit web, si Mink nous permet de tester un produit web, continuons de tester un produit web uniquement, et laissons le code de côté :-p .</p>
 
-Le product owner nous dit qu'il est un utilisateur connecté ("I am logged in as..."). Connectons l'utilisateur au sein de l'application :
+<p>Le product owner nous dit qu'il est un utilisateur connecté ("I am logged in as..."). Connectons l'utilisateur au sein de l'application :</p>
 
 {% highlight php %}
 /**
@@ -162,20 +163,20 @@ public function iAmLoggedInAs($username)
 }
 {% endhighlight %}
 
-Pensez à ajouter au début du fichier :
+<p>Pensez à ajouter au début du fichier :</p>
 
 {% highlight php %}use Behat\Behat\Context\Step;{% endhighlight %}
 
-Comme vous le voyez, on réutilise les étapes utilisables directement dans nos scénarios. Dans 99% des cas cela suffit. <strong>Ce sont les mêmes étapes que le product owner pourrait utiliser dans un fichier de fonctionnalité classique.</strong>
+<p>Comme vous le voyez, on réutilise les étapes utilisables directement dans nos scénarios. Dans 99% des cas cela suffit. <strong>Ce sont les mêmes étapes que le product owner pourrait utiliser dans un fichier de fonctionnalité classique.</strong></p>
 
-Ce qui reviendrait à écrire :
+<p>Ce qui reviendrait à écrire :</p>
 {% highlight gherkin %}
 Given I go to "login.php"
 When I fill in "My name" with "jeanfrancois"
 When I press "Login"
 {% endhighlight %}
 
-On fait la même chose pour donner du sens à 'I have "50" euro' :
+<p>On fait la même chose pour donner du sens à 'I have "50" euro' :</p>
 
 {% highlight php %}/**
  * @Given /^I have "([^"]*)" euro$/
@@ -188,58 +189,58 @@ public function iHaveEuro($balance) {
     );
 }{% endhighlight %}
 
-Ca y est, on est bons :
-<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/mink-resultat-commande2.jpg"><img class="aligncenter size-medium wp-image-470" title="Mink : le produit est conforme" src="http://blog.lepine.pro/wp-content/uploads/2012/03/mink-resultat-commande2-234x300.jpg" alt="Mink : le produit est conforme" width="234" height="300" /></a>
+<p>Ca y est, on est bons :</p>
+<a href="{{site.url}}/images/2012-03-mink-resultat-commande2.jpg"><img class="aligncenter size-medium wp-image-470" title="Mink : le produit est conforme" src="{{site.url}}/images/2012-03-mink-resultat-commande2.jpg" alt="Mink : le produit est conforme" width="234" height="300" /></a>
 
-Le système de test est fiable car il n'est pas assujetti à des modifications de notre code, mais seulement aux modifications de notre produit. Si l'application venait à ne plus correspondre aux souhaits du product owner, celui-ci en serait immédiatement averti.
+<p>Le système de test est fiable car il n'est pas assujetti à des modifications de notre code, mais seulement aux modifications de notre produit. Si l'application venait à ne plus correspondre aux souhaits du product owner, celui-ci en serait immédiatement averti.</p>
 
 <h2>Un vrai navigateur, avec du vrai javascript</h2>
 
-C'est beau, mais pas très réaliste : quid des applications riches ? Que faire si on a du Javascript et de l'ajax de tous les côtés ? 
+<p>C'est beau, mais pas très réaliste : quid des applications riches ? Que faire si on a du Javascript et de l'ajax de tous les côtés ? </p>
 
-Et bien on va continuer d'utiliser Mink, mais cette fois-ci on va piloter un vrai navigateur. Mink permet de piloter n'importe quel navigateur en utilisant le driver de notre choix : <a href="http://sourceforge.net/projects/sahi/files/" target="_blank">Sahi</a> ou <a href="http://seleniumhq.org/download/" target="_blank">Selenium</a> (1 ou 2). 
+<p>Et bien on va continuer d'utiliser Mink, mais cette fois-ci on va piloter un vrai navigateur. Mink permet de piloter n'importe quel navigateur en utilisant le driver de notre choix : <a href="http://sourceforge.net/projects/sahi/files/" target="_blank">Sahi</a> ou <a href="http://seleniumhq.org/download/" target="_blank">Selenium</a> (1 ou 2). </p>
 
-Ayant eu de nombreuses déconvenues avec Selenium par le passé, et n'ayant pas encore eu de souci majeur à ce jour avec Sahi, j'ai une <strong>nette préférence pour Sahi</strong>. Installons le ensemble :
+<p>Ayant eu de nombreuses déconvenues avec Selenium par le passé, et n'ayant pas encore eu de souci majeur à ce jour avec Sahi, j'ai une <strong>nette préférence pour Sahi</strong>. Installons le ensemble :</p>
 
-L'instalaltion est simple. Téléchargez Sahi depuis http://sourceforge.net/projects/sahi/files/ et exécutez le :
+<p>L'instalaltion est simple. Téléchargez Sahi depuis http://sourceforge.net/projects/sahi/files/ et exécutez le :</p>
 {% highlight bash %}wget http://sourceforge.net/projects/sahi/files/latest/download?source=files
-java -jar sahi_v35_20110719.jar
+<p>java -jar sahi_v35_20110719.jar</p>
 {% endhighlight %} Cliquez sur suivant, suivant... c'est pas moi qui vais vous apprendre un installer quelque chose :-D.
 
-Lancez ensuite Sahi (placez vous bien dans le dossier spécifié pour éviter les ennuis) : {% highlight bash %}cd dossier/installation/bin/
+<p>Lancez ensuite Sahi (placez vous bien dans le dossier spécifié pour éviter les ennuis) : {% highlight bash %}cd dossier/installation/bin/</p>
 ./sahi.sh &{% endhighlight %}
 
 <h3>Lier des fonctionnalités à un vrai navigateur</h3>
 
-Pour utiliser un vrai navigateur à la place de l'émulateur, il suffit d'utiliser le tag @javascript devant le scénario qui le nécessite:
+<p>Pour utiliser un vrai navigateur à la place de l'émulateur, il suffit d'utiliser le tag @javascript devant le scénario qui le nécessite:</p>
 {% highlight gherkin %}
   @javascript
   Scenario: ...
 {% endhighlight %}
-ou devant la fonctionnalité toute entière :
+<p>ou devant la fonctionnalité toute entière :</p>
 {% highlight gherkin %}
 @javascript
-Feature: ...
+<p>Feature: ...</p>
 {% endhighlight %}
 
-Ensuite on lance behat comme d'habitude :
+<p>Ensuite on lance behat comme d'habitude :</p>
 {% highlight bash %}behat{% endhighlight %}
 
-Vous devriez à ce stade voir se lancer votre navigateur et voir les pages changer toutes seules : les champs se remplissent, ça clique... Bref, ça marche !
+<p>Vous devriez à ce stade voir se lancer votre navigateur et voir les pages changer toutes seules : les champs se remplissent, ça clique... Bref, ça marche !</p>
 
-Alors bien sûr vous allez me dire : c'est lent ! Et alors ? Ca reste toujours infiniment plus rapide que de tester tout ça à la main, et surtout c'est fiable : si une ligne est rouge, le produit n'est pas livrable ; mais si tout est vert, alors c'est que vous êtes dans les clous et que vous avez bien fait votre boulot. De plus le gain de temps de test manuel et d'aller et retours avec le product owner est considérable. Là c'est vraiment le client qui est le maître de son produit.
+<p>Alors bien sûr vous allez me dire : c'est lent ! Et alors ? Ca reste toujours infiniment plus rapide que de tester tout ça à la main, et surtout c'est fiable : si une ligne est rouge, le produit n'est pas livrable ; mais si tout est vert, alors c'est que vous êtes dans les clous et que vous avez bien fait votre boulot. De plus le gain de temps de test manuel et d'aller et retours avec le product owner est considérable. Là c'est vraiment le client qui est le maître de son produit.</p>
 
 <h3>Configurer le navigateur</h3>
 
-Il nous reste deux ou trois petites choses à voir. En effet, figurez vous que c'est firefox qui est lancé pour les tests, mais que moi je préfererai que ce soit chrome. Pas de problème, modifions le fichier behat.yml :
+<p>Il nous reste deux ou trois petites choses à voir. En effet, figurez vous que c'est firefox qui est lancé pour les tests, mais que moi je préfererai que ce soit chrome. Pas de problème, modifions le fichier behat.yml :</p>
 {% highlight yaml %}default:
   context:
     parameters:
       base_url: base_url: http://localhost/mettez/ici/l/adresse/a/tester
       browser: chrome{% endhighlight %}
 
-Il y a pas mal d'options, je vous laisse consulter la <a href="http://blog.lepine.pro/php/ressources-tutos-php/cheat-sheet-behat" title="Cheat Sheet Behat" target="_blank">petite cheat sheet</a> si besoin ;-)
+<p>Il y a pas mal d'options, je vous laisse consulter la <a href="/php/ressources-tutos-php/cheat-sheet-behat" title="Cheat Sheet Behat" target="_blank">petite cheat sheet</a> si besoin ;-)</p>
 
-La prochaine fois on verra comment allez plus loin dans le contrôle du navigateur, en exploitant l'API de Mink, et comment s'organiser pour travailler à plusieurs en créant des sous-contextes personnalisés plutôt que de ranger tout notre code dans un seul fichier. 
+<p>La prochaine fois on verra comment allez plus loin dans le contrôle du navigateur, en exploitant l'API de Mink, et comment s'organiser pour travailler à plusieurs en créant des sous-contextes personnalisés plutôt que de ranger tout notre code dans un seul fichier. </p>
 
-Mais en attendant, n'hésitez pas à tester Behat et Mink et surtout à dire ce qu'il en est pour vous :-)
+<p>Mais en attendant, n'hésitez pas à tester Behat et Mink et surtout à dire ce qu'il en est pour vous :-)</p>

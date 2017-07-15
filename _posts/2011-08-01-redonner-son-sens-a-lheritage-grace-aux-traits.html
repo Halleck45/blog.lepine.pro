@@ -1,6 +1,7 @@
 ---
+permalink: /php/redonner-son-sens-a-lheritage-grace-aux-traits
 layout: post
-title: Redonner son sens à l'héritage grâce aux Traits
+title:  Redonner son sens à l'héritage grâce aux Traits
 categories:
 - Architecture
 - PHP
@@ -20,30 +21,30 @@ meta:
   seo_noindex: 'false'
   _syntaxhighlighter_encoded: '1'
 ---
-Suite à la rédaction d'un petit article pour PHP Solutions sur l'approche Orientée Objet, je me suis mis à faire quelques tests pour voir jusqu'à quel point les Traits de PHP 5.4 pourront changer notre manière de programmer.
+<p>Suite à la rédaction d'un petit article pour PHP Solutions sur l'approche Orientée Objet, je me suis mis à faire quelques tests pour voir jusqu'à quel point les Traits de PHP 5.4 pourront changer notre manière de programmer.</p>
 
-Et bien ça fait plus que changer, les Traits sont à mon avis une <strong>véritable révolution dans l'approche et la conceptualisation d'un code</strong>, quel qu'il soit.
+<p>Et bien ça fait plus que changer, les Traits sont à mon avis une <strong>véritable révolution dans l'approche et la conceptualisation d'un code</strong>, quel qu'il soit.</p>
 
-En effet, <strong>un Trait permet de réutiliser un Comportement</strong>. Or sur un gros projet, même en organisant bien notre code, on est souvent amené à recoder plusieurs fois le même comportement. Par exemple, pour créer un Singleton on a deux choix :
+<p>En effet, <strong>un Trait permet de réutiliser un Comportement</strong>. Or sur un gros projet, même en organisant bien notre code, on est souvent amené à recoder plusieurs fois le même comportement. Par exemple, pour créer un Singleton on a deux choix :</p>
 <ol>
 	<li>ou bien on écrit tout le code nécessaire dans notre classe</li>
 	<li>ou bien on fait hériter notre classe d'une classe mère Singleton</li>
 </ol>
-Dans le premier cas, on a inévitablement du <strong>code redondant</strong> dans notre application.
+<p>Dans le premier cas, on a inévitablement du <strong>code redondant</strong> dans notre application.</p>
 
-Dans le second, on perd le principe de l'héritage : l'héritage ne sert pas ici à spécialiser un comportement métier, mais à disposer d'outils pour un fonctionnement interne. On perd alors totalement ce principe de l'Orienté Objet qui consiste<strong> réduire le couplage entre les modules métiers et les modules internes</strong> ; L'héritage en PHP n'étant pas multiple, <strong>on perd le seul héritage métier/fonctionnel que l'on aurait pu avoir pour notre classe</strong>.
+<p>Dans le second, on perd le principe de l'héritage : l'héritage ne sert pas ici à spécialiser un comportement métier, mais à disposer d'outils pour un fonctionnement interne. On perd alors totalement ce principe de l'Orienté Objet qui consiste<strong> réduire le couplage entre les modules métiers et les modules internes</strong> ; L'héritage en PHP n'étant pas multiple, <strong>on perd le seul héritage métier/fonctionnel que l'on aurait pu avoir pour notre classe</strong>.</p>
 
-Un solution consisterait à augmenter le niveau d'héritage et de créer une hiérarchie de classes (c'est ce qui est souvent fait, vu que l'héritage multiple n'existe pas en PHP). Mais dans ce cas :
+<p>Un solution consisterait à augmenter le niveau d'héritage et de créer une hiérarchie de classes (c'est ce qui est souvent fait, vu que l'héritage multiple n'existe pas en PHP). Mais dans ce cas :</p>
 <ul>
 	<li>on a perdu la logique objet : l'héritage n'a pas servi à spécialiser</li>
 	<li>le code n'est plus maintenable</li>
 	<li>l'architecture n'est plus maintenable (on est pris dans un cercle vicieux, celui de rajouter toujours un niveau au dessus jusqu'à créer une classe géante à la racine qui fait tout)</li>
 </ul>
-Bref, à mon avis sur ce genre de code on est souvent dans une impasse. C'est là qu'interviennent les Traits. Plutôt que de consacrer l'héritage à un comportement interne, laissons l'héritage pour le comportement métier et utilisons les traits pour ce qui est interne.
+<p>Bref, à mon avis sur ce genre de code on est souvent dans une impasse. C'est là qu'interviennent les Traits. Plutôt que de consacrer l'héritage à un comportement interne, laissons l'héritage pour le comportement métier et utilisons les traits pour ce qui est interne.</p>
 
-Attention, je ne dis pas que les Traits ne peuvent pas être utilisés pour du comportement métier (bien au contraire), ne me faites pas dire ce que je n'ai pas dit :-)
+<p>Attention, je ne dis pas que les Traits ne peuvent pas être utilisés pour du comportement métier (bien au contraire), ne me faites pas dire ce que je n'ai pas dit :-)</p>
 
-En voici un exemple simple. Cet exemple n'est pas idéal, dans la mesure où il s'agit plus d'un détournement des Traits que d'une utilisation plus intelligente, mais je pense qu'il est clair :
+<p>En voici un exemple simple. Cet exemple n'est pas idéal, dans la mesure où il s'agit plus d'un détournement des Traits que d'une utilisation plus intelligente, mais je pense qu'il est clair :</p>
 
 {% highlight php %}
 trait Singleton {
@@ -87,7 +88,7 @@ trait Singleton {
 }
 {% endhighlight %}
 
-Il ne reste plus qu'à l'utiliser :
+<p>Il ne reste plus qu'à l'utiliser :</p>
 
 {% highlight php %}
 class Example extends MaClasseMetier {
@@ -100,4 +101,4 @@ $oExample = new Example;
 // Fatal error: Call to protected Example::__construct() from invalid context
 {% endhighlight %}
 
-Ce détournement nous permet d'utiliser le Comportement "Singleton" pour toutes les classes qui en ont besoin, avec un simple "use Singleton". Bon, il ne faut pas forcément le faire, et je sens les remarques qui vont arriver sur le Singleton et la testabilité, mais je pense que c'est un exemple clair des horizons que nous ouvrent les Traits :-p
+<p>Ce détournement nous permet d'utiliser le Comportement "Singleton" pour toutes les classes qui en ont besoin, avec un simple "use Singleton". Bon, il ne faut pas forcément le faire, et je sens les remarques qui vont arriver sur le Singleton et la testabilité, mais je pense que c'est un exemple clair des horizons que nous ouvrent les Traits :-p</p>

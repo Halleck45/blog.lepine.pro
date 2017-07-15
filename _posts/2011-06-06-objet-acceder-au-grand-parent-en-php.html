@@ -1,6 +1,7 @@
 ---
+permalink: /php/objet-acceder-au-grand-parent-en-php
 layout: post
-title: ! 'Objet : accéder au grand parent en PHP'
+title:  ! 'Objet : accéder au grand parent en PHP'
 categories:
 - PHP
 - Ressources et tutos PHP
@@ -17,9 +18,9 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-S'il est courant de surcharger une méthode parente en PHP, il est plus rare d'accéder directement à la classe "grand -mère" sans passer par la mère. Pourtant... c'est possible, et voici comment :-)<!--more-->
+<p>S'il est courant de surcharger une méthode parente en PHP, il est plus rare d'accéder directement à la classe "grand -mère" sans passer par la mère. Pourtant... c'est possible, et voici comment :-)<!--more--></p>
 
-En effet, un héritage de PHP 4 permet préserver le contexte d'exécution de la classe fille quand on appelle une classe parente en utilisant son nom plutôt que l'opérateur "parent" (qui n'existait pas avant). Un exemple tout simple :
+<p>En effet, un héritage de PHP 4 permet préserver le contexte d'exécution de la classe fille quand on appelle une classe parente en utilisant son nom plutôt que l'opérateur "parent" (qui n'existait pas avant). Un exemple tout simple :</p>
 
 {% highlight php %}
 class GrandMother {
@@ -39,7 +40,7 @@ class Mother extends GrandMother {
 
 {% endhighlight %}
 
-La classe fille n'utilise pas "parent", mais directement le nom de la classe grand-mère :
+<p>La classe fille n'utilise pas "parent", mais directement le nom de la classe grand-mère :</p>
 
 {% highlight php %}
 class Child extends Mother {
@@ -52,7 +53,7 @@ class Child extends Mother {
 
 {% endhighlight %}
 
-Il ne reste plus qu'à tester :
+<p>Il ne reste plus qu'à tester :</p>
 
 {% highlight php %}
 
@@ -62,4 +63,4 @@ $oObject->doSomething();
 
 {% endhighlight %}
 
-A utiliser avec précaution et modération ;-)
+<p>A utiliser avec précaution et modération ;-)</p>

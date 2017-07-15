@@ -1,6 +1,7 @@
 ---
+permalink: /architecture/le-design-pattern-flyweight-poids-mouche
 layout: post
-title: Le Design Pattern Flyweight (Poids mouche)
+title:  Le Design Pattern Flyweight (Poids mouche)
 categories:
 - Architecture
 - Design Pattern
@@ -21,45 +22,45 @@ meta:
   seo_noindex: 'false'
 ---
 <p>
-Aujourd'hui je vous propose de parler <strong>Design Pattern</strong>, et plus particulièrement d'un pattern intéressant à mettre en place quand on cherche à alléger (en mémoire) une application : le <strong>pattern Flyweight (poid mouche)</strong>.
+<p>Aujourd'hui je vous propose de parler <strong>Design Pattern</strong>, et plus particulièrement d'un pattern intéressant à mettre en place quand on cherche à alléger (en mémoire) une application : le <strong>pattern Flyweight (poid mouche)</strong>.</p>
 </p>
 
 <h2>Problème à résoudre</h2>
 <p>
-l'application doit manipuler de très nombreuses Entités (des produits pour une boutique par exemple), et chaque Entité est représentée par un Objet. L'instanciation de tous ces objets est très gourmande en mémoire :
+<p>l'application doit manipuler de très nombreuses Entités (des produits pour une boutique par exemple), et chaque Entité est représentée par un Objet. L'instanciation de tous ces objets est très gourmande en mémoire :</p>
 </p>
 
 {% highlight php %}
 $oDataMapper = new DataMapper_Product();
-$tRowset = $oDataMapper-&gt;fetchAll($where);
+$tRowset = $oDataMapper->fetchAll($where);
 
 foreach($tRowset as $oProduct) {
     // one instance of Product $oProduct is created in each loop
-    echo $oProduct-&gt;getName();
+    echo $oProduct->getName();
 }
 {% endhighlight %}
 <!--more-->
 <p>
-On voit le problème : pour chaque ligne récupérée, un objet est instancié, donc est créé, chargé en mémoire... c'est lent et coûteux.
+<p>On voit le problème : pour chaque ligne récupérée, un objet est instancié, donc est créé, chargé en mémoire... c'est lent et coûteux.</p>
 </p>
 <h2>La solution : Flyweight</h2>
 <p>
-Il suffit de n'instancier qu'une seule fois l'objet en question, et de l'hydrater au fur et à mesure du besoin :
+<p>Il suffit de n'instancier qu'une seule fois l'objet en question, et de l'hydrater au fur et à mesure du besoin :</p>
 </p>
 {% highlight php %}
 $oDataMapper = new DataMapper_Product();
-$tRowset = $oDataMapper-&gt;fetchAll($where);
+$tRowset = $oDataMapper->fetchAll($where);
 
 // Only one instance of Product is used
 $oProduct = new Product;
 
 foreach($tRowset as $tInfosAboutProduct) {
-    $oProduct-&gt;hydrate($tInfosAboutProduct);
-    echo $oProduct-&gt;getName();
+    $oProduct->hydrate($tInfosAboutProduct);
+    echo $oProduct->getName();
 }
 {% endhighlight %}
 <p>
-Ce qui dans notre cas pourrait donner par exemple cette classe :
+<p>Ce qui dans notre cas pourrait donner par exemple cette classe :</p>
 </p>
 {% highlight php %}
 class Product extends Dao {
@@ -71,20 +72,20 @@ class Product extends Dao {
     
     public function hydrate(array $tData) {
         $this
-                -&gt;setName($tData['name'])
-                -&gt;setPrice($tData['price']);
+                ->setName($tData['name'])
+                ->setPrice($tData['price']);
         return $this;
     }
 
 }
 {% endhighlight %}
 <p>
-Les performances sont dans ce cas meilleures, et l'<strong>utilisation mémoire est plus réduite</strong>.
+<p>Les performances sont dans ce cas meilleures, et l'<strong>utilisation mémoire est plus réduite</strong>.</p>
 </p>
 <h2>Quand utiliser le pattern Flyweight ?</h2>
 
 <p>
-Ce type de pattern n'est pas forcément adapté dans toutes les situations, on l'utilise :
+<p>Ce type de pattern n'est pas forcément adapté dans toutes les situations, on l'utilise :</p>
 </p>
 <ul>
 <li>quand on doit manipuler de très nombreux petits objets</li>
@@ -93,4 +94,3 @@ Ce type de pattern n'est pas forcément adapté dans toutes les situations, on l
 <p>
 <strong>Et vous, avez-vous déjà utilisé ce pattern ? Quel est votre retour d'expérience ?</strong>
 </p>
-

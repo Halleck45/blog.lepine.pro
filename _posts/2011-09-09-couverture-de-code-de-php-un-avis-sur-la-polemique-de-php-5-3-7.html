@@ -1,6 +1,7 @@
 ---
+permalink: /php/couverture-de-code-de-php-un-avis-sur-la-polemique-de-php-5-3-7
 layout: post
-title: ! 'Couverture de code de PHP : un avis sur la polémique de PHP 5.3.7 ?'
+title:  ! 'Couverture de code de PHP : un avis sur la polémique de PHP 5.3.7 ?'
 categories:
 - Actus PHP
 - PHP
@@ -19,33 +20,33 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-Si vous êtes intéressé par la couverture de code de PHP* (la manière dont les fonctions natives du langage sont testées par des Tests unitaires), il est très intéressant de consulter <a href="http://gcov.php.net/" target="_blank">http://gcov.php.net/</a> .
+<p>Si vous êtes intéressé par la couverture de code de PHP* (la manière dont les fonctions natives du langage sont testées par des Tests unitaires), il est très intéressant de consulter <a href="http://gcov.php.net/" target="_blank">http://gcov.php.net/</a> .</p>
 
-Ce site contient en temps réel les compte-rendus de la couverture de la version en cours de PHP (PHP 5.3) et la la prochaine version (PHP 5.4)
+<p>Ce site contient en temps réel les compte-rendus de la couverture de la version en cours de PHP (PHP 5.3) et la la prochaine version (PHP 5.4)</p>
 
-Vous y trouverez :
+<p>Vous y trouverez :</p>
 <ul>
 	<li>la couverture de code</li>
 	<li>les compte-rendus de compilation</li>
 	<li>la liste des fonctions en erreur / warning</li>
 	<li>la liste des fonctions non testées</li>
 </ul>
-Ce site va peut être mettre fin aux polémiques sur le workflow des versions de PHP. En effet, on se souvient tous de l'<a href="http://www.php.net/archive/2011.php#id2011-08-22-1" target="_blank">affaire récente de PHP 5.3.7</a> qui a révélé de grosses lacunes dans le langage (à savoir que les versions stables de PHP contiennent en réalité de nombreuses fonctions dont les tests unitaires échouent).
+<p>Ce site va peut être mettre fin aux polémiques sur le workflow des versions de PHP. En effet, on se souvient tous de l'<a href="http://www.php.net/archive/2011.php#id2011-08-22-1" target="_blank">affaire récente de PHP 5.3.7</a> qui a révélé de grosses lacunes dans le langage (à savoir que les versions stables de PHP contiennent en réalité de nombreuses fonctions dont les tests unitaires échouent).</p>
 
-J'ai bien envie de tirer alors un petit bilan, qui n'engage que moi, mais sur lequel j'aimerai avoir votre avis. Je pense que depuis PHP 5.3, PHP s'est largement professionnalisé, grâce à d'une part un nouveau modèle Orienté Objet plus riche, d'autre part l'appropriation par les développeurs des outils de PIC (Plate-forme d'intégration continue) et de phpUnit en particulier.
+<p>J'ai bien envie de tirer alors un petit bilan, qui n'engage que moi, mais sur lequel j'aimerai avoir votre avis. Je pense que depuis PHP 5.3, PHP s'est largement professionnalisé, grâce à d'une part un nouveau modèle Orienté Objet plus riche, d'autre part l'appropriation par les développeurs des outils de PIC (Plate-forme d'intégration continue) et de phpUnit en particulier.</p>
 
-Cette professionnalisation a amené de nouveaux types de développeurs PHP, avec de nouvelles exigences, auxquelles PHP tente de répondre aujourd'hui.
+<p>Cette professionnalisation a amené de nouveaux types de développeurs PHP, avec de nouvelles exigences, auxquelles PHP tente de répondre aujourd'hui.</p>
 
-Je pense alors que, oui on peut critiquer le processus actuel de mise en production de PHP, car avec PHP 5.3.7 PHP a été la "risée" du web (j'éxagère exprès, mais disons que ça ne l'aide pas à effacer l'image très négative des développeurs PHP, qui sont souvent considérés comme des "sous-développeurs", même encore aujourd'hui).
+<p>Je pense alors que, oui on peut critiquer le processus actuel de mise en production de PHP, car avec PHP 5.3.7 PHP a été la "risée" du web (j'éxagère exprès, mais disons que ça ne l'aide pas à effacer l'image très négative des développeurs PHP, qui sont souvent considérés comme des "sous-développeurs", même encore aujourd'hui).</p>
 
-Mais c'est sur la bonne voie. PHP se professionnalise, se réorganise (processus de votes, passage de subversion à git...), se réoriente. Le langage répond de mieux en mieux à nos exigences de qualité (il suffit de voir le nombre de type d'<a href="http://www.php.net/~helly/php/ext/spl/classException.html">exceptions dans la SPL</a> par exemple, ou encore l'apparition des Traits dans PHP 5.4). Bref, je trouve dommage de jeter la pierre, comme certains l'ont fait, à un langage qui est dans une phase de transition, et, je l'espère, de transition positive.
+<p>Mais c'est sur la bonne voie. PHP se professionnalise, se réorganise (processus de votes, passage de subversion à git...), se réoriente. Le langage répond de mieux en mieux à nos exigences de qualité (il suffit de voir le nombre de type d'<a href="http://www.php.net/~helly/php/ext/spl/classException.html">exceptions dans la SPL</a> par exemple, ou encore l'apparition des Traits dans PHP 5.4). Bref, je trouve dommage de jeter la pierre, comme certains l'ont fait, à un langage qui est dans une phase de transition, et, je l'espère, de transition positive.</p>
 
-Et vous ? Pensez-vous également que cette phase de transition soit positive ? Il serait aussi intéressant de savoir ce qu'en pensent des développeurs d'autres langages, pour connaître des avis extérieurs...
+<p>Et vous ? Pensez-vous également que cette phase de transition soit positive ? Il serait aussi intéressant de savoir ce qu'en pensent des développeurs d'autres langages, pour connaître des avis extérieurs...</p>
 
-____________
+<p>____________</p>
 
 * note pour  ceux qui ne sont pas familiarisés avec les tests unitaires, il est peut-être temps de vous y mettre :-) . L'outil le plus utilisé est <a href="http://www.phpunit.de/manual/3.5/en/automating-tests.html" target="_blank">PhpUnit</a>, mais un "nouveau" venu qui a l'air bien conçu mais que j'ai pas encore eu l'occasion de tester est <a href="http://www.slideshare.net/impossiblium/atoum-le-framework-de-tests-unitaires-pour-php-53-simple-moderne-et-intuitif" target="_blank">Atoum</a>, de <a href="http://blog.mageekbox.net/" target="_blank">Frédéric Hardy</a>.
 
-Pour générer un compte rendu de la couverture de code avec phpUnit, cette simple commande suffit :
+<p>Pour générer un compte rendu de la couverture de code avec phpUnit, cette simple commande suffit :</p>
 
 {% highlight php %}phpunit  --coverage-html /chemin/du/rapport/ /chemin/des/tests/unitaires{% endhighlight %}

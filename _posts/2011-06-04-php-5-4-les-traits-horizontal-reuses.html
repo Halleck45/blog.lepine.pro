@@ -1,6 +1,7 @@
 ---
+permalink: /php/php-5-4-les-traits-horizontal-reuses
 layout: post
-title: ! 'PHP 5.4 : les Traits (Horizontal Reuses)'
+title:  ! 'PHP 5.4 : les Traits (Horizontal Reuses)'
 categories:
 - Actus PHP
 - PHP
@@ -19,7 +20,7 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-PHP 5.4 offre son lot de nouveautés, dont les <strong>Traits</strong>. Un trait permet d'injecter dans une classe des méthodes d'une ou plusieurs autres "classes" (des traits):
+<p>PHP 5.4 offre son lot de nouveautés, dont les <strong>Traits</strong>. Un trait permet d'injecter dans une classe des méthodes d'une ou plusieurs autres "classes" (des traits):</p>
 
 {% highlight php %}
 trait Color {
@@ -38,7 +39,7 @@ $myCar = new Car;
 echo $myCar->getColor(); // blue
 {% endhighlight %}
 
-On voit ici l'intérêt du trait : <strong>reporter sur une entité un aspect "fonctionnel" d'une classe</strong>. On peut imaginer une classe Car presque vide mais fonctionnelle :
+<p>On voit ici l'intérêt du trait : <strong>reporter sur une entité un aspect "fonctionnel" d'une classe</strong>. On peut imaginer une classe Car presque vide mais fonctionnelle :</p>
 
 
 {% highlight php %}
@@ -65,11 +66,11 @@ class Car {
 {% endhighlight %}
 
 <strong>Attention toutefois</strong> : les Traits rompent avec les aspects classique de la programmation par Interface (de l'orienté objet donc) ou de la programmation par Contrat :
-la classe Car <strong>n'implémente PAS une Interface</strong> Color ou Selling, elles ne fait que <strong>reporter, utiliser, <span style="text-decoration: underline;">horizontalement</span></strong>.
+<p>la classe Car <strong>n'implémente PAS une Interface</strong> Color ou Selling, elles ne fait que <strong>reporter, utiliser, <span style="text-decoration: underline;">horizontalement</span></strong>.</p>
 
-Ce point est très important et dangereux, car en PHP un principe de base est la verticalité des classes et le respect du principe de substitution de Liskov : un objet qui travaille avec un autre objet Y doit pouvoir continuer à fonctionner de la même façon lorsqu'on substitue à cet objet Y un autre objet Z de même Interface.
+<p>Ce point est très important et dangereux, car en PHP un principe de base est la verticalité des classes et le respect du principe de substitution de Liskov : un objet qui travaille avec un autre objet Y doit pouvoir continuer à fonctionner de la même façon lorsqu'on substitue à cet objet Y un autre objet Z de même Interface.</p>
 <h2>Un Trait peut s'assurer de la présence d'une méthode dans la classe</h2>
-Il est possible de s'assurer dans un Trait de la présence de certaines méthodes dans la classe qui l'utilise :
+<p>Il est possible de s'assurer dans un Trait de la présence de certaines méthodes dans la classe qui l'utilise :</p>
 
 {% highlight php %}
 trait Selling {
@@ -88,7 +89,7 @@ class Car {
 
 <h2>Portée des méthodes</h2>
 
-Il est possible de préciser certaines informations lors de la déclaration du trait dans une classe :
+<p>Il est possible de préciser certaines informations lors de la déclaration du trait dans une classe :</p>
 
 {% highlight php %}
 trait Selling {
@@ -108,7 +109,7 @@ $myCar->getConstructorPrice(); // Error
 
 <h2>Priorité des Traits</h2>
 
-Que faire si une classe utilisent des traits qui contiennent les mêmes méthodes ? Tout est prévu :
+<p>Que faire si une classe utilisent des traits qui contiennent les mêmes méthodes ? Tout est prévu :</p>
 
 {% highlight php %}
 trait Selling {
@@ -126,7 +127,7 @@ class Car {
 
 <h2>Cas pratique : le singleton</h2>
 
-Il est temps de voir un cas pratique :-) Il est pratique en PHP de créer une classe abstraite Singleton, que l'on serait tentée d'hériter à chaque fois que l'on a besoin d'un singleton. Malheureusement, PHP ne permet pas l'héritage multiple, et on se prive alors peut-être d'un héritage fonctionnel plus intéressant pour notre classe. L'utilisation des Traits résouts partiellement ce problème :
+<p>Il est temps de voir un cas pratique :-) Il est pratique en PHP de créer une classe abstraite Singleton, que l'on serait tentée d'hériter à chaque fois que l'on a besoin d'un singleton. Malheureusement, PHP ne permet pas l'héritage multiple, et on se prive alors peut-être d'un héritage fonctionnel plus intéressant pour notre classe. L'utilisation des Traits résouts partiellement ce problème :</p>
 
 {% highlight php %}
 trait Singleton {
@@ -141,11 +142,11 @@ class Example extends MotherExample {
 $obj = Example::getInstance();
 {% endhighlight %}
 
-Pratique non ? (n'oubliez pas qu'un singleton c'est plus que ça, là il ne s'agit que d'un exemple)
+<p>Pratique non ? (n'oubliez pas qu'un singleton c'est plus que ça, là il ne s'agit que d'un exemple)</p>
 <h2>Et PHP 5.3 dans tout ça ?</h2>
-Les Traits n'existent pas en PHP 5.3, pourtant cette version du language risque d'être longtemps utilisée. Il existe une astuce simple pour simuler ces traits en PHP 5.x : la relation de Composition et l'utilisation massive des méthodes magiques :
+<p>Les Traits n'existent pas en PHP 5.3, pourtant cette version du language risque d'être longtemps utilisée. Il existe une astuce simple pour simuler ces traits en PHP 5.x : la relation de Composition et l'utilisation massive des méthodes magiques :</p>
 
-Nous allons commencer par créer notre classe Child1, en lui donnant un tableau (nommé $_tTraits) qui contiendra la liste des classes dont on souhaite qu'elle puisse les utiliser comme des Traits.
+<p>Nous allons commencer par créer notre classe Child1, en lui donnant un tableau (nommé $_tTraits) qui contiendra la liste des classes dont on souhaite qu'elle puisse les utiliser comme des Traits.</p>
 
 {% highlight php %}
 
@@ -166,7 +167,7 @@ class Child extends Parent1 {
 }
 {% endhighlight %}
 
-Maintenant, nous allons automatiquement instancier ces classes lors de la construction de l'objet. Ces instances seront stockées, nous nous en serviront pour reporter les actions effectuées sur la classe vers les classes Traits.
+<p>Maintenant, nous allons automatiquement instancier ces classes lors de la construction de l'objet. Ces instances seront stockées, nous nous en serviront pour reporter les actions effectuées sur la classe vers les classes Traits.</p>
 
 {% highlight php %}
 class Child extends Parent1 {
@@ -186,7 +187,7 @@ class Child extends Parent1 {
 }
 {% endhighlight %}
 
-Ensuite, nous allons reporter chaque appel de méthode, si elle n'existe pas dans Child1, vers l'un de ses Traits, si cette méthode existe.
+<p>Ensuite, nous allons reporter chaque appel de méthode, si elle n'existe pas dans Child1, vers l'un de ses Traits, si cette méthode existe.</p>
 
 {% highlight php %}
 /**
@@ -206,9 +207,9 @@ public function __call($funcName, $tArgs) {
 }
 {% endhighlight %}
 
-Désormais, tout appel de méthode de Child1 est reporté, si elle n'existe pas dans Child1 même, vers une de ses classes Traits. Il est donc possible de surcharger une méthode de ces classes Traits simplement en la déclarant dans Child1.
+<p>Désormais, tout appel de méthode de Child1 est reporté, si elle n'existe pas dans Child1 même, vers une de ses classes Traits. Il est donc possible de surcharger une méthode de ces classes Traits simplement en la déclarant dans Child1.</p>
 
-Enfin, nous allons reporter toutes les lectures d'attributes (accesseurs) vers les attributs des instances des classes Traits:
+<p>Enfin, nous allons reporter toutes les lectures d'attributes (accesseurs) vers les attributs des instances des classes Traits:</p>
 
 {% highlight php %}
 /**
@@ -226,7 +227,7 @@ public function __get($varName) {
 }
 {% endhighlight %}
 
-Pour au final avoir:
+<p>Pour au final avoir:</p>
 
 {% highlight php %}
 class Child extends Parent1 {
@@ -276,7 +277,7 @@ class Child extends Parent1 {
 }
 {% endhighlight %}
 
-Nous avons tout ce qu'il nous faut pour pouvoir utiliser notre classe :
+<p>Nous avons tout ce qu'il nous faut pour pouvoir utiliser notre classe :</p>
 
 {% highlight php %}
 $oObject = new Child;
@@ -288,4 +289,4 @@ $oObject->method2(); // affiche "Cette fonction est dans le Trait 1"
 echo $oObject->attribute2; // affiche "demo"
 {% endhighlight %}
 
-Vous voilà prêt à utiliser les Traits en PHP :-) Pour plus d'info, vous pouvez consulter la <a href="https://wiki.php.net/rfc/horizontalreuse">RFC de PHP sur les Traits</a>.
+<p>Vous voilà prêt à utiliser les Traits en PHP :-) Pour plus d'info, vous pouvez consulter la <a href="https://wiki.php.net/rfc/horizontalreuse">RFC de PHP sur les Traits</a>.</p>

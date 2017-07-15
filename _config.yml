@@ -1,8 +1,16 @@
 # General Jekyll Config
-pygments: true
 url: http://blog.lepine.pro
-lsi: false
-exclude: [LICENSE, CNAME, README.md, .gitignore]
+#url: http://localhost:4000
+exclude: [LICENSE, CNAME, README.md, TODO.md, .gitignore, Makefile, Capfile, config]
+
+permalink: :title
+lsi: false # articles associés améliorés (lent)
+markdown: rdiscount
+pygments: true
+paginate: 10
+destination: build
+
+
 
 # Theme customization - please change from the defaults!
 theme:
@@ -30,3 +38,18 @@ theme:
 
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: false
+
+
+
+sitemap:
+    file: "/sitemap.xml"
+    exclude:
+        - "/atom.xml"
+        - "/feed.xml"
+        - "/feed/index.xml"
+        - "/assets/css/all.css"
+        - "/site.json"
+    include_posts:
+        - "/index.html"
+    change_frequency_name: "change_frequency"
+    priority_name: "priority"

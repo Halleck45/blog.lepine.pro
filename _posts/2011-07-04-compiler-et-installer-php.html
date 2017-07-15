@@ -1,6 +1,7 @@
 ---
+permalink: /php/compiler-et-installer-php
 layout: post
-title: Compiler et installer PHP
+title:  Compiler et installer PHP
 categories:
 - PHP
 - Ressources et tutos PHP
@@ -19,100 +20,104 @@ meta:
   seo_noindex: 'false'
   _thumbnail_id: '172'
 ---
-Comme promis, voici le pas-à-pas d'une installation personnalisée de PHP (en l'occurrence PHP 5.4 alpha1).
+<p>Comme promis, voici le pas-à-pas d'une installation personnalisée de PHP (en l'occurrence PHP 5.4 alpha1).</p>
 <!--more-->
 
-Avant toute chose, notez qu'en production il ne faut PAS utiliser une version alpha. Pour installer une version stable, ce code suffira :
+<p>Avant toute chose, notez qu'en production il ne faut PAS utiliser une version alpha. Pour installer une version stable, ce code suffira :</p>
 
 <em><strong>Note</strong> : toutes les commandes ci-dessous sont à utiliser pour Ubuntu</em>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 sudo apt-get install php5
-[/sourcecode]
+{% endhighlight %}
 
-Commencez par télécharger la release : <a title="Lien vers PHP 5.4 alpha" href="http://qa.php.net/" target="_blank">http://qa.php.net/</a>
-Ensuite, il suffit d'extraire le contenu de l'archive dans un dossier temporaire à part :
+<p>Commencez par télécharger la release : <a title="Lien vers PHP 5.4 alpha" href="http://qa.php.net/" target="_blank">http://qa.php.net/</a></p>
+<p>Ensuite, il suffit d'extraire le contenu de l'archive dans un dossier temporaire à part :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 wget http://downloads.php.net/stas/php-5.4.0alpha1.tar.gz
 tar xvzf php-5.4.0alpha1.tar.gz
-[/sourcecode]
+{% endhighlight %}
 <h2>Uniquement en mode console ( cli )</h2>
-Ouvrez un terminal, puis entrez :
+<p>Ouvrez un terminal, puis entrez :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 ./configure --enable-pcntl --enable-shmop --enable-cli --without-apache --disable-cgi --enable-posix
-[/sourcecode]
+{% endhighlight %}
 
 (c'est en l'occurrence ce dont moi j'avais besoin : ligne de commande uniquement + pcntl ; à vous de voir ce qu'il vous faut).
 
-Si tout s'est bien passé, il ne reste plus qu'à préparer l'installation :
+<p>Si tout s'est bien passé, il ne reste plus qu'à préparer l'installation :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 make
-[/sourcecode]
+{% endhighlight %}
 
-C'est sans doute le moment de lancer les tests de PHP. Ces tests unitaires vous permettront de vous assurer que tout s'est bien passé :
+<p>C'est sans doute le moment de lancer les tests de PHP. Ces tests unitaires vous permettront de vous assurer que tout s'est bien passé :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 make test
-[/sourcecode]
+{% endhighlight %}
 
-par contre, ne vous inquiétez pas, c'est plutôt long.
+<p>par contre, ne vous inquiétez pas, c'est plutôt long.</p>
 
-Si tout est ok, il est temps de lancer l'installation de version de PHP :
+<p>Si tout est ok, il est temps de lancer l'installation de version de PHP :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 sudo make install
-[/sourcecode]
+{% endhighlight %}
 
-Pour vérifier votre version de PHP (cli), c'est simple :
+<p>Pour vérifier votre version de PHP (cli), c'est simple :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 php -v
 //
 PHP 5.4.0alpha1 (cli) (built: Jun 29 2011 13:24:55)
 Copyright (c) 1997-2011 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2011 Zend Technologies
-[/sourcecode]
+{% endhighlight %}
 
-Je ne connais pas la procédure sous Windows, et je ne suis même pas sûr que ce soit possible (peut-être avec Visual Studio ?), mais si quelqu'un veut bien l'expliquer ...
+<p>Je ne connais pas la procédure sous Windows, et je ne suis même pas sûr que ce soit possible (peut-être avec Visual Studio ?), mais si quelqu'un veut bien l'expliquer ...</p>
 
-Edit: apparemment c'est <a href="http://www.artfulsoftware.com/php_mysql_win.html">possible sous Windows</a>. Des retours ?
+<p>Edit: apparemment c'est <a href="http://www.artfulsoftware.com/php_mysql_win.html">possible sous Windows</a>. Des retours ?</p>
 
 <h2>Mode web (Apache)</h2>
-Bon, lancer un script php c'est souvent pas suffisant, c'est mieux quand un site web tourne avec :-p
+<p>Bon, lancer un script php c'est souvent pas suffisant, c'est mieux quand un site web tourne avec :-p</p>
 
-Dans ce cas, on va légèrement changer la configuration, pour créer en même temps le module php pour apache (le with-apxs2):
+<p>Dans ce cas, on va légèrement changer la configuration, pour créer en même temps le module php pour apache (le with-apxs2):</p>
 
-[parenthèse]
-Si vous n'avez pas apxs2, utilisez commande suivante :
+Petite parenthèse:
+
+<p>Si vous n'avez pas apxs2, utilisez commande suivante :</p>
+
+{% highlight bash %}
 sudo apt-get install apache2-threaded-dev
 un which apxs2 devrait vous retourner le chemin complet
-[/parenthèse]
+{% endhighlight %}
 
-[sourcecode language="plain"]
+
+{% highlight bash %}
 ./configure --with-mysql=shared --with-pdo-mysql  --with-apxs2=/usr/bin/apxs2 --enable-xml --with-zlib
 copier le libphp5.xo
 make
-[/sourcecode]
+{% endhighlight %}
 
-Il faut copier le module qui a été généré par le make (dans libs/libphp5.so) dans le répertoire des modules apache :
+<p>Il faut copier le module qui a été généré par le make (dans libs/libphp5.so) dans le répertoire des modules apache :</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 sudo cp libs/libphp5.so /usr/lib/apache2/modules/libphp5.so
-[/sourcecode]
+{% endhighlight %}
 
-et bien sûr, redémarrer Apache
+<p>et bien sûr, redémarrer Apache</p>
 
-[sourcecode language="plain"]
+{% highlight bash %}
 sudo /etc/init.d/apache2 restart
-[/sourcecode]
+{% endhighlight %}
 
-le phpinfo() vous affiche désormais :
-<p style="text-align: center;"><a href="http://blog.lepine.pro/wp-content/uploads/2011/07/apercu-phpinfo-apres-compilation2.png"><img class="aligncenter size-full wp-image-172" title="Aperçu phpinfo() après compilation" src="http://blog.lepine.pro/wp-content/uploads/2011/07/apercu-phpinfo-apres-compilation2.png" alt="Aperçu phpinfo() après compilation" width="503" height="413" /></a></p>
-<p style="text-align: center;"><a href="http://blog.lepine.pro/wp-content/uploads/2011/07/apercu-phpinfo-apres-compilation.png">
+<p>le phpinfo() vous affiche désormais :</p>
+<p style="text-align: center;"><a href="{{site.url}}/images/2011-07-apercu-phpinfo-apres-compilation2.png"><img class="aligncenter size-full wp-image-172" title="Aperçu phpinfo() après compilation" src="{{site.url}}/images/2011-07-apercu-phpinfo-apres-compilation2.png" alt="Aperçu phpinfo() après compilation" width="503" height="413" /></a></p>
+<p style="text-align: center;"><a href="{{site.url}}/images/2011-07-apercu-phpinfo-apres-compilation.png">
 </a></p>
-PS : ce n'est pas forcément la meilleure configuration, l'intérêt de compiler est justement de prendre ce dont vous avez besoin; A vous de voir quels extensions vous sont utile ; n'hésitez pas à faire un tour dans votre phpinfo() avant pour le savoir :-)
+<p>PS : ce n'est pas forcément la meilleure configuration, l'intérêt de compiler est justement de prendre ce dont vous avez besoin; A vous de voir quels extensions vous sont utile ; n'hésitez pas à faire un tour dans votre phpinfo() avant pour le savoir :-)</p>
 
-PS : en même temps que j'ai publié ce billet, notre cher Rasmus Lerdorf a publié une <a href="http://codepad.org/SXfRlJ0w" target="_blank">config pour tester PHP 5.4</a>.
+<p>PS : en même temps que j'ai publié ce billet, notre cher Rasmus Lerdorf a publié une <a href="http://codepad.org/SXfRlJ0w" target="_blank">config pour tester PHP 5.4</a>.</p>

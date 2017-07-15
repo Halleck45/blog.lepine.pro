@@ -1,6 +1,7 @@
 ---
+permalink: /php/les-principales-causes-dechec-du-bdd
 layout: post
-title: Les principales causes d'échec du BDD
+title:  Les principales causes d'échec du BDD
 categories:
 - PHP
 - Ressources et tutos PHP
@@ -19,15 +20,15 @@ meta:
   _syntaxhighlighter_encoded: '1'
   _edit_last: '1'
 ---
-Bonjour à tous ! Alors bien évidemment, il serait absurde de vouloir lister toute les erreurs possibles, et totalement illusoire de croire que j'en n'en fait plus ; mais je crois pouvoir donner quelques exemples de ce qu'il faut éviter à tout prix lorsque l'on fait du développement piloté par le comportement avec Behat.
+<p>Bonjour à tous ! Alors bien évidemment, il serait absurde de vouloir lister toute les erreurs possibles, et totalement illusoire de croire que j'en n'en fait plus ; mais je crois pouvoir donner quelques exemples de ce qu'il faut éviter à tout prix lorsque l'on fait du développement piloté par le comportement avec Behat.</p>
 
-Petit rappel : Behat, c'est quoi ? En un mot, c'est un outil qui va vous permettre de pratiquer du BDD (Behavior Driven Development) en PHP. En d'autres mots, il va vous permettre de tester automatiquement si le développement d'un produit correspond aux spécifications qu'en a donné le client. Vous trouverez une <a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum">description beaucoup plus complète ici</a>.
+<p>Petit rappel : Behat, c'est quoi ? En un mot, c'est un outil qui va vous permettre de pratiquer du BDD (Behavior Driven Development) en PHP. En d'autres mots, il va vous permettre de tester automatiquement si le développement d'un produit correspond aux spécifications qu'en a donné le client. Vous trouverez une <a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="/php/behat-jour-1-comment-tester-son-produit-scrum">description beaucoup plus complète ici</a>.</p>
 
-Bref, c'est génial, c'est simple à utiliser... mais c'est extrêmement difficile à utiliser correctement. Et c'est catastrophique si c'est mal mal utilisé ! Pourquoi ?
+<p>Bref, c'est génial, c'est simple à utiliser... mais c'est extrêmement difficile à utiliser correctement. Et c'est catastrophique si c'est mal mal utilisé ! Pourquoi ?</p>
 
-Behat a deux côtés : un côté fonctionnel (rédacteur), rédigé avec la syntaxe de Gherkin, un côté "développeur", en PHP.
+<p>Behat a deux côtés : un côté fonctionnel (rédacteur), rédigé avec la syntaxe de Gherkin, un côté "développeur", en PHP.</p>
 
-De ce que je vois, le plus souvent <span style="text-decoration: underline;">le fonctionnel</span> (au choix) :
+<p>De ce que je vois, le plus souvent <span style="text-decoration: underline;">le fonctionnel</span> (au choix) :</p>
 <ul>
 	<li><strong>ne dispose pas du temps nécessaire</strong> pour se consacrer à la rédaction des tests d'acceptation (fonctionnalité)</li>
 	<li>n'a <strong>pas une vision assez clair de son produit</strong> pour pouvoir le découper fonctionnellement</li>
@@ -35,18 +36,18 @@ De ce que je vois, le plus souvent <span style="text-decoration: underline;">le 
 	<li><strong>confond contrôle sur les données et test sur le comportement</strong> (trèèès souvent!)</li>
 	<li>ou, plus rarement, confond socle technique et fonctionnalité</li>
 </ul>
-De ce que je constate, <span style="text-decoration: underline;">le développeur</span> (au choix) :
+<p>De ce que je constate, <span style="text-decoration: underline;">le développeur</span> (au choix) :</p>
 <ul>
 	<li>est obligé de se substituer au client dans la rédaction des tests, ce qui n'est <strong>pas son métier</strong> (pas simple donc)</li>
 	<li><strong>n'arrive pas à s'abstraire du technique</strong></li>
 	<li><strong>se focalise sur le cheminement</strong> (comment arriver là?) et l'emplacement dans l'application</li>
 	<li>a tendance à <strong>écrire du code PHP</strong> plutôt que de réutiliser des étapes existantes</li>
 </ul>
-Bon, le constant est sévère, mais je généralise bien sûr. Cependant il est très difficile d'échapper à ça.
+<p>Bon, le constant est sévère, mais je généralise bien sûr. Cependant il est très difficile d'échapper à ça.</p>
 
-Je passe aux exemples, tirés d'un code vu ce matin même.
+<p>Je passe aux exemples, tirés d'un code vu ce matin même.</p>
 <h2>Décrire une fonctionnalité : pas si simple</h2>
-Prenons ce bout de fonctionnalité que j'ai reçu comme spécification :
+<p>Prenons ce bout de fonctionnalité que j'ai reçu comme spécification :</p>
 
 {% highlight gherkin %}Feature: access to the task's page from a list of tasks
 In order to see a task
@@ -67,16 +68,16 @@ Examples:
 | task1       | 1   |
 | task2       | 2   |{% endhighlight %}
 
-Bon, ça marche. Mais quand on y regarde plus près :
+<p>Bon, ça marche. Mais quand on y regarde plus près :</p>
 <ul>
 	<li>on se consacre plus aux étapes permettant d'accéder aux conditions du scénario qu'au scénario lui-même</li>
 	<li>si la structure de la page change, le test est obsolète</li>
 	<li>on ne teste pas le comportement, mais la donnée. Si la donnée change, le test est obsolète</li>
 	<li>si l'url change (rewriting, etc), le test est obsolète</li>
 </ul>
-Bref, <span style="text-decoration: underline;">le test va rapidement devenir obsolète.</span>
+<p>Bref, <span style="text-decoration: underline;">le test va rapidement devenir obsolète.</span></p>
 
-Il est difficile dans ce cas de voir comment s'abstraire des données (liaison id et task). Après réflexion, on peut suggérer d'évoluer vers ceci :
+<p>Il est difficile dans ce cas de voir comment s'abstraire des données (liaison id et task). Après réflexion, on peut suggérer d'évoluer vers ceci :</p>
 
 {% highlight gherkin %}Feature: access to the task's page from a list of tasks
 In order to see a task
@@ -97,15 +98,15 @@ Examples:
 | task1      |
 | task2      |{% endhighlight %}
 
-On a donc opéré des modifications afin de rendre le test indépendant du jeu de données ou de l'interface de l'application.
+<p>On a donc opéré des modifications afin de rendre le test indépendant du jeu de données ou de l'interface de l'application.</p>
 
-Ce que je dis souvent, c'est que, en théorie, un test de comportement est valide quelque soit le support :<strong> que l'on passe d'un site web à une application mobile, le changement de support ne change pas la fonctionnalité ou les scénarios !</strong> Ca ne change que leur implémentation.
+<p>Ce que je dis souvent, c'est que, en théorie, un test de comportement est valide quelque soit le support :<strong> que l'on passe d'un site web à une application mobile, le changement de support ne change pas la fonctionnalité ou les scénarios !</strong> Ca ne change que leur implémentation.</p>
 
-On pourra certainement trouver encore à redire, mais la fonctionnalité, telle qu'elle est décrite, est désormais valable quelque soit son implémentation technique. Seul son comportement est ici spécifié. Elle a donc une forte probabilité d'être viable et pertinente dans le temps.
+<p>On pourra certainement trouver encore à redire, mais la fonctionnalité, telle qu'elle est décrite, est désormais valable quelque soit son implémentation technique. Seul son comportement est ici spécifié. Elle a donc une forte probabilité d'être viable et pertinente dans le temps.</p>
 <h2>Implémenter une définition de fonctionnalité : pas plus facile</h2>
-On a vu un exemple de fonctionnalité à risque. Passons de l'autre côté et mettons-nous du point de vue du développeur. De la même façon, voici une implémentation possible :
+<p>On a vu un exemple de fonctionnalité à risque. Passons de l'autre côté et mettons-nous du point de vue du développeur. De la même façon, voici une implémentation possible :</p>
 
-Note : en l’occurrence, la liste des tâches n'est possible dans l'application qu'après  avoir effectué une recherche.
+<p>Note : en l’occurrence, la liste des tâches n'est possible dans l'application qu'après  avoir effectué une recherche.</p>
 
 {% highlight php %}/**
  * @Given /^I see a list of tasks, including the task "([^"]*)"$/
@@ -126,16 +127,16 @@ public function iSeeAListOfTasksIncludingTheTask($reference)
     }
 }{% endhighlight %}
 
-On constate différente choses :
+<p>On constate différente choses :</p>
 <ul>
 	<li>Que de code ! C'est long à écrire</li>
 	<li>Que de code ! Et pas réutilisable en plus !</li>
 	<li>Que de code ! Et qu'est-ce qui se passe si l'interface HTML change ?</li>
 	<li>On ne comprend pas ce qui se passe au premier coup d'oeil</li>
 </ul>
-L'implémentation fonctionne, mais est peu viable dans le temps, et surtout on a perdu du temps pour l'écrire (c'est fastidieux de devoir manipuler le navigateur à la main).
+<p>L'implémentation fonctionne, mais est peu viable dans le temps, et surtout on a perdu du temps pour l'écrire (c'est fastidieux de devoir manipuler le navigateur à la main).</p>
 
-Là où Behat est fort, c'est qu'il nous permet, en PHP, de faire comme si on écrivait des étapes de scénario "à la main". Ca fait gagner un temps monstre et permet de réutiliser les définitions existantes :
+<p>Là où Behat est fort, c'est qu'il nous permet, en PHP, de faire comme si on écrivait des étapes de scénario "à la main". Ca fait gagner un temps monstre et permet de réutiliser les définitions existantes :</p>
 
 {% highlight php %}
 /**
@@ -149,13 +150,13 @@ public function iSeeAListOfTasksIncludingTheTask($reference) {
     );
 }{% endhighlight %}
 
-Pour s'aider, le développeur peut s'appuyer (si tout se passe bien) sur la personne qui a rédigé le scénario, qui l'aidera à découper sa définition en différentes étapes.
+<p>Pour s'aider, le développeur peut s'appuyer (si tout se passe bien) sur la personne qui a rédigé le scénario, qui l'aidera à découper sa définition en différentes étapes.</p>
 
-Attention, contrairement au scénario Gherkin, ce code peut être amené parfois à évoluer. Par  exemple, si on ajoute un scénario pour la recherche de tâche, avec cette étape :
+<p>Attention, contrairement au scénario Gherkin, ce code peut être amené parfois à évoluer. Par  exemple, si on ajoute un scénario pour la recherche de tâche, avec cette étape :</p>
 
 {% highlight gherkin %}When I search the task ""{% endhighlight %}
 
-On pourra dès lors écrire :
+<p>On pourra dès lors écrire :</p>
 
 {% highlight php %}/**
 * @Given /^I search the task "([^"]*)"$/
@@ -177,14 +178,14 @@ public function iSeeAListOfTasksIncludingTheTask($reference) {
     );
 }{% endhighlight %}
 
-Le développeur peut donc, sans architecture ou code complexe, mais simplement en utilisant les objets Etapes fournis par Behat, organiser ses définitions de façon à les rendre réutilisables.
+<p>Le développeur peut donc, sans architecture ou code complexe, mais simplement en utilisant les objets Etapes fournis par Behat, organiser ses définitions de façon à les rendre réutilisables.</p>
 <h2>Le mot de la fin</h2>
-Bref, ça semble évident, mais quand on fait du BDD... et bien il faut se focaliser le le Comportement. Ce n'est pas facile, et contre intuitif pour beaucoup de monde. Toutefois, le rédacteur du test peut s'aider de la structure de la fonctionnalité (comment la décrire, qui y participe, quels en sont les bénéfices, puis quels cas d'utilisation je peux en donner).
+<p>Bref, ça semble évident, mais quand on fait du BDD... et bien il faut se focaliser le le Comportement. Ce n'est pas facile, et contre intuitif pour beaucoup de monde. Toutefois, le rédacteur du test peut s'aider de la structure de la fonctionnalité (comment la décrire, qui y participe, quels en sont les bénéfices, puis quels cas d'utilisation je peux en donner).</p>
 
-En d'autres mots, le "rédacteur" ne doit pas s'appuyer sur ce qu'il connaît de son application (emplacement, design...), mais sur la vision du produit (comment ça se passe ? Avec quel gain pour l'utilisateur ?). En clair :
+<p>En d'autres mots, le "rédacteur" ne doit pas s'appuyer sur ce qu'il connaît de son application (emplacement, design...), mais sur la vision du produit (comment ça se passe ? Avec quel gain pour l'utilisateur ?). En clair :</p>
 <blockquote>Le rédacteur ne doit pas s'appuyer sur ce qu'il connaît de son application mais sur la vision du produit</blockquote>
-Le développeur, lui, doit prendre l'habitude de ne pas se lancer tête baissée dans le code, au risque de consacrer trop de temps et d'énergie à l'utilisation de Behat. Certes il doit écrire ce code, mais il ne code plus pour interagir avec un autre code (comme lorsqu'il le fait pour un test unitaire par exemple), mais pour interagir avec un produit. En clair :
+<p>Le développeur, lui, doit prendre l'habitude de ne pas se lancer tête baissée dans le code, au risque de consacrer trop de temps et d'énergie à l'utilisation de Behat. Certes il doit écrire ce code, mais il ne code plus pour interagir avec un autre code (comme lorsqu'il le fait pour un test unitaire par exemple), mais pour interagir avec un produit. En clair :</p>
 <blockquote>Le développeur n'interagit plus avec du code mais avec un produit</blockquote>
-Ceci dit, félicitations d'avoir lu ce billet jusqu'au bout :-) .
+<p>Ceci dit, félicitations d'avoir lu ce billet jusqu'au bout :-) .</p>
 
-Je ne prétend pas avoir le recul suffisant, mais je crois que ces constats s'appliquent généralement. C'est le cas pour vous aussi ? Vous avez vu d'autres écueils courants ? Ou au contraire, pour vous tout a roulé tout de suite ?
+<p>Je ne prétend pas avoir le recul suffisant, mais je crois que ces constats s'appliquent généralement. C'est le cas pour vous aussi ? Vous avez vu d'autres écueils courants ? Ou au contraire, pour vous tout a roulé tout de suite ?</p>

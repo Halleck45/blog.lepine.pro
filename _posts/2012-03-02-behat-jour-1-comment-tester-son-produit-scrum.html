@@ -1,6 +1,7 @@
 ---
+permalink: /php/behat-jour-1-comment-tester-son-produit-scrum
 layout: post
-title: ! 'Behat - jour 1 : comment tester son produit SCRUM ?'
+title:  ! 'Behat - jour 1 : comment tester son produit SCRUM ?'
 categories:
 - industrialisation
 - PHP
@@ -20,29 +21,29 @@ meta:
   seo_noindex: 'false'
   _syntaxhighlighter_encoded: '1'
 ---
-Ce billet démarre une série consacrée à cet outil que je trouve génial : <a title="Behat - site officiel" href="http://behat.org/" target="_blank">Behat</a>. Désolé pour la longueur, mais le sujet est suffisamment intéressant à mon goût pour être creusé comme il faut. :-)
+<p>Ce billet démarre une série consacrée à cet outil que je trouve génial : <a title="Behat - site officiel" href="http://behat.org/" target="_blank">Behat</a>. Désolé pour la longueur, mais le sujet est suffisamment intéressant à mon goût pour être creusé comme il faut. :-)</p>
 
-Pour ce premier jour avec Behat, on va se placer du côté du client uniquement. la partie développeur viendra dans le prochain billet. Nous allons donc découvrir Behat pas à pas.
+<p>Pour ce premier jour avec Behat, on va se placer du côté du client uniquement. la partie développeur viendra dans le prochain billet. Nous allons donc découvrir Behat pas à pas.</p>
 
-Behat, c'est quoi ? Pour le comprendre, il faut d'abord faire un tour du côté des méthodes agiles, et particulièrement du côté de SCRUM
+<p>Behat, c'est quoi ? Pour le comprendre, il faut d'abord faire un tour du côté des méthodes agiles, et particulièrement du côté de SCRUM</p>
 <h2>Scrum - la notion de produit et de test d'acceptation</h2>
 <em>J'abstrais volontairement une partie des aspects de Scrum pour me consacrer uniquement aux points déterminants pour comprendre les enjeux de Behat. Vous trouverez plus de détails sur Scrum <a href="http://fr.wikipedia.org/wiki/Scrum_%28m%C3%A9thode%29">ici</a>).</em>
 
-Scrum, c'est avant tout un état d'esprit, mais c'est aussi un exemple d'organisation. Imaginez un peintre à qui l'on demande de peindre Mona Lisa. Si on fait l'analogie avec le développement, la manière classique consiste à peindre le tableau de haut en bas, comme le ferait une imprimante. Le tableau ne pourra être livré qu'une fois la peinture entièrement achevée, de bas en haut.
+<p>Scrum, c'est avant tout un état d'esprit, mais c'est aussi un exemple d'organisation. Imaginez un peintre à qui l'on demande de peindre Mona Lisa. Si on fait l'analogie avec le développement, la manière classique consiste à peindre le tableau de haut en bas, comme le ferait une imprimante. Le tableau ne pourra être livré qu'une fois la peinture entièrement achevée, de bas en haut.</p>
 
 <em>(les images proviennent de <a href="http://www.agileproductdesign.com/blog/dont_know_what_i_want.html">Jeff Patton</a>)</em>
 
-<span style="color: #ff0000;"><strong><a href="http://blog.lepine.pro/wp-content/uploads/2012/03/incrementing.jpg"><img class="aligncenter size-medium wp-image-366" title="Le développement incrémental" src="http://blog.lepine.pro/wp-content/uploads/2012/03/incrementing-300x117.jpg" alt="Le développement incrémental - mona lisa" width="300" height="117" /></a></strong></span>
+<span style="color: #ff0000;"><strong><a href="{{site.url}}/images/2012-03-incrementing.jpg"><img class="aligncenter size-medium wp-image-366" title="Le développement incrémental" src="{{site.url}}/images/2012-03-incrementing.jpg" alt="Le développement incrémental - mona lisa" width="300" height="117" /></a></strong></span>
 
-Au contraire, en Scrum, on va commencer par esquisser les traits de Mona Lisa, puis on va demander au client si ça lui convient. Puis on va affiner le trait et le dessin. On redemande au client si ça lui convient. Enfin on va pouvoir ajouter des touches de couleurs, etc. C'est ce qu'on appelle un <strong>développement itératif</strong>. A chaque itération ("<strong>release</strong>"), le client valide le produit fourni et décide ou non de continuer. S'il s'arrête, le produit est simplement moins riche qu'escompté, mais il est livrable et <strong>utilisable par le client</strong>.
+<p>Au contraire, en Scrum, on va commencer par esquisser les traits de Mona Lisa, puis on va demander au client si ça lui convient. Puis on va affiner le trait et le dessin. On redemande au client si ça lui convient. Enfin on va pouvoir ajouter des touches de couleurs, etc. C'est ce qu'on appelle un <strong>développement itératif</strong>. A chaque itération ("<strong>release</strong>"), le client valide le produit fourni et décide ou non de continuer. S'il s'arrête, le produit est simplement moins riche qu'escompté, mais il est livrable et <strong>utilisable par le client</strong>.</p>
 
-<span style="color: #ff0000;"><strong><a href="http://blog.lepine.pro/wp-content/uploads/2012/03/iterating.jpg"><img class="aligncenter size-medium wp-image-367" title="Le développement itératif" src="http://blog.lepine.pro/wp-content/uploads/2012/03/iterating-300x121.jpg" alt="Le développement itératif - mona lisa" width="300" height="121" /></a></strong></span>
+<span style="color: #ff0000;"><strong><a href="{{site.url}}/images/2012-03-iterating.jpg"><img class="aligncenter size-medium wp-image-367" title="Le développement itératif" src="{{site.url}}/images/2012-03-iterating.jpg" alt="Le développement itératif - mona lisa" width="300" height="121" /></a></strong></span>
 
-En Scrum, le client est donc le maître du produit qu'on lui fourni : il a la main dessus et doit participer activement a sa description fonctionnelle. On dit alors qu'il est le propriétaire du produit (<strong>Product Owner</strong>).
+<p>En Scrum, le client est donc le maître du produit qu'on lui fourni : il a la main dessus et doit participer activement a sa description fonctionnelle. On dit alors qu'il est le propriétaire du produit (<strong>Product Owner</strong>).</p>
 
-Pour décrire, justement, son produit, le client fourni généralement des spécifications fonctionnelles détaillées (SFD - qui, au passage, ne sont en général jamais lues car trop longues). Cette fois le client va au contraire décrire des <strong>cas d'utilisation</strong> de son produit. Pour savoir si le produit livré correspond à son besoin, il lui suffira de s'assurer que les cas d'utilisation sont respectés. Ces cas d'utilisation, garants du produit, sont regroupés dans tests d'acceptations du produit.
+<p>Pour décrire, justement, son produit, le client fourni généralement des spécifications fonctionnelles détaillées (SFD - qui, au passage, ne sont en général jamais lues car trop longues). Cette fois le client va au contraire décrire des <strong>cas d'utilisation</strong> de son produit. Pour savoir si le produit livré correspond à son besoin, il lui suffira de s'assurer que les cas d'utilisation sont respectés. Ces cas d'utilisation, garants du produit, sont regroupés dans tests d'acceptations du produit.</p>
 
-A chaque itération (release), <strong>le produit livré est donc comparé au produit souhaité</strong> au moyen de ces <strong>tests d'acceptation</strong>. C'est la garantie :
+<p>A chaque itération (release), <strong>le produit livré est donc comparé au produit souhaité</strong> au moyen de ces <strong>tests d'acceptation</strong>. C'est la garantie :</p>
 <ul>
 	<li>de satisfaire la demande initiale du client</li>
 	<li>d'éviter les quiproquos ("mais moi je voulais pas ça")</li>
@@ -50,24 +51,24 @@ A chaque itération (release), <strong>le produit livré est donc comparé au pr
 	<li>d'éviter l'ajout de nouvelles fonctionnalités par le client au fur et à mesure du développement (mais il pourra ajouter des fonctionnalités lors d'une prochaine release)</li>
 </ul>
 <h2>Behat dans tout ça ?</h2>
-Behat, c'est l'outil PHP qui va permettre de<strong> faire le lien entre ces tests d'acceptation</strong>, écrits par le Product Owner,<strong> et le produit</strong> que moi, développeur, je lui livre. Bien plus,<strong> il permet de lancer ces tests d'acceptation de manière automatisée</strong> sur le produit et d'en fournir un rapport lisible par n'importe quel client. A chaque release, en un coup d'oeil, le client voit si ce qu'on lui a livré correspond à son besoin.
+<p>Behat, c'est l'outil PHP qui va permettre de<strong> faire le lien entre ces tests d'acceptation</strong>, écrits par le Product Owner,<strong> et le produit</strong> que moi, développeur, je lui livre. Bien plus,<strong> il permet de lancer ces tests d'acceptation de manière automatisée</strong> sur le produit et d'en fournir un rapport lisible par n'importe quel client. A chaque release, en un coup d'oeil, le client voit si ce qu'on lui a livré correspond à son besoin.</p>
 
-Attention ! <strong>Behat ne se substitue pas aux tests unitaires</strong>. Non, au contraire. Ce qu'il faut se dire c'est que<span style="text-decoration: underline;"> le client n'en a rien à faire de savoir  que le code est de bonne qualité</span> ; ce qu'il veut c'est un produit fini, fonctionnel, conforme à ses souhaits initiaux. Le test unitaire, lui, va nous permettre de nous assurer de l'intégrité du code pour des fonctionnalités sensibles ou complexes. Il ne teste pas le comportement du produit (<span style="text-decoration: underline;">mais le test unitaire reste cependant indispensable</span>)
+<p>Attention ! <strong>Behat ne se substitue pas aux tests unitaires</strong>. Non, au contraire. Ce qu'il faut se dire c'est que<span style="text-decoration: underline;"> le client n'en a rien à faire de savoir  que le code est de bonne qualité</span> ; ce qu'il veut c'est un produit fini, fonctionnel, conforme à ses souhaits initiaux. Le test unitaire, lui, va nous permettre de nous assurer de l'intégrité du code pour des fonctionnalités sensibles ou complexes. Il ne teste pas le comportement du produit (<span style="text-decoration: underline;">mais le test unitaire reste cependant indispensable</span>)</p>
 
-Le développeur a en effet souvent tendance à détourner ses tests unitaires de leur fonction initiale (tester du code), pour tester des scénarios (par exemple qu'un Controlleur a le comportement attendu). Ce n'est pas aux outils de tests unitaires de faire cela. Heureusement, Behat est là pour ça ;-) !
+<p>Le développeur a en effet souvent tendance à détourner ses tests unitaires de leur fonction initiale (tester du code), pour tester des scénarios (par exemple qu'un Controlleur a le comportement attendu). Ce n'est pas aux outils de tests unitaires de faire cela. Heureusement, Behat est là pour ça ;-) !</p>
 <h2>Comment ça marche ?</h2>
-Bon, c'est bien, mais plus concrètement ça marche comment ?
+<p>Bon, c'est bien, mais plus concrètement ça marche comment ?</p>
 
-Et bien le Product Owner va rédiger ses tests d'acceptation en langue naturelle. Chaque fonctionnalité va être écrite dans un <strong><fichier nom_de_la_fonctionnalite.feature></strong>.
+<p>Et bien le Product Owner va rédiger ses tests d'acceptation en langue naturelle. Chaque fonctionnalité va être écrite dans un <strong><fichier nom_de_la_fonctionnalite.feature></strong>.</p>
 
-Il commencer par une description de sa <strong>fonctionnalité</strong> :
+<p>Il commencer par une description de sa <strong>fonctionnalité</strong> :</p>
 
 {% highlight gherkin %}Fonctionnalité: Avoir un compte bancaire
   Afin d'offrir aux utilisateurs la possibilité d'avoir un compte bancaire
   Etant donné que je suis inscrit
   Je dois être capable d'ajouter ou de retirer de l'argent sur mon compte{% endhighlight %}
 
-Cette description permet de comprendre la fonctionnalité de manière générale. Ensuite il va fournir des cas d'utilisation qui vont décrire cette fonctionnalité. On parle alors de "<strong>Scénario</strong>". Chaque scénario est défini par :
+<p>Cette description permet de comprendre la fonctionnalité de manière générale. Ensuite il va fournir des cas d'utilisation qui vont décrire cette fonctionnalité. On parle alors de "<strong>Scénario</strong>". Chaque scénario est défini par :</p>
 <ul>
 	<li>un contexte (étant donné que)</li>
 	<li>des événements déclencheurs (quand)</li>
@@ -81,7 +82,7 @@ Cette description permet de comprendre la fonctionnalité de manière générale
   Alors mon solde doit être de "15" euros
 {% endhighlight %}
 
-Il va pouvoir combiner les scénarios :
+<p>Il va pouvoir combiner les scénarios :</p>
 
 {% highlight gherkin %}Scénario:
   Etant donné que j'ai un compte bancaire
@@ -89,7 +90,7 @@ Il va pouvoir combiner les scénarios :
   Quand j'ajoute "5" euros sur mon compte
   Alors mon solde doit être de "15" euros
 
-Scénario:
+<p>Scénario:</p>
   Etant donné que j'ai un compte bancaire
   Et que le solde de mon compte est de "10" euros
   Quand je retire "50" euros sur mon compte
@@ -97,9 +98,9 @@ Scénario:
   Et mon solde doit être de "10" euros
 {% endhighlight %}
 
-Quand je lancerai Behat, si mon application fonctionne correctement, ce scénario va être valide et donc coloré en vert à l'écran.Sinon il sera rouge.
+<p>Quand je lancerai Behat, si mon application fonctionne correctement, ce scénario va être valide et donc coloré en vert à l'écran.Sinon il sera rouge.</p>
 
-Mieux encore, le Product Owner va pouvoir insérer des exemples. Behat va automatiquement lancer ces tests pour chaque exemple fourni :
+<p>Mieux encore, le Product Owner va pouvoir insérer des exemples. Behat va automatiquement lancer ces tests pour chaque exemple fourni :</p>
 
 {% highlight gherkin %}Scénario Outline:
   Etant donné que j'ai un compte bancaire
@@ -115,10 +116,10 @@ Mieux encore, le Product Owner va pouvoir insérer des exemples. Behat va automa
     | 0            | 10      | 10         |
 {% endhighlight %}
 
-Pas mal non ? Je vais avoir un rapport visuel (une page web par exemple) de l'état de mon produit par rapport à ces tests :
+<p>Pas mal non ? Je vais avoir un rapport visuel (une page web par exemple) de l'état de mon produit par rapport à ces tests :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-report1.jpg"><img class="aligncenter size-medium wp-image-375" title="Exemple de rapport de test d'acceptation avec Behat" src="http://blog.lepine.pro/wp-content/uploads/2012/03/behat-report1-300x263.jpg" alt="Exemple de rapport de test d'acceptation avec Behat" width="300" height="263" /></a>
+<a href="{{site.url}}/images/2012-03-behat-report1.jpg"><img class="aligncenter size-medium wp-image-375" title="Exemple de rapport de test d'acceptation avec Behat" src="{{site.url}}/images/2012-03-behat-report1.jpg" alt="Exemple de rapport de test d'acceptation avec Behat" width="300" height="263" /></a>
 
-Maintenant vous avez compris le principe du test d'acceptation. Vous vous êtes mis dans la peau d'un Product Owner qui rédige ses tests d'acceptation. Si vous êtes Product Owner, vous n'avez pas besoin d'aller plus loin. Si vous êtes développeur ou Scrum Master, on verra ensemble le versant technique de Behat dans le prochain Billet ;-)
+<p>Maintenant vous avez compris le principe du test d'acceptation. Vous vous êtes mis dans la peau d'un Product Owner qui rédige ses tests d'acceptation. Si vous êtes Product Owner, vous n'avez pas besoin d'aller plus loin. Si vous êtes développeur ou Scrum Master, on verra ensemble le versant technique de Behat dans le prochain Billet ;-)</p>
 
-Edit: le jour 2 est prêt : <a href="http://blog.lepine.pro/php/behat-jour-2-installation-et-premiers-tests" title="Behat – jour 2 : Installation et premiers tests">Behat – jour 2 : Installation et premiers tests</a>
+<p>Edit: le jour 2 est prêt : <a href="/php/behat-jour-2-installation-et-premiers-tests" title="Behat – jour 2 : Installation et premiers tests">Behat – jour 2 : Installation et premiers tests</a></p>

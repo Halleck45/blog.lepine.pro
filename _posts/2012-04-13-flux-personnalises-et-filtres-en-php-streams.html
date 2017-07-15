@@ -1,6 +1,7 @@
 ---
+permalink: /php/flux-personnalises-et-filtres-en-php-streams
 layout: post
-title: Flux personnalisés et filtres en PHP (Streams)
+title:  Flux personnalisés et filtres en PHP (Streams)
 categories:
 - PHP
 - Ressources et tutos PHP
@@ -17,22 +18,22 @@ meta:
   seo_noindex: 'false'
   _syntaxhighlighter_encoded: '1'
 ---
-Lorsque vous faites un fopen(), ou toute autre fonction équivalente, PHP vous retourne une ressource, sous forme d'un flux. Il <a href="http://www.php.net/manual/en/wrappers.php" target="_blank">existe différent types de flux en PHP</a> :
+<p>Lorsque vous faites un fopen(), ou toute autre fonction équivalente, PHP vous retourne une ressource, sous forme d'un flux. Il <a href="http://www.php.net/manual/en/wrappers.php" target="_blank">existe différent types de flux en PHP</a> :</p>
 
 {% highlight php %}
-fopen('file://...') // fichier
-fopen('php://temp') // fichier temporaire
-fopen('php://memory') // en mémoire
-fopen('php://stdout') // sortie de la console
-etc.
+<p>fopen('file://...') // fichier</p>
+<p>fopen('php://temp') // fichier temporaire</p>
+<p>fopen('php://memory') // en mémoire</p>
+<p>fopen('php://stdout') // sortie de la console</p>
+<p>etc.</p>
 {% endhighlight %}
 
-Bref, il y en a pas mal...
+<p>Bref, il y en a pas mal...</p>
 
-Mais on oublie souvent qu'on peut aussi ajouter ses propres types de flux. Par exemple je vais créer un type de flux "twitter" pour lire mes tweets :
+<p>Mais on oublie souvent qu'on peut aussi ajouter ses propres types de flux. Par exemple je vais créer un type de flux "twitter" pour lire mes tweets :</p>
 
 {% highlight php %}
-$fp = fopen(&quot;twitter://@halleck45&quot;, &quot;r&quot;);
+$fp = fopen("twitter://@halleck45", "r");
 if ($fp) {
     while (!feof($fp)) {
         var_dump(fgets($fp, 140));
@@ -40,22 +41,22 @@ if ($fp) {
 }
 {% endhighlight %}
 <h2>Création d'un nouveau type de flux</h2>
-C'est relativement facile : il suffit d'<a href="http://fr.php.net/manual/fr/function.stream-wrapper-register.php" target="_blank">ajouter un nouveau gestionnaire de flux</a>, c'est à dire une classe qui respecte le prototype <strong><a href="http://fr.php.net/manual/fr/class.streamwrapper.php" target="_blank">StreamWrapper</a></strong>.
+<p>C'est relativement facile : il suffit d'<a href="http://fr.php.net/manual/fr/function.stream-wrapper-register.php" target="_blank">ajouter un nouveau gestionnaire de flux</a>, c'est à dire une classe qui respecte le prototype <strong><a href="http://fr.php.net/manual/fr/class.streamwrapper.php" target="_blank">StreamWrapper</a></strong>.</p>
 
 {% highlight php %}
-stream_wrapper_register(&quot;twitter&quot;, &quot;TwitterStream&quot;);
+stream_wrapper_register("twitter", "TwitterStream");
 {% endhighlight %}
 
-Plutôt que d'implémenter toutes les méthodes de ce prototype, concentrons nous sur le principal, et créons 4 méthodes :
+<p>Plutôt que d'implémenter toutes les méthodes de ce prototype, concentrons nous sur le principal, et créons 4 méthodes :</p>
 <ul>
 	<li><strong>stream_open(</strong>), qui va ouvrir notre flux</li>
 	<li><strong>stream_close()</strong>, pour le fermer</li>
 	<li><strong>stream_read($size)</strong> qui va être appelée à chaque lecture dans le flux</li>
 	<li><strong>stream_eof()</strong>, pour indiquer qu'on arrive à la fin</li>
 </ul>
-Pour simplifier l'exemple, le flux Twitter est en lecture seule. Pour la même raison, on va rapatrier tous les tweets d'un coup et les stocker dans notre objet dans un tableau.
+<p>Pour simplifier l'exemple, le flux Twitter est en lecture seule. Pour la même raison, on va rapatrier tous les tweets d'un coup et les stocker dans notre objet dans un tableau.</p>
 
-Pour démarrer, créons une petite fonction qui va aller chercher les tweets d'un utilisateur donné :
+<p>Pour démarrer, créons une petite fonction qui va aller chercher les tweets d'un utilisateur donné :</p>
 
 {% highlight php %}
 ini_set('allow_url_fopen', 1);
@@ -64,7 +65,7 @@ define('TWITTER_LOGIN', 'votre-login');
 
 function example_stream_twitter_fetch($username) {
     $ch = curl_init();
-    $url = sprintf('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=%s&amp;include_entities=true&amp;include_rts=true&amp;count=20', $username);
+    $url = sprintf('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=%s&include_entities=true&include_rts=true&count=20', $username);
     curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_USERPWD, TWITTER_LOGIN . ':' . TWITTER_PWD);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -74,19 +75,19 @@ function example_stream_twitter_fetch($username) {
 }
 {% endhighlight %}
 
-Maintenant le gestionnaire de flux :
+<p>Maintenant le gestionnaire de flux :</p>
 {% highlight php %}
 class TwitterStream {
 
     protected $_json;
     protected $_offset = 0;
 
-    public function stream_open($path, $mode, $options, &amp;$opened_path) {
+    public function stream_open($path, $mode, $options, &$opened_path) {
 
         //
         // Read only !
         if ($mode != 'r') {
-            trigger_error(&quot;Unsupported mode&quot;, E_USER_WARNING);
+            trigger_error("Unsupported mode", E_USER_WARNING);
             return false;
         }
 
@@ -98,40 +99,40 @@ class TwitterStream {
         }
 
         if (!$result) {
-            if (($options &amp; STREAM_REPORT_ERRORS)) {
-                trigger_error(&quot;Username not found&quot;, E_USER_WARNING);
+            if (($options & STREAM_REPORT_ERRORS)) {
+                trigger_error("Username not found", E_USER_WARNING);
             }
             return false;
         }
 
-        $this-&gt;_json = $result;
+        $this->_json = $result;
         return (bool) $result;
     }
 
     public function stream_close() {
-        $this-&gt;_json = null;
+        $this->_json = null;
         return true;
     }
 
     public function stream_read($count) {
-        return $this-&gt;_json[$this-&gt;_offset++]-&gt;text;
+        return $this->_json[$this->_offset++]->text;
     }
 
     public function stream_eof() {
-        return $this-&gt;_offset &gt;= sizeof($this-&gt;_json);
+        return $this->_offset >= sizeof($this->_json);
     }
 
 }
 {% endhighlight %}
 
-Rien de bien compliqué. Il faut juste bien penser à lancer un warning en cas de problème...
+<p>Rien de bien compliqué. Il faut juste bien penser à lancer un warning en cas de problème...</p>
 
-Et ça suffit :
+<p>Et ça suffit :</p>
 
 {% highlight php %}
-stream_wrapper_register(&quot;twitter&quot;, &quot;TwitterStream&quot;);
+stream_wrapper_register("twitter", "TwitterStream");
 
-$fp = fopen(&quot;twitter://@halleck45&quot;, &quot;r&quot;, STREAM_REPORT_ERRORS);
+$fp = fopen("twitter://@halleck45", "r", STREAM_REPORT_ERRORS);
 if ($fp) {
     while (!feof($fp)) {
         var_dump(fgets($fp, 140));
@@ -139,37 +140,37 @@ if ($fp) {
 }
 {% endhighlight %}
 
-Pratique non ?
+<p>Pratique non ?</p>
 
-Bon, bien sûr l'exemple est trivial, ne serait-ce parce que les tweets peuvent dépasser les 140 caractères à cause des liens ; mais je pense que vous aurez compris l'intérêt de la chose :-)
+<p>Bon, bien sûr l'exemple est trivial, ne serait-ce parce que les tweets peuvent dépasser les 140 caractères à cause des liens ; mais je pense que vous aurez compris l'intérêt de la chose :-)</p>
 
 <h2>Appliquer des fitres sur des flux</h2>
 
-Autre "truc pratique" assez peu utilisé mais vraiment utile : on peut appliquer des filtre sur des flux, même sur les flux "natifs".
+<p>Autre "truc pratique" assez peu utilisé mais vraiment utile : on peut appliquer des filtre sur des flux, même sur les flux "natifs".</p>
 
-Par exemple, je veux convertir le texte que j'écris dans un fichier en l33t, en utilisant cette fonction :
+<p>Par exemple, je veux convertir le texte que j'écris dans un fichier en l33t, en utilisant cette fonction :</p>
 
 {% highlight php %}function l33t($string) {
     return str_replace(array('l', 'e', 't'), array('1', '3', '7'), $string);
 }{% endhighlight %}
 
-Nous allons enregistrer le filtre "l33t" et l'associer à la classe "l33t_filter' :
+<p>Nous allons enregistrer le filtre "l33t" et l'associer à la classe "l33t_filter' :</p>
 {% highlight php %}
-stream_filter_register(&quot;l33t&quot;, &quot;l33t_filter&quot;);
+stream_filter_register("l33t", "l33t_filter");
 {% endhighlight %}
 
-Cette classe l33t_filter doit hériter de la classe native php_user_filter :
+<p>Cette classe l33t_filter doit hériter de la classe native php_user_filter :</p>
 
 {% highlight php %}
 class l33t_filter extends php_user_filter {
 
-    function filter($in, $out, &amp;$consumed, $closing) {
+    function filter($in, $out, &$consumed, $closing) {
         
         while ($bucket = stream_bucket_make_writeable($in)) {
             //
-            // leet -&gt; l33t
-            $bucket-&gt;data = l33t($bucket-&gt;data);
-            $consumed += $bucket-&gt;datalen;
+            // leet -> l33t
+            $bucket->data = l33t($bucket->data);
+            $consumed += $bucket->datalen;
             stream_bucket_append($out, $bucket);
         }
         // on retournerait PSFS_ERR_FATAL en cas d'erreur bloquante
@@ -177,6 +178,6 @@ class l33t_filter extends php_user_filter {
     }
 }
 {% endhighlight %}
-On peut par exemple imaginer appliquer des filtres de cryptage, de contrôle...
+<p>On peut par exemple imaginer appliquer des filtres de cryptage, de contrôle...</p>
 
-Alors, convaincu ? :-) Avez-vous déjà utilisé votre propres flux ou filtre de flux en PHP ?
+<p>Alors, convaincu ? :-) Avez-vous déjà utilisé votre propres flux ou filtre de flux en PHP ?</p>

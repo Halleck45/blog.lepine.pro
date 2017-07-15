@@ -1,6 +1,7 @@
 ---
+permalink: /php/ressources-tutos-php/behat-creer-des-tests-solides-et-efficaces
 layout: post
-title: Behat - créer des tests solides et efficaces
+title:  Behat - créer des tests solides et efficaces
 categories:
 - réflexion
 - Ressources et tutos PHP
@@ -19,52 +20,56 @@ meta:
   _syntaxhighlighter_encoded: '1'
   _edit_last: '1'
 ---
-Ca commence à faire déjà quelques temps que j'utilise Behat, et j'ai eu la chance de pouvoir l'utiliser sur différents projets, gros et petits. Je commence donc à avoir un peu plus de recul sur la chose, et à avoir accumulé pas mal de mauvaises pratiques.
-
-Par manque de chance (ou pas ^^), il a fallu que je commence à utiliser Behat sur un projet assez important. C'est donc là que j'ai commencé à faire mes plus grosses erreurs. Je vous propose de voir quelles ont été ces erreurs, et comment éviter de les reproduire.
+        
+<p>
+<p>Ca commence à faire déjà quelques temps que j'utilise Behat, et j'ai eu la chance de pouvoir l'utiliser sur différents projets, gros et petits. Je commence donc à avoir un peu plus de recul sur la chose, et à avoir accumulé pas mal de mauvaises pratiques.</p>
+</p>
+<p>Par manque de chance (ou pas ^^), il a fallu que je commence à utiliser Behat sur un projet assez important. C'est donc là que j'ai commencé à faire mes plus grosses erreurs. Je vous propose de voir quelles ont été ces erreurs, et comment éviter de les reproduire.
+</p>
 
 <h2>Utiliser Behat sans faire du Développement piloté par le comportement</h2>
 
-C'est évident, mais il faut le dire : Behat n'est qu'un outil, ce qui compte vraiment c'est le Développement piloté par le comportement. Et oui ! Behat n'est ni un outil de test, ni un outil de spécification. Ce n'est "rien de plus" qu'un bonus par rapport à une démarche de travail.
+<p>C'est évident, mais il faut le dire : Behat n'est qu'un outil, ce qui compte vraiment c'est le Développement piloté par le comportement. Et oui ! Behat n'est ni un outil de test, ni un outil de spécification. Ce n'est "rien de plus" qu'un bonus par rapport à une démarche de travail.</p>
 
-Si on prend Behat, comme il m'est arrivé de le faire, comme simple outil de test, on fonce dans le mur : au bout de plusieurs mois on risque d'avoir substitué Behat à des outils de tests unitaires (PHPUnit, atoum). Behat permet (entre autres) de tester du besoin fonctionnel. Encore faut-il que ce besoin soit exprimé !
-
+<p>
+<p>Si on prend Behat, comme il m'est arrivé de le faire, comme simple outil de test, on fonce dans le mur : au bout de plusieurs mois on risque d'avoir substitué Behat à des outils de tests unitaires (PHPUnit, atoum). Behat permet (entre autres) de tester du besoin fonctionnel. Encore faut-il que ce besoin soit exprimé !</p>
+</p>
+        
 <h2>Faire du refractoring de code plutôt que du refractoring de phrases</h2>
 
-Allez, créons une méthode privée réutilisable dans notre Contexte de définition. Ah, et puis passons la publique le jour où il nous faudra l'utiliser dans un autre Contexte... 
+        
+<p>Allez, créons une méthode privée réutilisable dans notre Contexte de définition. Ah, et puis passons la publique le jour où il nous faudra l'utiliser dans un autre Contexte...</p> 
 
-Au final on se retrouve avec une application dans l'application. Quand c'est le cas, et ça m'est arrivé, c'est qu'on confond refractoring de code et refractoring de définitions.
+<p>Au final on se retrouve avec une application dans l'application. Quand c'est le cas, et ça m'est arrivé, c'est qu'on confond refractoring de code et refractoring de définitions.</p>
 
-Les Contextes de définition servent à traduire des expressions en code source. C'est donc sur ces expressions qu'il faut se focaliser. L'idéal est de réussi à parvenir à découper chaque expression en unités atomiques fondamentales.
+<p>Les Contextes de définition servent à traduire des expressions en code source. C'est donc sur ces expressions qu'il faut se focaliser. L'idéal est de réussi à parvenir à découper chaque expression en unités atomiques fondamentales.</p>
 
-Par exemple :
+<p>Par exemple :</p>
 
-{% highlight php %}
+{% highlight gherkin %}
 Quand que j'ajoute dans mon panier "Télévision Sony" depuis le catalogue produits
 {% endhighlight %}
 
-On peut découper cette expression en sous-expressions (étapes)
+<p>On peut découper cette expression en sous-expressions (étapes)</p>
 
-{% highlight php %}
+{% highlight gherkin %}
 Etant donné que je suis sur la page du catalogue produit
 Quand j'ajoute "Télévision Sony" au panier
 {% endhighlight %}
 
-Et au final on peut arriver à des expressions atomiques simples :
+<p>Et au final on peut arriver à des expressions atomiques simples :</p>
 
-{% highlight php %}
+{% highlight gherkin %}
 Etant donné que je suis sur "/catalogue/produits"
 Quand je sélectionne "Télévision Sony"
 Et je clique "Ajouter au panier"
 {% endhighlight %}
 
-Vous voyez que là on fait du refractoring de phrases. L'avantage est que c'est hyper simple avec Behat :
+<p>Vous voyez que là on fait du refractoring de phrases. L'avantage est que c'est hyper simple avec Behat :</p>
 
 {% highlight php %}
 <?php
 use Behat\Behat\Context\Step;
-
-//
 
 /**
 * @Given /^que je consulte le catalogue produit$/
@@ -76,18 +81,19 @@ public function queJeConsulteLeCatalogueProduit()
 	);
 }
 
-etc.
+// etc
 {% endhighlight %}
 
-Il suffit d'utiliser des sous-appels d'étapes dans la définitions.
 
-C'est la seule manière que j'ai trouvé pour se retrouver avec des Contextes de définition simples et surtout stables dans le temps. Sinon on passe notre temps à les réécrire dans leur ensemble. 
+<p>Il suffit d'utiliser des sous-appels d'étapes dans la définitions.
 
-Par contre ça oblige à avoir plein de définitions, d'où le point suivant :
+</p><p>C'est la seule manière que j'ai trouvé pour se retrouver avec des Contextes de définition simples et surtout stables dans le temps. Sinon on passe notre temps à les réécrire dans leur ensemble.
+
+</p><p>Par contre ça oblige à avoir plein de définitions, d'où le point suivant :</p>
 
 <h2>Utiliser Behat sans couche d'isolation</h2>
 
-Au départ, quand on utilise Behat, on a tendance à se créer 2 ou 3 contextes de définition, et puis c'est tout. C'est à mon avis une erreur. Aujourd'hui, je démarre chaque projet qui utilise Behat avec au moins ce découpage :
+<p>Au départ, quand on utilise Behat, on a tendance à se créer 2 ou 3 contextes de définition, et puis c'est tout. C'est à mon avis une erreur. Aujourd'hui, je démarre chaque projet qui utilise Behat avec au moins ce découpage :</p>
 
 <ul>
 <li>Contextes de définition métiers</li>
@@ -95,14 +101,16 @@ Au départ, quand on utilise Behat, on a tendance à se créer 2 ou 3 contextes 
 <li>Couche d'isolation pour la persistance des données si besoin</li>
 </ul>
 
-Pourquoi ? Tout simplement parce que je me suis rendu compte d'une chose : il arrive souvent de devoir repasser sur des définitions ! Et oui. Et c'est long, laborieux et, disons-le, très très démotivant.
-
-Il faut au moins regrouper les définitions qui concernent l'interface graphique dans un contexte spécifique. Par défaut, si vous utilisez Mink, c'est ce qui fait plus ou moins implicitement lorsque vous utilisez des définitions toute-prêtes de Mink.
-
-Mais que se passera t-il quand le client vous annoncera qu'il sort une appli mobile ? Normalement, appli mobile ou web, aucune spécification ne devrait changer. Par contre, si vous avez mal organisés vos Contextes de définition, vous allez galérer.
-
-Au contraire, si vous regroupez tout ce qui concerne l'UI dans un Contexte de vue, mettons par exemple "View\WebContext.php", il vous suffit simplement de gérer vos sous-contextes :
-
+<p>
+<p>Pourquoi ? Tout simplement parce que je me suis rendu compte d'une chose : il arrive souvent de devoir repasser sur des définitions ! Et oui. Et c'est long, laborieux et, disons-le, très très démotivant.</p>
+</p><p>
+<p>Il faut au moins regrouper les définitions qui concernent l'interface graphique dans un contexte spécifique. Par défaut, si vous utilisez Mink, c'est ce qui fait plus ou moins implicitement lorsque vous utilisez des définitions toute-prêtes de Mink.</p>
+</p><p>
+<p>Mais que se passera t-il quand le client vous annoncera qu'il sort une appli mobile ? Normalement, appli mobile ou web, aucune spécification ne devrait changer. Par contre, si vous avez mal organisés vos Contextes de définition, vous allez galérer.</p>
+</p><p>
+<p>Au contraire, si vous regroupez tout ce qui concerne l'UI dans un Contexte de vue, mettons par exemple "View\WebContext.php", il vous suffit simplement de gérer vos sous-contextes :</p>
+</p>
+        
 {% highlight php %}
 public function __construct(array $parameters)
 {
@@ -114,18 +122,18 @@ public function __construct(array $parameters)
 }
 {% endhighlight %}
 
-C'est aussi simple que ça : il vous suffit de regrouper tout ce qui concerne l'affichage dans un Contexte spécifique.
+<p>C'est aussi simple que ça : il vous suffit de regrouper tout ce qui concerne l'affichage dans un Contexte spécifique.</p>
 
-Bien entendu, pour les très grosses applications on peut aller plus loin, et d'ailleurs ça devient très vite intéressant : créer un Contexte par page. Par exemple:
+<p>Bien entendu, pour les très grosses applications on peut aller plus loin, et d'ailleurs ça devient très vite intéressant : créer un Contexte par page. Par exemple:</p>
 
 {% highlight php %}
 $this->useContext('view.catalogue', new View\Web\CatalogueContext($parameters));
 $this->useContext('view.panier', new View\Web\PanierContext($parameters));
 {% endhighlight %}
 
-Ca peut paraître extrémiste, mais dans le cas où votre application est conséquente, c'est très utile. Il faut bien se dire que tout ce travail consiste à solidifier votre architecture de test. De la même manière qu'il faut découper une application en blocs de code (modules), il faut découper les Contextes de définition selon leur... contexte.
+<p>Ca peut paraître extrémiste, mais dans le cas où votre application est conséquente, c'est très utile. Il faut bien se dire que tout ce travail consiste à solidifier votre architecture de test. De la même manière qu'il faut découper une application en blocs de code (modules), il faut découper les Contextes de définition selon leur... contexte.</p>
 
-Après, il faut prendre la juste mesure des choses, et trouver un découpage adapté :
+<p>Après, il faut prendre la juste mesure des choses, et trouver un découpage adapté :</p>
 <ul>
 <li>aux besoins</li>
 <li>à la taille du projet</li>
@@ -133,7 +141,7 @@ Après, il faut prendre la juste mesure des choses, et trouver un découpage ada
 <li>à la compétence de l'équipe</li>
 </ul>
 
-Exactement comme on le ferait pour un applicatif.
+<p>Exactement comme on le ferait pour un applicatif.</p>
 
 
-Voilà pour ces quelques retours que je souhaitais partager avec vous. Après, ils sont basés sur mon expérience personnelle, et je serai très curieux de savoir ce que vous en pensez, et surtout comment vous vous avez fait pour gérer la croissance de vos projets utilisant Behat / Cucumber / etc.. N'hésitez pas à partager votre expérience...
+<p>Voilà pour ces quelques retours que je souhaitais partager avec vous. Après, ils sont basés sur mon expérience personnelle, et je serai très curieux de savoir ce que vous en pensez, et surtout comment vous vous avez fait pour gérer la croissance de vos projets utilisant Behat / Cucumber / etc.. N'hésitez pas à partager votre expérience...</p>

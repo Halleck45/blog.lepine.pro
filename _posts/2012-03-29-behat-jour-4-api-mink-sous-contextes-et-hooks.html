@@ -1,6 +1,7 @@
 ---
+permalink: /non-classe/behat-jour-4-api-mink-sous-contextes-et-hooks
 layout: post
-title: ! 'Behat - jour 4 : API Mink, Sous-contextes et Hooks'
+title:  ! 'Behat - jour 4 : API Mink, Sous-contextes et Hooks'
 categories:
 - Non classé
 tags:
@@ -17,23 +18,23 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-Voici l'avant dernier billet de la série sur la prise en main de Behat. Pour rappel, on a vu :
+<p>Voici l'avant dernier billet de la série sur la prise en main de Behat. Pour rappel, on a vu :</p>
 <ul>
-	<li><a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum">Behat – jour 1 : comment tester son produit SCRUM ?</a></li>
-	<li><a title="Behat – jour 2 : Installation et premiers tests" href="http://blog.lepine.pro/php/behat-jour-2-installation-et-premiers-tests">Behat – jour 2 : Installation et premiers tests</a></li>
-	<li><a title="Behat – jour 3 : Tester une application web avec Mink" href="http://blog.lepine.pro/php/behat-jour-3-tester-une-application-web-avec-mink">Behat – jour 3 : Tester une application web avec Mink</a></li>
+	<li><a title="Behat – jour 1 : comment tester son produit SCRUM ?" href="/php/behat-jour-1-comment-tester-son-produit-scrum">Behat – jour 1 : comment tester son produit SCRUM ?</a></li>
+	<li><a title="Behat – jour 2 : Installation et premiers tests" href="/php/behat-jour-2-installation-et-premiers-tests">Behat – jour 2 : Installation et premiers tests</a></li>
+	<li><a title="Behat – jour 3 : Tester une application web avec Mink" href="/php/behat-jour-3-tester-une-application-web-avec-mink">Behat – jour 3 : Tester une application web avec Mink</a></li>
 </ul>
-Allons un peu plus loin :-)
+<p>Allons un peu plus loin :-)</p>
 
 <h2>Sortir des sentiers battus : l'API de Mink</h2>
-Assez rapidement on se retrouve à devoir gérer des cas particuliers, par exemple :
+<p>Assez rapidement on se retrouve à devoir gérer des cas particuliers, par exemple :</p>
 
 {% highlight gherkin %}Quand je suis à découvert
-Alors le bouton "retirer de l'argent" doit être désactivé{% endhighlight %}
+<p>Alors le bouton "retirer de l'argent" doit être désactivé{% endhighlight %}</p>
 
-On sort des cas classiques de Mink. Comment faire ?
+<p>On sort des cas classiques de Mink. Comment faire ?</p>
 
-La solution consiste à développer nous même ce comportement :
+<p>La solution consiste à développer nous même ce comportement :</p>
 
 {% highlight php %}/**
  * @Then /^le bouton "([^"]*)" doit être désactivé$/
@@ -44,15 +45,15 @@ public function leBoutonDoitEtreDesactive($button)
 }
 {% endhighlight %}
 
-On commence par récupérer notre page à partir de l'objet de session:
+<p>On commence par récupérer notre page à partir de l'objet de session:</p>
 
 {% highlight php %}$page = $this->getSession()->getPage();{% endhighlight %}
 
-Ensuite on va récupérer l'élément html concerné. <a href="http://mink.behat.org/#traverse-the-page-selectors" target="_blank">Il existe différente manière de faire cela</a>. Le plus simple dans notre cas consiste à passer par un des raccourcis de sélection de Mink : <strong>findButton</strong>(libellé | id | nom)...
+<p>Ensuite on va récupérer l'élément html concerné. <a href="http://mink.behat.org/#traverse-the-page-selectors" target="_blank">Il existe différente manière de faire cela</a>. Le plus simple dans notre cas consiste à passer par un des raccourcis de sélection de Mink : <strong>findButton</strong>(libellé | id | nom)...</p>
 
 {% highlight php %}$element = $page->findButton($button);{% endhighlight %}
 
-Si l'élément html n'est pas trouvé, on va lever une exception, sinon on va continuer en faisant une assertion simple : l'élément doit avoir l'attribut "disabled". Ce qui donne au final :
+<p>Si l'élément html n'est pas trouvé, on va lever une exception, sinon on va continuer en faisant une assertion simple : l'élément doit avoir l'attribut "disabled". Ce qui donne au final :</p>
 
 {% highlight php %}$page = $this->getSession()->getPage();
 $element = $page->findButton($button);
@@ -63,18 +64,18 @@ if (null === $element) {
     );
 }
 
-assertEquals(true, $element->hasAttribute('disabled'));{% endhighlight %}
+<p>assertEquals(true, $element->hasAttribute('disabled'));{% endhighlight %}</p>
 
 
-Au passage, remarquez qu'il s'agit d'une assertion classique de PHPUnit, mais en mode fonction. Pour cela on aura bien entendu ajouté au début de notre fichier :
+<p>Au passage, remarquez qu'il s'agit d'une assertion classique de PHPUnit, mais en mode fonction. Pour cela on aura bien entendu ajouté au début de notre fichier :</p>
 
 {% highlight php %}require_once 'PHPUnit/Autoload.php';
-require_once 'PHPUnit/Framework/Assert/Functions.php';{% endhighlight %}
+<p>require_once 'PHPUnit/Framework/Assert/Functions.php';{% endhighlight %}</p>
 
-Je vous laisse regarder la <a href="http://mink.behat.org/http://" target="_blank">documentation</a> ou la <a title="Cheat Sheet Behat" href="http://blog.lepine.pro/php/ressources-tutos-php/cheat-sheet-behat" target="_blank">feuille d'astuce pour Mink</a> pour plus d'informations. Sachez juste qu'on peut faire pas mal de chose, comme exécuter du JavaScript <a href="http://blog.lepine.pro/php/ressources-tutos-php/communiquer-a-travers-internet">par exemple</a> (avec  $session->evaluateScript() ) ;-) ...
+<p>Je vous laisse regarder la <a href="http://mink.behat.org/http://" target="_blank">documentation</a> ou la <a title="Cheat Sheet Behat" href="/php/ressources-tutos-php/cheat-sheet-behat" target="_blank">feuille d'astuce pour Mink</a> pour plus d'informations. Sachez juste qu'on peut faire pas mal de chose, comme exécuter du JavaScript <a href="/php/ressources-tutos-php/communiquer-a-travers-internet">par exemple</a> (avec  $session->evaluateScript() ) ;-) ...</p>
 
 <h2>Organiser son code</h2>
-Jusqu'ici on a systématiquement mis notre code dans le fichier FeatureContext.php. C'est pas l'idéal : on va très vite se retrouver avec un fichier énorme et imbuvable. Il nous suffit de découper notre contexte en sous-contextes. Tout se fait dans le constructeur du contexte principal :
+<p>Jusqu'ici on a systématiquement mis notre code dans le fichier FeatureContext.php. C'est pas l'idéal : on va très vite se retrouver avec un fichier énorme et imbuvable. Il nous suffit de découper notre contexte en sous-contextes. Tout se fait dans le constructeur du contexte principal :</p>
 
 {% highlight php %}class FeatureContext extends BehatContext
 {
@@ -84,17 +85,17 @@ Jusqu'ici on a systématiquement mis notre code dans le fichier FeatureContext.p
         $this->useContext('example1', new MyExample1Context($parameters));
     }{% endhighlight %}
 
-On a donc isolé le contexte de Mink pour en faire un sous-contexte, et on a plus ajouté le nôtre ('example1').
+<p>On a donc isolé le contexte de Mink pour en faire un sous-contexte, et on a plus ajouté le nôtre ('example1').</p>
 
-L'utilisation des contextes est assez simple. Chaque sous-contexte a un nom (ici 'mink' et 'behat'), que l'on peut utiliser pour les récupérer :
+<p>L'utilisation des contextes est assez simple. Chaque sous-contexte a un nom (ici 'mink' et 'behat'), que l'on peut utiliser pour les récupérer :</p>
 
 <dl><dt><strong>getMainContext()</strong></dt><dd>Récupérer le contexte principal</dd><dt><strong>getSubContext('nom')</strong></dt><dd>Récupérer un sous contexte</dd><dt><strong>getSubcontexts()</strong></dt><dd>Récupérer la liste des tous les sous-contextes</dd></dl>
 
-Par exemple :
+<p>Par exemple :</p>
 
 {% highlight php %}$session = $this->getMainContext()->getSubContext('mink')->getSession();{% endhighlight %}
 
-On va donc créer le fichier MyExample1Context.php :
+<p>On va donc créer le fichier MyExample1Context.php :</p>
 
 {% highlight php %}class MyExample1Context extends BehatContext
 {
@@ -119,22 +120,22 @@ On va donc créer le fichier MyExample1Context.php :
 }
 {% endhighlight %}
 
-Et voilà, nous voici avec un code découpé et des fichiers plus spécialisés.
+<p>Et voilà, nous voici avec un code découpé et des fichiers plus spécialisés.</p>
 
 <h2>Les hooks de Behat</h2>
-Comme pour les tests unitaires, il est possible d'exécuter du code à certaines phases du déroulement du tests. Il suffit d'utiliser des annotations :
+<p>Comme pour les tests unitaires, il est possible d'exécuter du code à certaines phases du déroulement du tests. Il suffit d'utiliser des annotations :</p>
 
 {% highlight php %}
 /**
  * @BeforeSuite
  */
-public static function prepare(SuiteEvent $event)
+<p>public static function prepare(SuiteEvent $event)</p>
 {
     // (...)
 }
 {% endhighlight %}
 
-les déclencheurs disponibles sont :
+<p>les déclencheurs disponibles sont :</p>
 <ul>
 	<li>BeforeSuite</li>
 	<li>AfterSuite</li>
@@ -146,9 +147,9 @@ les déclencheurs disponibles sont :
 	<li>AfterStep</li>
 	<li>AfterStep</li>
 </ul>
-Un dessin valant mieux qu'un long discours, le plus simple est de<a href="http://docs.behat.org/guides/3.hooks.html#behat-event-system" target="_blank"> regarder ici</a>.
+<p>Un dessin valant mieux qu'un long discours, le plus simple est de<a href="http://docs.behat.org/guides/3.hooks.html#behat-event-system" target="_blank"> regarder ici</a>.</p>
 
 <h2>Conclusion</h2>
-On voit qu'on a quand même peu de limites avec Mink et Behat. Bien plus, on peut même l'intégrer à une PIC (Jenkins, Hudson...). C'est d'ailleurs ce qu'on verra dans le prochain billet, qui sera le dernier de la série ^^
+<p>On voit qu'on a quand même peu de limites avec Mink et Behat. Bien plus, on peut même l'intégrer à une PIC (Jenkins, Hudson...). C'est d'ailleurs ce qu'on verra dans le prochain billet, qui sera le dernier de la série ^^</p>
 
 => Juste par curiosité : j'utilise exclusivement Sahi pour mes tests. Beaucoup de monde utilise Selenium ? C'est mieux ? Vous avez des avis ?

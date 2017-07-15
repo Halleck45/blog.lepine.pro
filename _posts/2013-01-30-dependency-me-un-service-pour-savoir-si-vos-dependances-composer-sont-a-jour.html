@@ -1,6 +1,7 @@
 ---
+permalink: /php/actus-php/dependency-me-un-service-pour-savoir-si-vos-dependances-composer-sont-a-jour
 layout: post
-title: dependency.me, un service pour savoir si vos dépendances composer sont à jour
+title:  dependency.me, un service pour savoir si vos dépendances composer sont à jour
 categories:
 - Actus PHP
 tags:
@@ -15,30 +16,30 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
 ---
-Ça faisait pas mal de temps que l'idée me trottait en tête : un service pour savoir si l'on utilise des dépendances composer à jour ou non.
+<p>Ça faisait pas mal de temps que l'idée me trottait en tête : un service pour savoir si l'on utilise des dépendances composer à jour ou non.</p>
 
-Tel que je le voyais, je trouvais optimal de pouvoir intégrer une image à notre readme github, exactement comme pour <a href="https://travis-ci.org/">Travis-Ci</a>. Bien entendu, j'ai cherché sur le net ce que je pouvais trouver, et j'ai été assez surpris de trouver pas mal d'outils pour Ruby, Python, NodeJs... mais rien pour les dépendances de PHP avec composer !
+<p>Tel que je le voyais, je trouvais optimal de pouvoir intégrer une image à notre readme github, exactement comme pour <a href="https://travis-ci.org/">Travis-Ci</a>. Bien entendu, j'ai cherché sur le net ce que je pouvais trouver, et j'ai été assez surpris de trouver pas mal d'outils pour Ruby, Python, NodeJs... mais rien pour les dépendances de PHP avec composer !</p>
 
-Prenant mon courage à deux mains, je me suis donc décidé à coder (très rapidement) <a href="http://dependency.me">http://dependency.me</a>. Il vous suffit de vous connecter avec votre compte Github et de sélectionner les repositories pour lesquels vous souhaitez activer le service, vous aurez en temps (quasi) réel une idée de l'état de vos dépendances, branche par branche :
+<p>Prenant mon courage à deux mains, je me suis donc décidé à coder (très rapidement) <a href="http://dependency.me">http://dependency.me</a>. Il vous suffit de vous connecter avec votre compte Github et de sélectionner les repositories pour lesquels vous souhaitez activer le service, vous aurez en temps (quasi) réel une idée de l'état de vos dépendances, branche par branche :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2013/01/capture-composer-dependency-owner.jpg"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/capture-composer-dependency-owner.jpg" alt="Vue de l&#039;état des dépendances Composer par propriétaire" width="400" height="184" class="aligncenter size-full wp-image-690" /></a>
+<p><a href="{{site.url}}/images/2013-01-capture-composer-dependency-owner.jpg"><img src="{{site.url}}/images/2013-01-capture-composer-dependency-owner.jpg" alt="Vue de l&#039;état des dépendances Composer par propriétaire" width="400" height="184" class="aligncenter size-full wp-image-690" /></a></p>
 
-Bien entendu, il est tout à fait possible d'avoir le détail pour chaque branche :
+<p>Bien entendu, il est tout à fait possible d'avoir le détail pour chaque branche :</p>
 
-<a href="http://blog.lepine.pro/wp-content/uploads/2013/01/capture-composer-dependency-branche.jpg"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/capture-composer-dependency-branche.jpg" alt="Vue de l&#039;état des dépendances Composer par branche" width="400" height="115" class="aligncenter size-full wp-image-691" /></a>
+<p><a href="{{site.url}}/images/2013-01-capture-composer-dependency-branche.jpg"><img src="{{site.url}}/images/2013-01-capture-composer-dependency-branche.jpg" alt="Vue de l&#039;état des dépendances Composer par branche" width="400" height="115" class="aligncenter size-full wp-image-691" /></a></p>
 
-Le site vous donne pour chaque dépôt le Markdown à copier-coller dans votre readme.md (par exemple) pour afficher une image mise automatiquement à jour selon l'état de vos dépendances :
+<p>Le site vous donne pour chaque dépôt le Markdown à copier-coller dans votre readme.md (par exemple) pour afficher une image mise automatiquement à jour selon l'état de vos dépendances :</p>
 <ul>
-<li><a href="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-latest.png"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-latest.png" alt="build-status-latest" width="170" height="13" class="aligncenter size-full wp-image-693" /></a></li>
-<li><a href="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-outofdate.png"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-outofdate.png" alt="build-status-outofdate" width="170" height="13" class="aligncenter size-medium wp-image-694" /></a></li>
-<li><a href="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-recent.png"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-recent.png" alt="build-status-recent" width="170" height="13" class="aligncenter size-medium wp-image-695" /></a></li>
-<li><a href="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-unknown.png"><img src="http://blog.lepine.pro/wp-content/uploads/2013/01/build-status-unknown.png" alt="build-status-unknown" width="170" height="13" class="aligncenter size-medium wp-image-696" /></a></li>
+<li><a href="{{site.url}}/images/2013-01-build-status-latest.png"><img src="{{site.url}}/images/2013-01-build-status-latest.png" alt="build-status-latest" width="170" height="13" class="aligncenter size-full wp-image-693" /></a></li>
+<li><a href="{{site.url}}/images/2013-01-build-status-outofdate.png"><img src="{{site.url}}/images/2013-01-build-status-outofdate.png" alt="build-status-outofdate" width="170" height="13" class="aligncenter size-medium wp-image-694" /></a></li>
+<li><a href="{{site.url}}/images/2013-01-build-status-recent.png"><img src="{{site.url}}/images/2013-01-build-status-recent.png" alt="build-status-recent" width="170" height="13" class="aligncenter size-medium wp-image-695" /></a></li>
+<li><a href="{{site.url}}/images/2013-01-build-status-unknown.png"><img src="{{site.url}}/images/2013-01-build-status-unknown.png" alt="build-status-unknown" width="170" height="13" class="aligncenter size-medium wp-image-696" /></a></li>
 </ul>
 
-Bien entendu, le site est Open Source, et est <a href="https://github.com/DependencyMe/dependency.me">hébergé sur Github</a>.
+<p>Bien entendu, le site est Open Source, et est <a href="https://github.com/DependencyMe/dependency.me">hébergé sur Github</a>.</p>
 
-Toutes les bonnes âmes souhaitant m'aider sont les bienvenues : qu'il s'agisse de signaler les bugs, me faire retours, et pourquoi pas directement à faire évoluer le code concerné. Je pense qu'on peut faire mieux : actuellement le service ne gère pas les dépôts privés par exemple... Et un coup de pouce pour l'anglais serait le bienvenue !
+<p>Toutes les bonnes âmes souhaitant m'aider sont les bienvenues : qu'il s'agisse de signaler les bugs, me faire retours, et pourquoi pas directement à faire évoluer le code concerné. Je pense qu'on peut faire mieux : actuellement le service ne gère pas les dépôts privés par exemple... Et un coup de pouce pour l'anglais serait le bienvenue !</p>
 
-Je suis également preneur de toute remarque, positive ou négative, sur ce service.
+<p>Je suis également preneur de toute remarque, positive ou négative, sur ce service.</p>
 
-Merci à vous !
+<p>Merci à vous !</>

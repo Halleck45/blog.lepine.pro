@@ -1,6 +1,7 @@
 ---
+permalink: /php/utilisez-un-moteur-javascript-en-php-et-faites-exploser-vos-perfs
 layout: post
-title: Utilisez un moteur javascript en PHP et faites exploser vos perfs
+title:  Utilisez un moteur javascript en PHP et faites exploser vos perfs
 categories:
 - Javascript
 - PHP
@@ -20,34 +21,34 @@ meta:
   image: ''
   _syntaxhighlighter_encoded: '1'
 ---
-Bon, je l'admets, ce titre est un brin accrocheur et trolleur :-) . Ceci dit, je viens de tomber sur Twitter sur un package PECL que je ne connaissais pas et qui à mon avis ouvre des perspectives très intéressantes, notamment pour améliorer les performances de certaines fonctionnalités chronophage de PHP.
+<p>Bon, je l'admets, ce titre est un brin accrocheur et trolleur :-) . Ceci dit, je viens de tomber sur Twitter sur un package PECL que je ne connaissais pas et qui à mon avis ouvre des perspectives très intéressantes, notamment pour améliorer les performances de certaines fonctionnalités chronophage de PHP.</p>
 
-Sur certains de mes tests (<strong>voir plus bas</strong>), le résultat est juste... 300 fois plus performant !
+<p>Sur certains de mes tests (<strong>voir plus bas</strong>), le résultat est juste... 300 fois plus performant !</p>
 
-Ce package, <a title="V8JS" href="http://pecl.php.net/package/v8js" target="_blank">V8JS</a>, permet d'utiliser dans PHP le célèbre <a title="V8 javascript Engine" href="http://code.google.com/intl/fr/apis/v8/intro.html" target="_blank">V8 JavaScript Engine</a>. Ce moteur, développé par Google et très performant, est le moteur javaScript de Chrome.
+<p>Ce package, <a title="V8JS" href="http://pecl.php.net/package/v8js" target="_blank">V8JS</a>, permet d'utiliser dans PHP le célèbre <a title="V8 javascript Engine" href="http://code.google.com/intl/fr/apis/v8/intro.html" target="_blank">V8 JavaScript Engine</a>. Ce moteur, développé par Google et très performant, est le moteur javaScript de Chrome.</p>
 <h2>Installation du V8 JavaScript Engine</h2>
-On va commencer par installer le moteur en lui-même :
+<p>On va commencer par installer le moteur en lui-même :</p>
 
 {% highlight bash %}sudo apt-get install libv8-dev
-sudo apt-get install libv8-3.1.8.22{% endhighlight %}
+<p>sudo apt-get install libv8-3.1.8.22{% endhighlight %}</p>
 <h2>Installation du package pear</h2>
 {% highlight bash%}sudo pecl install v8js-beta php_ini=/chemin/vers/le/php.ini{% endhighlight %}
 
-Puis modifier le php.ini pour inclure le module v8js.so
+<p>Puis modifier le php.ini pour inclure le module v8js.so</p>
 
 {% highlight ini%}[v8js]
-extension=/chemin/du/module/v8js.so{% endhighlight %}
+<p>extension=/chemin/du/module/v8js.so{% endhighlight %}</p>
 
-Vous pouvez déplacer le module v8js.so dans le dossier des modules de PHP, ce qui permet d'avoir plus simplement :
+<p>Vous pouvez déplacer le module v8js.so dans le dossier des modules de PHP, ce qui permet d'avoir plus simplement :</p>
 
 {% highlight javascript %}
-extension=v8js.so{% endhighlight %}
+<p>extension=v8js.so{% endhighlight %}</p>
 
-Un petit phpinfo() pour vérifier :
-<p style="text-align: center;"><a href="http://blog.lepine.pro/wp-content/uploads/2012/02/moteur-javascript-php.jpg"><img class="aligncenter  wp-image-317" title="Moteur Javascript V8 en PHP" src="http://blog.lepine.pro/wp-content/uploads/2012/02/moteur-javascript-php.jpg" alt="phpinfo du moteur Javascript V8 en PHP" width="497" height="192" /></a></p>
+<p>Un petit phpinfo() pour vérifier :</p>
+<p style="text-align: center;"><a href="{{site.url}}/images/2012-02-moteur-javascript-php.jpg"><img class="aligncenter  wp-image-317" title="Moteur Javascript V8 en PHP" src="{{site.url}}/images/2012-02-moteur-javascript-php.jpg" alt="phpinfo du moteur Javascript V8 en PHP" width="497" height="192" /></a></p>
 
 <h2>Utiliser V8JS</h2>
-les choses sérieuses commencent ! Examinons la <a href="http://www.php.net/manual/en/book.v8js.php" target="_blank">documentatio</a>n. Plutôt simple : on a une classe <a href="http://www.php.net/manual/en/class.v8js.php">V8Js</a>, et une méthode <a href="http://www.php.net/manual/en/v8js.executestring.php">executeString()</a> pour appeler le moteur :
+<p>les choses sérieuses commencent ! Examinons la <a href="http://www.php.net/manual/en/book.v8js.php" target="_blank">documentatio</a>n. Plutôt simple : on a une classe <a href="http://www.php.net/manual/en/class.v8js.php">V8Js</a>, et une méthode <a href="http://www.php.net/manual/en/v8js.executestring.php">executeString()</a> pour appeler le moteur :</p>
 
 {% highlight javascript %}
 $v8 = new V8Js();
@@ -55,32 +56,32 @@ $JS = <<<EOT
 function car(){
 }
 var myCar = new car();
-myCar.color = 'green';
+<p>myCar.color = 'green';</p>
 print(myCar.color);
-EOT;
+<p>EOT;</p>
 
-try {
+<p>try {</p>
   $v8->executeString($JS);
 } catch (V8JsException $e) {
   var_dump($e);
 }
 {% endhighlight %}
 
-On a donc utilisé le moteur javascript pour :
+<p>On a donc utilisé le moteur javascript pour :</p>
 <ul>
 	<li>déclarer une classe</li>
 	<li>instancer un objet</li>
 	<li>ajouter un attribut à cette instance</li>
 </ul>
 <h2>Les performances</h2>
-C'est là qu'on tombe dans des choses intéressantes.
+<p>C'est là qu'on tombe dans des choses intéressantes.</p>
 
-Parenthèse :
+<p>Parenthèse :</p>
 <em>Attention, comme tout bench, ces mesures sont à remettre dans leur cadre. ici je teste un type de comportement, dans un contexte donné, sur ma machine. De plus c'est orienté, j'ai délibérément choisi quelque chose pour lequel JavaScript excelle.</em>
 
-Bref, en voyant ça, je me suis dit : tiens, et si je testais un peu les performances ? J'ai alors cherché un comportement pour lequel JavaScript est particulièrement performant, et qui existe également en PHP. J'ai tout de suite pensé aux fonctions array_reduce / reduce. Voici deux codes qui me semblent comparables.
+<p>Bref, en voyant ça, je me suis dit : tiens, et si je testais un peu les performances ? J'ai alors cherché un comportement pour lequel JavaScript est particulièrement performant, et qui existe également en PHP. J'ai tout de suite pensé aux fonctions array_reduce / reduce. Voici deux codes qui me semblent comparables.</p>
 
-Voici le premier, en PHP pur :
+<p>Voici le premier, en PHP pur :</p>
 
 {% highlight php %}
 <?php
@@ -104,9 +105,9 @@ $r = array_reduce($myArray, "rsum");
 //
 // Bench
 $duration = microtime(true) - $start;
-var_dump($duration);{% endhighlight %}
+<p>var_dump($duration);{% endhighlight %}</p>
 
-Dans l'autre, on reporte les calculs sur le moteur JavaScript :
+<p>Dans l'autre, on reporte les calculs sur le moteur JavaScript :</p>
 
 {% highlight php %}
 //
@@ -114,8 +115,8 @@ Dans l'autre, on reporte les calculs sur le moteur JavaScript :
 $start = microtime(true);
 
 $js = <<<EOT
-var i;
-var myArray =  [];
+<p>var i;</p>
+<p>var myArray =  [];</p>
 for (i = 0; i < 100000; i++) {
     myArray.push(i);
 }
@@ -127,24 +128,24 @@ function rsum(v, w) {
 
 var r = myArray.reduce(rsum);
 print(r);
-EOT;
+<p>EOT;</p>
 
 
 //
 // Test
 $v8 = new V8Js();
-try {
+<p>try {</p>
   $v8->executeString($js);
 } catch (V8JsException $e) {
   var_dump($e);
 }{% endhighlight %}
 
 <h2>les résultats</h2>
-Voici ce que j'obtiens :
+<p>Voici ce que j'obtiens :</p>
 <ul>
 	<li><strong>en pur PHP : 2.5989</strong></li>
 	<li><strong>en reportant sur le moteur javascript : 0.0085</strong></li>
 </ul>
-Bref, comme je le disais plus haut : un sacré écart !
+<p>Bref, comme je le disais plus haut : un sacré écart !</p>
 <h2>Conclusion sur le moteur V8 en PHP</h2>
-je n'ai aucun recul sur cette utilisation du moteur V8 au sein de PHP. Le package est d'ailleurs en bétâ. Cependant, je pense que c'est une piste sérieuse si on cherche à reporter certains traitements (particulièrement des calculs) vers JavaScript...
+<p>je n'ai aucun recul sur cette utilisation du moteur V8 au sein de PHP. Le package est d'ailleurs en bétâ. Cependant, je pense que c'est une piste sérieuse si on cherche à reporter certains traitements (particulièrement des calculs) vers JavaScript...</p>
