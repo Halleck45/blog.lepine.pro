@@ -9,5 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: docker-practice/actions-setup-docker@master
-      - run: make install
+      - run: sudo make install
       - run: make build
