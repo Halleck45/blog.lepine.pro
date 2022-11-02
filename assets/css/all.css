@@ -13,7 +13,9 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
-
+body .content {
+    border-left: none;
+}
 body h2, body h3,body h4,body h5,body h6, #post h1 {
     margin: 2em 0 0.5em;
     font-weight: bold;
