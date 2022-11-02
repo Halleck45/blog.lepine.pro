@@ -42,3 +42,7 @@ h1.title {
 a, a:visited {
     color: #0369a1;
 }
+
+.footer {
+    border-top: none;
+}
