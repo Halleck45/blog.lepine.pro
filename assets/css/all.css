@@ -7,7 +7,7 @@
 {% include css/syntax.css %}
 
 body {
-    background-image: url("/images/cool-background.png");
+    background-image: url("/images/cool-background.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
