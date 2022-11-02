@@ -2,6 +2,7 @@
 layout: default
 ---
 
+<div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md">
 <p class="meta">
   {{ page.date | date: "%d/%m/%Y" }}
   <a href="/">
@@ -14,9 +15,10 @@ layout: default
 <h1 class="title">{{ page.title }}</h1>
 
 
-<div id="post">
+<div id="post" class="leading-relaxed">
   {{ content }}
 </div>
 
 {% include related.html %}
 {% include comments.html %}
+</div>

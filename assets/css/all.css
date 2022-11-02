@@ -5,3 +5,38 @@
 {% include css/screen.css %}
 {% include css/layout.css %}
 {% include css/syntax.css %}
+
+body {
+    background-image: url("/images/cool-background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body h2, body h3,body h4,body h5,body h6, #post h1 {
+    margin: 2em 0 0.5em;
+    font-weight: bold;
+    color: #000;
+}
+h1.title {
+    font-size: 2.5em;
+    margin: 0.5em 0 0.5em;
+    font-weight: bold;
+    color: #000;
+    font-variant: small-caps;
+}
+#post li {
+    list-style: disc;
+}
+#post ul {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#post p {
+    margin:1em 0;
+}
+
+a, a:visited {
+    color: #0369a1;
+}
