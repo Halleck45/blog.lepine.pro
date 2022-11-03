@@ -20,18 +20,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="four columns sidebar">
+  <div class="flex gap-4">
+    <div class="p-8 mt-8 max-w-xs hidden md:block">
       {% include sidebar.html %}
     </div>
 
-    <div class="eleven columns content">
+    <div class="max-w-6xl w-full">
+      <div class="px-8 py-8">
       {{ content }}
-
+      </div>
       <div class="mt-8 text-center text-white py-8">
         {% include footer.html %}
       </div>
     </div>
+    <div class="grow"></div>
   </div>
 
 {% include analytics.html %}

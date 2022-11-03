@@ -5,7 +5,7 @@ title: Industrialisation PHP et qualité logicielle
 
 
 <div id="home">
-    <div class="grid justify-center gap-4 md:grid-cols-2 ">
+    <div class="grid justify-center gap-4 md:grid-cols-3 ">
         {% for post in site.posts %}
         {% assign remainder = forloop.index | modulo: 5 %}
 
@@ -14,14 +14,14 @@ title: Industrialisation PHP et qualité logicielle
       p-4 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 hover:no-underline
       hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white hover:bg-sky-700 hover:text-white
       transition duration-200 hover:scale-105
-      h-48
+      h-80 md:h-48
     ">
-            <span class="block h-36">
+            <span class="block h-40 md:h-36">
                 <span class="block mb-2 font-bold">
                     {{ post.title }}
                 </span>
 
-                <span class="block text-sm ">
+                <span class="block text-sm">
                     {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
                 </span>
             </span>
