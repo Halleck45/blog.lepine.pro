@@ -1,7 +1,8 @@
 ---
 permalink: /semver-git-tags
 layout: post
-title:  "Semver, Git et tags : automatisation"
+title:  "Semantic Versionning automatisé"
+cover: "cover-semantic-versioning-automatise.png"
 categories:
 - industrialisation
 tags:

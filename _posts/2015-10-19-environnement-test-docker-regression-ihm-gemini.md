@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Un environnement complet de tests avec Docker - jour 2 (tests d'IHM)
+cover: "cover-docker-test-ihm.png"
 categories:
 - industrialisation
 tags:

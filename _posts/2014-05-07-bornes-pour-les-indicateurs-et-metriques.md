@@ -1,7 +1,8 @@
 ---
 permalink: /industrialisation/bornes-pour-les-indicateurs-et-metriques
 layout: post
-title:  "Qualité logicielle et métriques  de code - comment fixer les valeurs limites ?"
+title:  "Qualité logicielle : comment fixer les valeurs limites ?"
+cover: "cover-fixer-valeurs-limites.png"
 categories:
 - industrialisation
 tags:

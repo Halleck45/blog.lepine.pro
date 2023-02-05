@@ -2,6 +2,7 @@
 permalink: /industrialiser-industrialisation
 layout: post
 title:  "Industrialisons l'industrialisation"
+cover: "cover-industrialisons-industrialisation.png"
 categories:
 - industrialisation
 tags:

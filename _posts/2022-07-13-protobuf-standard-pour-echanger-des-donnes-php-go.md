@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "ProtoBuf : un super-standard pour échanger des données"
+cover: "cover-protobuf.png"
 categories:
 - php
 tags:

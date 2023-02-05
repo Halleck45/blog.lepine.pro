@@ -7,12 +7,15 @@
 {% include css/syntax.css %}
 
 body {
-    background-image: url("/images/cool-background.jpg");
+    background-image: url("/images/ui/hero-2-bg.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
 }
+
+
 body .content {
     border-left: none;
 }
@@ -42,9 +45,13 @@ h1.title {
     font-weight: bold;
 }
 a, a:visited {
-    color: #0369a1;
+    color: #22c55e;
 }
 
 .footer {
     border-top: none;
+}
+
+.post-preview {
+
 }

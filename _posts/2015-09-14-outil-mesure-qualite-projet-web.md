@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Un outil pour améliorer la qualité d'un projet web
+cover: "cover-outil-qualite.png"
 categories:
 - industrialisation
 tags:

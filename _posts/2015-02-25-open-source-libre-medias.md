@@ -1,7 +1,8 @@
 ---
 permalink: /open-source-libre-gestion-des-medias
 layout: post
-title:  "Open source, libre et gestion des medias"
+title:  "Un outil pour les licenses de vos médias"
+cover: "cover-license-medias.png"
 categories:
 - Open Source
 tags:

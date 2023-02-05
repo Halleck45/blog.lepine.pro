@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Un environnement complet de tests avec Docker - jour 1 (Behat)
+cover: "cover-docker-test-behat.png"
+
 categories:
 - industrialisation
 tags:

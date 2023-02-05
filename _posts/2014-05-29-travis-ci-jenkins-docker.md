@@ -2,6 +2,7 @@
 permalink: /travis-ci-jenkins-et-docker
 layout: post
 title:  "Intégration continue : utiliser le fichier .travis.yml dans Jenkins avec Docker"
+cover: "cover-travis-local.png"
 categories:
 - industrialisation
 tags:

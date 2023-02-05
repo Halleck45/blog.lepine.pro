@@ -5,34 +5,48 @@ title: Industrialisation PHP et qualité logicielle
 
 
 <div id="home">
-    <div class="grid justify-center gap-4 md:grid-cols-3 ">
+    <div class="grid justify-center gap-4 md:grid-cols-2 ">
         {% for post in site.posts %}
-        {% assign remainder = forloop.index | modulo: 5 %}
+        {% assign remainder = forloop.index | modulo: 8 %}
 
-        <a href="{{ post.url }}" class="
-      {% if forloop.index == 4 or forloop.first == true or remainder == 0 %}col-span-2{% endif %}
-      p-4 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 hover:no-underline
-      hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white hover:bg-sky-700 hover:text-white
-      transition duration-200 hover:scale-105
-      h-80 md:h-48
-    ">
-            <span class="block h-40 md:h-36">
-                <span class="block mb-2 font-bold">
-                    {{ post.title }}
-                </span>
 
-                <span class="block text-sm">
-                    {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
-                </span>
-            </span>
-            <span class="block text-right invisible md:visible">
-                {% for tag in post.tags limit:2 %}
-                <div class="inline px-4 py-1 rounded-full bg-gray-200 text-sm font-semibold text-gray-700 mr-2">
-                    {{ tag | truncate: 15 }}
-                </div>
-                {% endfor %}
-            </span>
+        {% if post.cover %}
+        <a href="{{ post.url }}" class="post-preview-image
+{% if forloop.first == true or remainder == 0 %}col-span-2 h-96{% else %}h-48{% endif %}
+transition duration-200 hover:scale-105
+" >
+            <img src="images/cover/{{ post.cover }}" alt="{{ post.title }}" class="w-full h-full object-cover rounded-lg">
         </a>
+        {% else %}
+
+            <a href="{{ post.url }}" class="post-preview
+          {% if forloop.first == true or remainder == 0 %}col-span-2{% endif %}
+          p-4 bg-white rounded-lg border border-gray-200 shadow-md  hover:no-underline
+          hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white hover:bg-green-600 hover:text-white
+          transition duration-200 hover:scale-105
+          h-80 md:h-48
+        ">
+                <span class="block h-40 md:h-36">
+                    <span class="block mb-2 font-bold">
+                        {{ post.title }}
+                    </span>
+                    <span class="block text-sm">
+                        {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
+                    </span>
+                </span>
+                <span class="block text-right invisible md:visible">
+                    {% for tag in post.tags limit:2 %}
+                    <div class="inline px-4 py-1 rounded-full bg-gray-200 text-sm font-semibold text-gray-700 mr-2">
+                        {{ tag | truncate: 15 }}
+                    </div>
+                    {% endfor %}
+                </span>
+            </a>
+
+
+        {% endif %}
+
+
         {% endfor %}
     </div>
 </div>

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "Bus de données et RabbitMQ, pour de l'échange de données entre services"
+title: "Bus de données, pour échanger entre services"
+cover: "cover-bus-de-donnees.png"
 categories:
 - php
 - data
