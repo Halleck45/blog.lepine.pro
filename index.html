@@ -5,25 +5,23 @@ title: Industrialisation PHP et qualité logicielle
 
 
 <div id="home">
-    <div class="grid justify-center gap-4 md:grid-cols-2 ">
+    <div class="grid justify-center gap-4 md:grid-cols-2 grid-cols-1 ">
         {% for post in site.posts %}
         {% assign remainder = forloop.index | modulo: 8 %}
 
-
         {% if post.cover %}
         <a href="{{ post.url }}" class="post-preview-image
-{% if forloop.first == true or remainder == 0 %}col-span-2 h-96{% else %}h-48{% endif %}
-transition duration-200 hover:scale-105
+{% if forloop.first == true or remainder == 0 %}md:col-span-2 md:h-96{% else %} md:col-span-1 md:h-48{% endif %}
+transition duration-200 hover:scale-105 col-span-2
 " >
-            <img src="images/cover/{{ post.cover }}" alt="{{ post.title }}" class="w-full h-full object-cover rounded-lg">
+            <img src="images/cover/{{ post.cover }}" alt="{{ post.title }}" class="w-full md:h-full object-cover rounded-lg">
         </a>
         {% else %}
-
             <a href="{{ post.url }}" class="post-preview
-          {% if forloop.first == true or remainder == 0 %}col-span-2{% endif %}
+            {% if forloop.first == true or remainder == 0 %}md:col-span-2 md:h-96{% else %} md:col-span-1 md:h-48{% endif %}
           p-4 bg-white rounded-lg border border-gray-200 shadow-md  hover:no-underline
           hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white hover:bg-green-600 hover:text-white
-          transition duration-200 hover:scale-105
+          transition duration-200 hover:scale-105  col-span-2
           h-80 md:h-48
         ">
                 <span class="block h-40 md:h-36">
