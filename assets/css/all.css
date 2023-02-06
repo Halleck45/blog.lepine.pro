@@ -12,7 +12,7 @@ body {
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif !important;
 }
 
 
@@ -31,6 +31,11 @@ h1.title {
     color: #000;
     font-variant: small-caps;
 }
+#post {
+    padding: 15px;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
 #post li {
     list-style: disc;
 }
@@ -40,6 +45,8 @@ h1.title {
 }
 #post p {
     margin:1em 0;
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 #post strong {
     font-weight: bold;
@@ -50,8 +57,4 @@ a, a:visited {
 
 .footer {
     border-top: none;
-}
-
-.post-preview {
-
 }
