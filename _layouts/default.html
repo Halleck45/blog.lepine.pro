@@ -18,6 +18,24 @@
   <link rel="stylesheet" href="/assets/css/all.css?{{site.time | date: '%s'}}">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  {% if page and page.cover %}
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description"
+        content="{{page.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}">
+  <meta property="og:image" content="{{ site.url }}/images/cover/{{ page.cover }}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+  <meta property="twitter:title" content="{{ page.title }}">
+  <meta property="twitter:description"
+        content="{{page.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}">
+  <meta property="twitter:image" content="{{ site.url }}/images/cover/{{ page.cover }}">
+  {% endif %}
 </head>
 <body>
   <div class="flex gap-4">

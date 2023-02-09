@@ -1,5 +1,5 @@
 # General Jekyll Config
-url: http://blog.lepine.pro
+url: https://blog.lepine.pro
 #url: http://localhost:4000
 exclude: [LICENSE, CNAME, README.md, TODO.md, .gitignore, Makefile, Capfile, config]
 
