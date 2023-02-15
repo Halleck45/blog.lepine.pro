@@ -34,7 +34,6 @@ h1.title {
 #post {
     padding: 15px;
     font-size: 1.25rem;
-    line-height: 1.75rem;
 }
 #post li {
     list-style: disc;
@@ -45,6 +44,10 @@ h1.title {
 }
 #post p {
     margin:1em 0;
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+#post li {
     --tw-text-opacity: 1;
     color: rgb(107 114 128 / var(--tw-text-opacity));
 }
