@@ -6,6 +6,7 @@ jekyll:
 
 optimize:
 	optipng images/* ||true
+	optipng images/cover/* ||true
 	jpegoptim images/*  ||true
 
 server:
