@@ -5,46 +5,21 @@ title: Industrialisation PHP et qualité logicielle
 
 
 <div id="home">
-    <div class="grid justify-center gap-4 md:grid-cols-2 grid-cols-1 ">
+    <div class="container md:pt-14 pt-8">
+        <div class="list-post lg:wc-8 md:wc mx-auto">
         {% for post in site.posts %}
-        {% assign remainder = forloop.index | modulo: 8 %}
-
-        {% if post.cover %}
-        <a href="{{ post.url }}" class="post-preview-image
-{% if forloop.first == true or remainder == 0 %}md:col-span-2 md:h-96{% else %} md:col-span-1 md:h-48{% endif %}
-transition duration-200 hover:scale-105 col-span-2
-" >
-            <img src="images/cover/{{ post.cover }}" alt="{{ post.title }}" class="w-full md:h-full object-cover rounded-lg">
+        <a href="{{ post.url }}" class=" block pb-10 mb-10 text-green-500" style="border-bottom: 1px solid">
+            <span class="post-date block text-xs mb-4">
+                {{ post.date | date: "%d/%m/%Y" }}
+            </span>
+            <span class="post-title font-bold text-3xl text-green-500 mb-4 block">
+                {{ post.title }}
+            </span>
+            <span class="post.excerpt block text-xl text-black">
+                {{post.excerpt | truncatewords: 40 | strip_html | strip_newlines | strip }}
+            </span>
         </a>
-        {% else %}
-            <a href="{{ post.url }}" class="post-preview
-            {% if forloop.first == true or remainder == 0 %}md:col-span-2 md:h-96{% else %} md:col-span-1 md:h-48{% endif %}
-          p-4 bg-white rounded-lg border border-gray-200 shadow-md  hover:no-underline
-          hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white hover:bg-green-600 hover:text-white
-          transition duration-200 hover:scale-105  col-span-2
-          h-80 md:h-48
-        ">
-                <span class="block h-40 md:h-36">
-                    <span class="block mb-2 font-bold">
-                        {{ post.title }}
-                    </span>
-                    <span class="block text-sm">
-                        {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
-                    </span>
-                </span>
-                <span class="block text-right invisible md:visible">
-                    {% for tag in post.tags limit:2 %}
-                    <div class="inline px-4 py-1 rounded-full bg-gray-200 text-sm font-semibold text-gray-700 mr-2">
-                        {{ tag | truncate: 15 }}
-                    </div>
-                    {% endfor %}
-                </span>
-            </a>
-
-
-        {% endif %}
-
-
         {% endfor %}
+    </div>
     </div>
 </div>

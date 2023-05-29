@@ -2,31 +2,23 @@
 layout: default
 ---
 
-<div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md">
-<p class="meta">
-  {{ page.date | date: "%d/%m/%Y" }}
-  <a href="/">
-    <i class="home fa fa-home"></i>
-  </a>
-</p>
-{% include meta.html %}
-{% include post_social.html %}
+<div class="p-4 post">
+
+    {% include meta.html %}
+    {% include post_social.html %}
+
+    <div class="post-title py-16 px-8 text-white">
+      <div class="date">
+        Publié le {{ page.date | date: "%d/%m/%Y" }} par Jean-François Lépine
+      </div>
+        <h1 class="title text-white">{{ page.title }}</h1>
+    </div>
 
 
-  {% if page.cover %}
-  <div class="post-cover">
-    <img src="/images/cover/{{ page.cover }}" alt="{{ page.title }}" class="mt-4 w-full">
-  </div>
-  {% else %}
-  <h1 class="title">{{ page.title }}</h1>
-  {% endif %}
+    <div id="post" class="leading-relaxed">
+        {{ content }}
+    </div>
 
-
-
-<div id="post" class="leading-relaxed">
-  {{ content }}
-</div>
-
-{% include related.html %}
-{% include comments.html %}
+    {% include related.html %}
+    {% include comments.html %}
 </div>
