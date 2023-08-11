@@ -1,7 +1,6 @@
 ---
 layout: post
-title: "Bus de données, pour échanger entre services"
-cover: "cover-bus-de-donnees.png"
+title: "Boostez vos Échanges de Données entre Services : DataBus, RabbitMQ et Protobuf"
 categories:
 - php
 - data

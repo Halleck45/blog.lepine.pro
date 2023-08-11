@@ -6,43 +6,16 @@
 {% include css/layout.css %}
 {% include css/syntax.css %}
 
-
-@font-face {
-    font-family: 'Peak Sans Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Peak Sans Regular'), url('PeakSans_Regular.woff') format('woff');
-}
-
-
-@font-face {
-    font-family: 'Peak Sans Bold';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Peak Sans Bold'), url('PeakSans_Bold.woff') format('woff');
-}
-
-
-@font-face {
-    font-family: 'Peak Sans Black';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Peak Sans Black'), url('PeakSans_Black.woff') format('woff');
-}
-
-
 body {
-    background-image: url("/images/ui/hero-2-bg.png");
+    /*background-image: url("/images/cool-background.jpg");*/
+    background-color: #EEE;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    font-family: Peak Sans Regular,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
 }
-
-
 body .content {
     border-left: none;
 }
@@ -51,98 +24,84 @@ body h2, body h3,body h4,body h5,body h6, #post h1 {
     font-weight: bold;
     color: #000;
 }
+h1, h2, h3, h4, h5, h6 {
+    color: #181818;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
 h1.title {
     font-size: 2.5em;
+    line-height:1.3em;
     margin: 0.5em 0 0.5em;
-    font-weight: bold;
+    font-weight: 700;
     color: #000;
-    font-variant: small-caps;
 }
 #post {
-    padding: 15px;
-    font-size: 1.25rem;
+    text-align: justify;
 }
 #post li {
     list-style: disc;
+    margin-bottom: 1em;
 }
 #post ul {
     margin-top: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 #post p {
     margin:1em 0;
-    --tw-text-opacity: 1;
+    line-height: 1.7rem;
+    margin-bottom: 2.5rem;
     color: #000;
 }
-#post li {
-    --tw-text-opacity: 1;
-    color: #000;
+#post p a {
+    color: #0369a1;
 }
 #post strong {
     font-weight: bold;
 }
+#post h2 {
+    font-size: 2em;
+    line-height: 1.2em;
+    text-decoration: underline;
+}
+#post h3 {
+    font-size: 1.6em;
+}
 a, a:visited {
-    color: #22c55e;
+    color: #0369a1;
 }
 
 .footer {
     border-top: none;
 }
 
-.container {
-    max-width: 700px !important;
+.card:hover .card-excerpt {
+    color: #EEE;
 }
-
-/* reset */
-.list-post a:hover {
-    text-decoration: none !important;
-}
-.list-post a:hover .post-title{
- text-decoration: underline;
-}
-
-.post .post-title {
-    background-color: rgb(255 63 63);
-}
-.post .post-title .date {
-    font-size: 1em;
-    font-weight: normal;
-    color: #000;
-}
-.post .post-title h1.title {
-    font-size: 3.5em;
-    margin: 0.5em 0 0.5em;
-    font-weight: bold;
-    color: #FFF;
-    font-variant: small-caps;
-    line-height: 1.2;
-}
-.post h2 {
-    font-size: 2.5em;
-    margin: 0.5em 0 0.5em;
-    font-weight: bold;
-    font-variant: small-caps;
-    line-height: 1.2;
-    color: rgb(255 63 63);
+.card:hover .card-tags {
+    display: none;
 }
 
 #post pre {
-    background-color: #000;
-    color: #fff;
-    padding: 1em;
-    border-radius: 0.5em;
+    background-color: #FFF;
     overflow-x: auto;
-    font-size: 0.9em;
-    line-height: 1.5;
-    margin: 1em 0;
+    display: block;
+    padding: 0;
+    border: none;
 }
 #post pre code {
-    background-color: transparent;
-    color: #fff;
-    padding: 0;
-    border-radius: 0;
-    overflow-x: auto;
+    background-color: #000;
+    border-radius: 0.5rem;
+    color: #EEE;
     font-size: 0.9em;
-    line-height: 1.5;
-    margin: 0;
+    line-height: 1.5em;
+    display: block;
+    padding: 1em;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.post_social {
+    min-height: 30px;
+    max-height: 30px;
 }

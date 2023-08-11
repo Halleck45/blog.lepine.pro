@@ -2,23 +2,32 @@
 layout: default
 ---
 
-<div class="p-4 post">
-
+<div class="p-4 pt-16 bg-white rounded-lg ">
+  <div style="max-width:760px; margin: 0 auto">
+    <p class="meta">
+      {{ page.date | date: "%d/%m/%Y" }}
+      <a href="/">
+        <i class="home fa fa-home"></i>
+      </a>
+    </p>
     {% include meta.html %}
     {% include post_social.html %}
 
-    <div class="post-title py-16 px-8 text-white">
-      <div class="date">
-        Publié le {{ page.date | date: "%d/%m/%Y" }} par Jean-François Lépine
-      </div>
-        <h1 class="title text-white">{{ page.title }}</h1>
-    </div>
+    <h1 class="title">{{ page.title }}</h1>
 
 
     <div id="post" class="leading-relaxed">
-        {{ content }}
+      {{ content }}
     </div>
 
     {% include related.html %}
     {% include comments.html %}
+  </div>
 </div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>

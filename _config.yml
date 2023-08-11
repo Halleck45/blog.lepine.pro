@@ -10,7 +10,7 @@ highlighter: true
 paginate: 10
 destination: build
 gems: [jekyll-paginate]
-plugins: [jekyll-paginate]
+plugins_dir: [jekyll-paginate]
 
 # Theme customization - please change from the defaults!
 theme:

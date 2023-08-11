@@ -49,5 +49,3 @@ C'est un outil simple, en JavaScript. Si vous avez envie de contribuer, ou ne se
 mot d'encouragement, [🏕 toute l'aventure se passe sur Github](https://github.com/Halleck45/captain-dys). 
 
 Je vous remercie pour votre aide et pour vos partages !
-
-> Photo d'illustration par [Annie Spratt](https://unsplash.com/fr/@anniespratt)

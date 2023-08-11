@@ -5,21 +5,34 @@ title: Industrialisation PHP et qualité logicielle
 
 
 <div id="home">
-    <div class="container md:pt-14 pt-8">
-        <div class="list-post lg:wc-8 md:wc mx-auto">
+    <div class="grid justify-center gap-4 md:grid-cols-3 ">
         {% for post in site.posts %}
-        <a href="{{ post.url }}" class=" block pb-10 mb-10 text-green-500" style="border-bottom: 1px solid">
-            <span class="post-date block text-xs mb-4">
-                {{ post.date | date: "%d/%m/%Y" }}
+        {% assign remainder = forloop.index | modulo: 5 %}
+
+        <a href="{{ post.url }}" class="card
+      {% if forloop.index == 4 or forloop.first == true or remainder == 0 %}col-span-2{% endif %}
+      p-4 bg-white rounded hover:bg-gray-100 hover:no-underline
+      hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white
+      transition duration-200 hover:scale-105
+      h-60 md:h-52
+    ">
+            <span class="block " style="min-height: 140px; max-height: 140px;">
+                <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis" style="min-height: 80px;height: 80px">
+                    {{ post.title }}
+                </span>
+
+                <span class="card-excerpt block text-sm text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
+                    {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
+                </span>
             </span>
-            <span class="post-title font-bold text-3xl text-green-500 mb-4 block">
-                {{ post.title }}
-            </span>
-            <span class="post.excerpt block text-xl text-black">
-                {{post.excerpt | truncatewords: 40 | strip_html | strip_newlines | strip }}
+            <span class="card-tags block text-right invisible md:visible" style="min-height: 80px">
+                {% for tag in post.tags limit:2 %}
+                <div class="inline px-4 py-1 rounded-full bg-gray-100 text-sm  text-gray-500 mr-2">
+                    {{ tag | truncate: 15 }}
+                </div>
+                {% endfor %}
             </span>
         </a>
         {% endfor %}
-    </div>
     </div>
 </div>
