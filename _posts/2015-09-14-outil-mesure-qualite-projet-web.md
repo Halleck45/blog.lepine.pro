@@ -25,7 +25,7 @@ Les premières véritables tentatives de définitions datent des années 70, et 
 donne une liste de caractéristiques possibles, puis les standard [ISO 9000:2000](https://fr.wikipedia.org/wiki/S%C3%A9rie_des_normes_ISO_9000) viennent affiner les concepts. Une grille de facteurs de la
 qualité logicielle est établie et mature.
 
-## Grille de facteurs de qualité
+## Grille de facteurs de qualité
 
 Personnellement, la grille que j'utilise dans mes stratégies de test est celle proposée par le groupe [ISTQB](http://www.istqb.org/) :
 
@@ -48,7 +48,7 @@ Si pour la performance (au sens premier, à savoir l'exploitation efficace des r
 (mesure du temps de réponse, mesure de la [complexité asymptotique](https://en.wikipedia.org/wiki/Asymptotic_computational_complexity)), qu'en est-il des autres facteurs ?
 Pas facile...
 
-## Mesurer les facteurs de qualité prioritaires
+## Mesurer les facteurs de qualité prioritaires
 
 C'est un sujet que j'ai vraiment beaucoup (beaucoup beaucoup) étudié, et à force de confrontations à la réalité des projets, je me suis rendu compte que 
 pour les projets web, **certains facteurs sortent du lot**, car généralement considérés par les équipes techniques comme "plus importants" :
@@ -76,7 +76,7 @@ on veut mesurer la maintenabilité d'un projet, **on doit par exemple regarder l
 A ma connaissance, il n'existe que peu d'outils de mesure qui prennent
 en compte un projet dans sa globalité (je pense à VisualStudio ou Cast software), et aucun pour PHP.
 
-## Qualiboo.com, un outil de mesure en ligne
+## Qualiboo.com, un outil de mesure en ligne
 
 C'est ce qui m'a amené à réflechir à la création d'un outil capable d'aider à mesurer un projet web dans son ensemble, en collectant un grand nombre de métriques variées. Bien
 sûr cet outil ne pourrait pas mesurer la "qualité" d'un projet web au sens propre, mais aiderait à fournir des indicateurs. Ce serait un assistant à la qualité, ou à défaut à la détection d'éléments susceptibles de mener à la "non-qualité".

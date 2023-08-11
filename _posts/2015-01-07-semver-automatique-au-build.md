@@ -80,7 +80,7 @@ Et voilà le travail ! Un petit Makefile et le tour est joué. Voici pour les pl
 {% highlight bash %}
 REPLACE=`semver tag`
     
-# Build phar
+# Build phar
 build: test
     @echo Copying sources
     @mkdir -p /tmp/phpmetrics-build
@@ -102,7 +102,7 @@ build: test
     ./vendor/bin/phpunit -c phpunit.xml.dist --group=binary &&	echo "Done"
 
 
-# Run unit tests
+# Run unit tests
 test:
     ./vendor/bin/phpunit -c phpunit.xml.dist
 

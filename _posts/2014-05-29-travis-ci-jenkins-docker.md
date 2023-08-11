@@ -55,16 +55,16 @@ Tout ce dont on a besoin pour l'installation (debian) tient sur ces quelques lig
 #!/bin/bash
 # fichier install.sh
 
-# Dépendances PIP (pour le Yaml)
+# Dépendances PIP (pour le Yaml)
 apt-get update  -y -q
 apt-get install python-pip -y
 pip install shyaml
 
-# Docker
+# Docker
 apt-get install docker.io  -y
 ln -sf /usr/bin/docker.io /usr/local/bin/docker
 
-# Containers
+# Containers
 docker build -t debian/5.3 - < Dockerfile53
 docker build -t debian/5.4 - < Dockerfile54
 docker build -t debian/5.5 - < Dockerfile55
@@ -257,7 +257,7 @@ exit $EXIT_STATUS
 Ces lignes permettent de gérer les codes de retour d'erreur, et concatènent le résultat de chaque jeu de tests dans la variable
 `OUTPUT` afin de l'afficher à la fin du build.
 
-## Exemple dans Jenkins
+## Exemple dans Jenkins
 
 Voici donc à quoi ressemblent mes builds Jenkins désormais
 

@@ -29,7 +29,7 @@ C'est comme ça chez vous aussi ? Rassurez-vous, vous n'êtes pas seul, et il ex
 
 > Avertissement : il ne s'agit pas d'un concept "Buzz word". C'est tout à fait possible, j'en ai fait à plusieurs occasions l'expérience. Il faut simplement être conscient que ça prend du temps, et **surtout rester pragmatique**. Voici quelques retours d'expérience
 
-## Facteur 1 : une équipe 
+## Facteur 1 : une équipe 
 
 > **Il faut des référents en Assurance qualité, même si ce n'est pas leur métier premier**
 
@@ -84,7 +84,7 @@ Par outils, j'entends trois choses:
 + les outils de développements (logiciels de tests; d'automatisation...)
 + les outils de suivi
 
-### Outils d'initialisation des projets
+### Outils d'initialisation des projets
 
 Une part importante du coût de l'industrialisation provient de l'absence d'uniformisation des projets, et du temps nécessaire 
 à leur création :
@@ -105,7 +105,7 @@ qu'à donner un nom et une typologie. Des scripts Bash / Ansible font le reste.
 Le développeur se retrouve alors avec un dépôt "pré-rempli".
 
 
-### Outils de développement
+### Outils de développement
 
 Par outils de développement, j'entends tout ce qui permet à un développeur de travailler : IDE, frameworks de test, environnement de travail, environnement de test...
 
@@ -119,7 +119,7 @@ Plus difficile, surtout en PHP : il faut mettre en place des tableaux de bord de
 Toutes ces informations doivent être affichées sur une TV dans le bureau des développeurs. Cela leur permettra d'avoir du feedback sur leur travail, et donc de 
 rester motivés.
 
-## Facteur 4 : un suivi régulier
+## Facteur 4 : un suivi régulier
 
 > **Du temps doit être consacré à la qualité**
 
@@ -129,7 +129,7 @@ moyen de remporter l'adhésion de tous.
 De la même façon, rien ne se fait en un jour. En général, entre le moment où je démarre une mise en place de processus industrialisés et le moment où ça commence à être vraiment 
 opérationnel (et rentable), **il se passe une année complète**.
 
-## Facteur 0 : pragmatisme
+## Facteur 0 : pragmatisme
 
 > **Raison, bonne intelligence et pragmatisme**
 

@@ -53,7 +53,7 @@ Windows:
 
     curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
-## Behat
+## Behat
 
 
 En deux mots, Behat est un [outil de test](http://blog.lepine.pro/php/behat-jour-1-comment-tester-son-produit-scrum/). Il permet de convertir des phrases (langues naturelles) en 
@@ -106,7 +106,7 @@ N'oubliez pas que vous pouvez connaître la liste des expressions prêtes à l'e
     
 Pour aller plus loin sur la manière d'écrire des fonctionnalités ou sur les bonnes pratiques Behat, **je vous invite à lire cet [ebook](http://communiquez.lepine.pro/download/developpement-pilote-par-le-comportement-tome2.pdf) Open Source que j'ai écrit il y a un moment sur le sujet**.
     
-## Un "vrai" navigateur
+## Un "vrai" navigateur
 
 Bon, on a nos tests, mais en réalité jusqu'ici nous utilisons un navigateur "virtuel". Ce navigateur est incapable d'interpréter du javascript. Il faut aller plus loin.
 

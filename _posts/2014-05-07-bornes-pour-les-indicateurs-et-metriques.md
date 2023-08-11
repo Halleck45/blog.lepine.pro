@@ -30,7 +30,7 @@ c'est que j'ai procédé itérativement selon la manière suivante :
 3. analyse démographique
 4. ajustement par l'expérience
 
-## Étape 1 : Utilisation de valeurs théoriques
+## Étape 1 : Utilisation de valeurs théoriques
 
 La première méthode est la plus simple : la plupart des métriques logicielles que j'ai intégrées sont très bien théorisées, et de
 des suggestions de bornes maximales et minimales existent assez souvent.
@@ -76,7 +76,7 @@ partagent des attributs communs. Il est donc probable ici que notre classe poss�
 
 **D'un point de vue purement théorique**, la valeur idéale de LCOM4 d'une classe est donc de 1.
 
-## Étape 2 : Pondération de la théorie
+## Étape 2 : Pondération de la théorie
 
 Mais il ne faut pas oublier que ces indicateurs, bien que volontairement agnostiques, ont tout de même été fortement orientés par les
 langages de programmation utilisés pour les théoriser / illustrer.

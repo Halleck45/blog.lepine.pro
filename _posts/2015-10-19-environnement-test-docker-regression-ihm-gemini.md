@@ -22,7 +22,7 @@ Aujourd'hui nous parlerons d'IHM, c'est-à-dire **comment tester que l'interface
 
 Je rappelle que l'objectif ce ces billets / outils est de pouvoir dire "Vous n'avez pas de raison valable de ne pas tester" :)
 
-## Introduction 
+## Introduction 
 
 La question de **tester une interface graphique est complexe** pour plusieurs raisons :
 
@@ -32,7 +32,7 @@ La question de **tester une interface graphique est complexe** pour plusieurs ra
 + gérer les **faux-positifs** (liés, par exemple, au lissage des polices qui peuvent être différents pour un même navigateur)
 
 
-### Mon retour sur quelques outils de test de régression
+### Mon retour sur quelques outils de test de régression
 
 Au fil du temps, j'ai testé pas mal d'outils de test de régression. Tous s'appuient sur des comparaisons de captures d'écrans (du site en entier, ou de blocs (divs, etc.) du site).
 
@@ -62,7 +62,7 @@ Pour les curieux, ceux que je n'ai fait que survoler :
 + [BrowserShots](http://browsershots.org/)
 + Bref, il existe pas mal d'outils différents, et ça bouge bien en ce moment.
 
-## Installation
+## Installation
 
 Nous allons donc utiliser Gemini. Voici un exemple de rapport HTML que l'on souhaite obtenir :
 
@@ -79,7 +79,7 @@ Là encore, j'ai préparé une image Docker pour vous:
 On va s'appuyer sur le fichier `docker-compose.yml` que l'on a créé [la dernière fois](/environnement-test-docker-behat/).
 
     gemini:
-      image: qualiboo/testing-gemini
+      image: roukmoute/testing-gemini
       links:
         - hub
         - firefox
@@ -109,7 +109,7 @@ Vérifions l'installation. La commande suivante doit afficher la version de gemi
 
     docker-compose run gemini version
     
-## Premiers tests
+## Premiers tests
 
 Nous allons procéder en deux temps :
 
@@ -154,7 +154,7 @@ Voilà, **les tests peuvent être lancés** :
 Après quelques secondes/minutes, vous voilà avec un "beau" rapport HTML dans `./gemini/gemini-report/index.html`. Il ne reste plus qu'à l'ouvrir dans votre navigateur préferé...
 
     
-## Tester le responsive design
+## Tester le responsive design
 
 Avant toute chose, il faut savoir que **le monde de tests d'IHM n'est pas parfait**. La version du ChromeDriver actuelle pour Linux (2.20) ne permet pas de capturer un bloc qui est plus grand que le viewport 
 du navigateur. Si vous voulez capturer toute la page (le `body`), il faudra passer par Firefox.
@@ -204,7 +204,7 @@ N'oubliez pas de mettre à jour le référentiel de screenshots :
 
 A vous désormais de lancer les tests à votre guise (par exemple à chaque Push sur votre dépôt, à l'aide de Jenkins).
 
-## Aller plus loin et faire abstraction du contenu dynamique
+## Aller plus loin et faire abstraction du contenu dynamique
     
 Je l'ai évoqué, **un problème récurrent des tests de régression d'IHM concerne le contenu dynamique** (publicités, actualités...). Il faut trouver un moyen de faire abstraction 
 de ce type de contenu.
@@ -235,7 +235,7 @@ Dès lors, toutes les images et contenus dynamiques sont remplacés. Il est asse
 Le contenu du site a changé, donc, **oui, nos tests sont alors incomplets et éloignés de la réalité**. Mais si on ne le fait pas, le risque est que ces tests ne soient jamais pertinents car fondés uniquement sur de faux-positifs. **La suppression 
 des publicités est un compromis pour être pragmatique**.
     
-## Conclusion
+## Conclusion
 
 Vous l'avez vu, **vous avez là un moyen simple de tester l'IHM de votre site sous différentes résolutions**, à l'aide de Docker. Si vous avez un feedback, n'hésitez pas à laisser un commentaire ; et si 
 ce billet vous plaît, n'hésitez pas à le partager :)

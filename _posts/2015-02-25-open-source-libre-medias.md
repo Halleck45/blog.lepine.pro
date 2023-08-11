@@ -52,7 +52,7 @@ Un des objectifs étant d'aider les développeurs à s'y retrouver dans la gesti
 Si la licence n'existe pas lors de l'ajout d'un média, l'outil suggerera une license phonétiquement proche. 
 **Il est impossible d'ajouter un média si sa licence ne fait pas partie du référentiel SPDX**.
  
-## Le vrai problème
+## Le vrai problème
 
 J'aimerai un outil capable de répertorier l'ensemble des licenses des briques d'un projet. J'aimerai beaucoup 
 ajouter à OSS une fonction "scan", qui découvrirait les licences des dépendances Bower, Composer, Npm, Gem...

@@ -65,9 +65,9 @@ And I press "Search"
 Then I should be on "index/task/id/<id>"
 
 Examples:
-| reference   | id  |
-| task1       | 1   |
-| task2       | 2   |{% endhighlight %}
+| reference   | id  |
+| task1       | 1   |
+| task2       | 2   |{% endhighlight %}
 
 <p>Bon, ça marche. Mais quand on y regarde plus près :</p>
 <ul>
@@ -95,9 +95,9 @@ Then I should be on the Task's page
 And I should see the task "<reference>"
 
 Examples:
-| reference  |
-| task1      |
-| task2      |{% endhighlight %}
+| reference  |
+| task1      |
+| task2      |{% endhighlight %}
 
 <p>On a donc opéré des modifications afin de rendre le test indépendant du jeu de données ou de l'interface de l'application.</p>
 
@@ -107,7 +107,7 @@ Examples:
 <h2>Implémenter une définition de fonctionnalité : pas plus facile</h2>
 <p>On a vu un exemple de fonctionnalité à risque. Passons de l'autre côté et mettons-nous du point de vue du développeur. De la même façon, voici une implémentation possible :</p>
 
-<p>Note : en l’occurrence, la liste des tâches n'est possible dans l'application qu'après  avoir effectué une recherche.</p>
+<p>Note : en l’occurrence, la liste des tâches n'est possible dans l'application qu'après  avoir effectué une recherche.</p>
 
 {% highlight php %}/**
  * @Given /^I see a list of tasks, including the task "([^"]*)"$/
@@ -153,7 +153,7 @@ public function iSeeAListOfTasksIncludingTheTask($reference) {
 
 <p>Pour s'aider, le développeur peut s'appuyer (si tout se passe bien) sur la personne qui a rédigé le scénario, qui l'aidera à découper sa définition en différentes étapes.</p>
 
-<p>Attention, contrairement au scénario Gherkin, ce code peut être amené parfois à évoluer. Par  exemple, si on ajoute un scénario pour la recherche de tâche, avec cette étape :</p>
+<p>Attention, contrairement au scénario Gherkin, ce code peut être amené parfois à évoluer. Par  exemple, si on ajoute un scénario pour la recherche de tâche, avec cette étape :</p>
 
 {% highlight gherkin %}When I search the task ""{% endhighlight %}
 
@@ -183,7 +183,7 @@ public function iSeeAListOfTasksIncludingTheTask($reference) {
 <h2>Le mot de la fin</h2>
 <p>Bref, ça semble évident, mais quand on fait du BDD... et bien il faut se focaliser le le Comportement. Ce n'est pas facile, et contre intuitif pour beaucoup de monde. Toutefois, le rédacteur du test peut s'aider de la structure de la fonctionnalité (comment la décrire, qui y participe, quels en sont les bénéfices, puis quels cas d'utilisation je peux en donner).</p>
 
-<p>En d'autres mots, le "rédacteur" ne doit pas s'appuyer sur ce qu'il connaît de son application (emplacement, design...), mais sur la vision du produit (comment ça se passe ? Avec quel gain pour l'utilisateur ?). En clair :</p>
+<p>En d'autres mots, le "rédacteur" ne doit pas s'appuyer sur ce qu'il connaît de son application (emplacement, design...), mais sur la vision du produit (comment ça se passe ? Avec quel gain pour l'utilisateur ?). En clair :</p>
 <blockquote>Le rédacteur ne doit pas s'appuyer sur ce qu'il connaît de son application mais sur la vision du produit</blockquote>
 <p>Le développeur, lui, doit prendre l'habitude de ne pas se lancer tête baissée dans le code, au risque de consacrer trop de temps et d'énergie à l'utilisation de Behat. Certes il doit écrire ce code, mais il ne code plus pour interagir avec un autre code (comme lorsqu'il le fait pour un test unitaire par exemple), mais pour interagir avec un produit. En clair :</p>
 <blockquote>Le développeur n'interagit plus avec du code mais avec un produit</blockquote>
