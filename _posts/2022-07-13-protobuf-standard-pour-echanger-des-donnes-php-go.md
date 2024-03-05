@@ -15,10 +15,14 @@ meta:
   _syntaxhighlighter_encoded: '1'
 ---
 
+> You will find the 🇬🇧 [english version of this article here](/en/protobuf-php-go/)
+
 Aujourd'hui j'ai envie de vous parler d'un outil que j'utilise 
 désormais presque tous les jours : [Protocol Buffers](https://developers.google.com/protocol-buffers) (ou **ProtoBuf** pour les intimes).
 
 Contrairement à une idée reçue, il est tout à fait possible (et efficace !) d'utiliser ProtoBuf en `PHP`.
+
+## ❔ Qu'est-ce que ProtoBuf ?
 
 **ProtoBuf, c'est :**
 
@@ -41,7 +45,7 @@ toute donnée sera sérialisée et désérialisée, en binaire ou en JSON.**
 Pour un exemple basique, nous allons décrire un message simple, de type billet de blog :
 
 ```protobuf
-# fichier src/BlogSpot.proto
+# fichier src/BlogPost.proto
 
 syntax = "proto3";
 message BlogPost {
@@ -54,9 +58,9 @@ message BlogPost {
 C'est un message simple, qui contient un titre et un contenu. **Chaque attribut est associé à une position (1, 2, 3, ...), qui ne doit jamais 
 changer dans le temps. C'est sur elle que s'appuie la sérialisation et déserialisation.**
 
-Continuons avec notre `BlogSpot`, afin de lui ajouter des tags et un auteur (de manière assez simpliste, mais l'idée est là) :
+Continuons avec notre `BlogPost`, afin de lui ajouter des tags et un auteur (de manière assez simpliste, mais l'idée est là) :
 
-```ProtoBuf
+```protobuf
 # fichier src/User.proto
 
 syntax = "proto3";
@@ -67,7 +71,7 @@ message User {
 }
 ```
 
-```ProtoBuf
+```protobuf
 # fichier src/Tag.proto
 
 syntax = "proto3";
@@ -76,9 +80,9 @@ message Tag {
 }
 ```
 
-Modifions le `BlogSpot` pour relier le tout. Le fichier ressemble désormais à :
+Modifions le `BlogPost` pour relier le tout. Le fichier ressemble désormais à :
 
-```ProtoBuf
+```protobuf
 syntax = "proto3";
 
 import "src/User.proto";
@@ -99,7 +103,7 @@ Nous allons enfin ajouter une date de publication à notre BlogPost. Pour cela, 
 type `timestamp`, qui est natif, mais à importer si vous souhaitez l'utiliser. Il existe pas mal de types, je vous 
 laisse [les découvrir dans la documentation](https://developers.google.com/protocol-buffers/docs/proto3).
 
-```ProtoBuf
+```protobuf
 # ...
 import "google/protobuf/timestamp.proto";
 
@@ -112,7 +116,7 @@ message BlogPost {
 Pour aller jusqu'au bout et découvrir un dernier aspect assez utile, sachez qu'**il est possible également 
 d'utiliser des enums** :
 
-```ProtoBuf
+```protobuf
 # ...
 
 message BlogPost {
@@ -127,9 +131,9 @@ message BlogPost {
 ```
 
 
-Si vous avez envie de tester, et pas le courage de tout copier-coller, **voici le code complet** pour le `BlogSpot` :
+Si vous avez envie de tester, et pas le courage de tout copier-coller, **voici le code complet** pour le `BlogPost` :
 
-```ProtoBuf
+```protobuf
 syntax = "proto3";
 
 import "src/User.proto";
@@ -322,7 +326,7 @@ pu utiliser des objets ou des structures typées. Si la donnée est déserialis�
 Avec toutefois, de mon expérience, une réserve : **la documentation mériterait d'être largement simplifiée**, pour la rendre 
 plus abordable pour les débutants.
 
-En espérant vous avoir donné envie de tester cet outil, n'hésitez pas à faire part de votre expérience sur le sujet sur [Twitter](https://twitter.com/Halleck45) ou en commentaire.
+En espérant vous avoir donné envie de tester cet outil, n'hésitez pas à faire part de votre expérience sur le sujet.
 
 
 > **💡
