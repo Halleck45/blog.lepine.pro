@@ -1,20 +1,49 @@
 <nav>
-    <a href="/">
-        <img src="/logo.png" id="logo" alt="Blog de Jean-François Lépine : Industrialisation, qualité PHP"/>
-    </a>
-    <h2>Blog de <br/><a href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+    {% if page and page.language == "en" %}
 
-    <p class="my-8 text-center">
-        Freelance expert PHP, DevOps et en qualité logicielle.
-    </p>
-    <p class=" text-center">
-        Retrouvez mon 📖 livre <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Qualité logicielle pour les développeurs</a> chez Eyrolles.
-    </p>
-    <!--<p>
-        <a href="{{site.url}}/about/qui-suis-je.html">&gt; Plus d'informations</a>
-    </p>-->
+        <a href="/">
+            <img src="/logo.png" id="logo" alt="Jean-François Lépine's blog: PHP Industrialization and Software Quality"/>
+        </a>
+        <h2>Blog by <br/><a href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+
+        <p class="my-8 text-center">
+            Freelance PHP expert, DevOps and software quality.
+        </p>
+        <p class=" text-center">
+            Find my 📖 book <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Software Quality for Back-End Developers</a> at Eyrolles.
+        </p>
+        <p class="mt-8 text-center">
+            Author of <a href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>.
+    {% else %}
+        <a href="/">
+            <img src="/logo.png" id="logo" alt="Blog de Jean-François Lépine : Industrialisation, qualité PHP"/>
+        </a>
+        <h2>Blog de <br/><a href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+
+        <p class="my-8 text-center">
+            Freelance expert PHP, DevOps et en qualité logicielle.
+        </p>
+        <p class=" text-center">
+            Retrouvez mon 📖 livre <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Qualité logicielle pour les développeurs</a> chez Eyrolles.
+        </p>
+        <p class="mt-8 text-center">
+            Auteur de <a href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>.
+        </p>
+    {% endif %}
 
     <div id="social" class="my-8">
         {% include social.html %}
     </div>
 </nav>
+
+<div class="text-center text-xs mt-4">
+    {% if page and page.language == "en" %}
+    <a href="/">
+        🇫🇷 Français
+    </a>
+    {% else %}
+    <a href="/en">
+        🇬🇧 English
+    </a>
+    {% endif %}
+</div>

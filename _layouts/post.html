@@ -17,6 +17,18 @@ layout: default
 
 
     <div id="post" class="leading-relaxed">
+
+      {% if page.language == "en" and page.canonical %}
+        <blockquote class="mb-8">
+          This post is a translation of
+          <a href="{{ page.canonical }}">the original article in 🇫🇷 French</a>
+        </blockquote>
+      {% endif %}
+      {% if page.en_permalink %}
+        <blockquote class="mb-8">
+          You will find the <a href="{{ page.en_permalink }}">🇬🇧 english version of this article here</a>
+        </blockquote>
+      {% endif %}
       {{ content }}
     </div>
 

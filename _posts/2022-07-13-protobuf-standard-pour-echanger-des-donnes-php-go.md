@@ -13,9 +13,8 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+en_permalink: /en/protobuf-php-go/
 ---
-
-> You will find the 🇬🇧 [english version of this article here](/en/protobuf-php-go/)
 
 Aujourd'hui j'ai envie de vous parler d'un outil que j'utilise 
 désormais presque tous les jours : [Protocol Buffers](https://developers.google.com/protocol-buffers) (ou **ProtoBuf** pour les intimes).

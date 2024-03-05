@@ -3,12 +3,11 @@ layout: default
 title: Industrialisation PHP et qualité logicielle
 ---
 
-
 <div id="home">
     <div class="grid justify-center gap-4 md:grid-cols-3 ">
-        {% for post in site.posts %}
+        {% for post in site.posts  %}
+        {% if post.language != "en" %}
         {% assign remainder = forloop.index | modulo: 5 %}
-
         <a href="{{ post.url }}" class="card
       {% if forloop.index == 4 or forloop.first == true or remainder == 0 %}col-span-2{% endif %}
       p-4 bg-white rounded hover:bg-gray-100 hover:no-underline
@@ -33,6 +32,7 @@ title: Industrialisation PHP et qualité logicielle
                 {% endfor %}
             </span>
         </a>
+        {% endif %}
         {% endfor %}
     </div>
 </div>

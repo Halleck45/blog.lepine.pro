@@ -13,10 +13,10 @@ meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
 permalink: /en/:title/
+language: en
+canonical: /protobuf-standard-pour-echanger-des-donnes-php-go
 ---
 
-> This post is a translation of [the original article in 🇫🇷 French](/protobuf-standard-pour-echanger-des-donnes-php-go/)
- 
 Today I want to talk about a tool that I now use almost every day: [Protocol Buffers](https://developers.google.com/protocol-buffers) (or ProtoBuf for short).
 
 Contrary to popular belief, it is perfectly possible (and efficient!) to use ProtoBuf in PHP.
