@@ -34,7 +34,7 @@ theme:
   tagline: "Industrialisation, qualité, PHP"
 
   # Google Analytics key, leave blank to ignore
-  google_analytics_key: 
+  google_analytics_key:
 
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: false

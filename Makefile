@@ -2,7 +2,7 @@
 build: optimize jekyll
 
 jekyll: docker
-	docker run --rm  --label=jekyll --label=stable --volume=`pwd`:/srv/jekyll  jekyll/jekyll:2.5.3 jekyll  build
+	docker run --rm  --label=jekyll --label=stable --volume=`pwd`:/srv/jekyll  jekyll/jekyll:2.5.3 jekyll build --config _config.yml,_config.prod.yml
 
 optimize:
 	optipng images/* ||true
