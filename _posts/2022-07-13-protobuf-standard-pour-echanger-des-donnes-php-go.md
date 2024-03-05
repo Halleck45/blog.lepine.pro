@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ProtoBuf en PHP, pour une serialisation ultra-performante et agnostique"
-cover: "cover-protobuf.png"
+cover: "share-protobuf-php.png"
 categories:
 - php
 tags:
