@@ -10,6 +10,7 @@ tags:
 status: publish
 type: post
 published: true
+en_permalink: /en/open-source-assets/
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
