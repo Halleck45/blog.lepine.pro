@@ -4,27 +4,27 @@ title: Industrialisation PHP et qualité logicielle
 ---
 
 <div id="home">
-    <div class="grid justify-center gap-4 md:grid-cols-3 ">
+    <div class="grid justify-center gap-4 ">
         {% for post in site.posts  %}
         {% if post.language != "en" %}
         {% assign remainder = forloop.index | modulo: 5 %}
         <a href="{{ post.url }}" class="card
-      {% if forloop.index == 4 or forloop.first == true or remainder == 0 %}col-span-2{% endif %}
+      
       p-4 bg-white rounded hover:bg-gray-100 hover:no-underline
       hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white
       transition duration-200 hover:scale-105
-      h-60 md:h-52
+      h-48 md:h-48
     ">
-            <span class="block " style="min-height: 140px; max-height: 140px;">
-                <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis" style="min-height: 80px;height: 80px">
+            <span class="block " style="min-height: 110px; max-height: 110px;">
+                <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis" style="min-height: 40px;height: 40px">
                     {{ post.title }}
                 </span>
 
                 <span class="card-excerpt block text-sm text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
-                    {{post.excerpt | truncatewords: 20 | strip_html | strip_newlines | strip }}
+                    {{post.excerpt | truncatewords: 40 | strip_html | strip_newlines | strip }}
                 </span>
             </span>
-            <span class="card-tags block text-right invisible md:visible" style="min-height: 80px">
+            <span class="card-tags block text-right invisible md:visible" style="min-height: 40px">
                 {% for tag in post.tags limit:2 %}
                 <div class="inline px-4 py-1 rounded-full bg-gray-100 text-sm  text-gray-500 mr-2">
                     {{ tag | truncate: 15 }}
