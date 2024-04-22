@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Encore un outil d'analyse statique. Oui, mais en mieux !"
-cover: "cover-astmetrics.png"
+cover: "share-astmetrics.png"
 categories:
 - quality
 - opensource
@@ -14,15 +14,16 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+en_permalink: /en/ast-metrics-static-analysis/
 ---
 
-10 ans après avoir démarré le développement de [PHP Metrics](https://github.com/Phpmetrics/PhpMetrics), je crois 
+10 ans après avoir démarré le développement de [PHP Metrics](https://github.com/Phpmetrics/PhpMetrics), je crois
 qu'il est temps de démarrer quelque chose de nouveau, de plus moderne... et de plus ambitieux.
 
 ## AST Metrics
 
 [AST Metrics](https://github.com/Halleck45/ast-metrics/) est un outil, écrit en Go, d'analyse statique de code source.
-C'est un outil **performant** et **agnostique du langage de programmation**.
+C'est un outil **performant**, **simple**, et **agnostique** du langage de programmation.
 
 Pourquoi en Go ? **Avant tout pour la performance**. Là où il faut plusieurs minutes pour la majorité
 des analyseurs de code, **il ne faut que quelques secondes à AST Metrics pour parser plusieurs millions de ligne de code et des dizaines de milliers de commits.**
@@ -33,7 +34,7 @@ Ensuite pour le plaisir : je voulais apprendre le Go depuis longtemps, et j'ai t
 
 L'analyse de code consiste à parcourir le code source, à le transformer en un [arbre de syntaxe abstraite (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree) et à analyser cet arbre pour en extraire des métriques.
 
-Parmi les métriques fréquentes, on trouve
+Parmi les métriques fréquentes, on trouve :
 
 + la complexité du code (le nombre de points de décision) ;
 + l'indice de maintenabilité ;
@@ -43,6 +44,8 @@ Parmi les métriques fréquentes, on trouve
 **Ma vision consiste à rendre ces métriques lisibles et compréhensibles pour le plus grand nombre**, et à les rendre accessibles à tous les développeurs et développeuses.
 
 Je souhaite produire quelque chose de **simple à utiliser** et d'**attrayant**, de **performant**, et de **simple à installer**.
+
+Voyez AST Metrics comme un linter sur l'architecture de votre code, qui vous permet de détecter les problèmes de qualité avant qu'ils ne deviennent des problèmes.
 
 ## Comment ça marche ?
 
@@ -54,7 +57,7 @@ En ligne de commande, lancez la commande suivante:
 curl -s https://raw.githubusercontent.com/Halleck45/ast-metrics/main/scripts/download.sh|bash
 ```
 
-Attention comme toute commande trouvée sur Internet, soyez viligant et lisez le script avant de l'exécuter.
+Attention comme toute commande trouvée sur Internet, soyez viligant(e) et lisez le script avant de l'exécuter.
 
 Si vous préférez une installation manuelle, [tout est expliqué ici](https://halleck45.github.io/ast-metrics/getting-started/install/).
 
@@ -68,7 +71,7 @@ Un rapport HTML sera généré dans le fichier `/tmp/report/index.html`, que vou
 
 ![preview](https://halleck45.github.io/ast-metrics/images/preview-html.webp)
 
-Notez que j'ai utilisé l'option `--non-interactive` par simplicité dans ce billet de blog. Si vous ne l'ajoutez pas, une application en mode CLI vous permettra de 
+Notez que j'ai utilisé l'option `--non-interactive` par simplicité dans ce billet de blog. Si vous ne l'ajoutez pas, une application en mode CLI vous permettra de
 naviguer parmi les différentes métriques.
 
 ## Linter votre code
@@ -77,7 +80,7 @@ Bien sûr, AST Metrics va plus loin. Vous pouvez par exemple vous assurer que vo
 
 Générez un fichier de configuration `.ast-metrics.yaml` dans votre projet, en lançant la commande suivante:
 
-```yaml
+```bash
 ast-metrics init
 ```
 
@@ -175,7 +178,7 @@ Il reste également pas mal de boulot sur la gestion des erreurs, améliorer l'o
 
 A terme, j'aimerai ajouter deux IA: une IA générative, pour donner des conseils au refactoring, et une IA prédictive, pour prédire les bugs et les commits à risque.
 
-J'aimerai que ce projet grossisse, et puisse offrir le maximum de fonctionnalités et de service. **Et pour ça j'ai besoin d'aide !** 
+J'aimerai que ce projet grossisse, et puisse offrir le maximum de fonctionnalités et de service. **Et pour ça j'ai besoin d'aide !**
 
 **Si vous avez envie d'aider, le mieux reste de tester l'outil et d'en parler autour de vous. Merci !** Et n'hésitez pas à me dire
 ce que vous en pensez, si vous trouvez des bugs, ou [même à m'encourager en m'offrant un ☕ café](https://github.com/sponsors/Halleck45). Ca fait toujours plaisir d'avoir du feedback, quel qu'il soit. 
