@@ -8,19 +8,18 @@ title: Industrialisation PHP et qualité logicielle
         {% for post in site.posts  %}
         {% if post.language != "en" %}
         {% assign remainder = forloop.index | modulo: 5 %}
-        <a href="{{ post.url }}" class="card
+        <a href="{{ post.url }}" class="
       
-      p-4 bg-white rounded hover:bg-gray-100 hover:no-underline
-      hover:text-gray-800 text-gray-800 visited:text-gray-800 bg-white bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white
-      transition duration-200 hover:scale-105
-      h-48 md:h-48
+        py-8 px-8 bg-white shadow-lg rounded-lg  hover:no-underline
+      hover:text-gray-800 text-gray-800 visited:text-gray-800
+      transition duration-200 hover:shadow-xl
     ">
             <span class="block " style="min-height: 110px; max-height: 110px;">
                 <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis" style="min-height: 40px;height: 40px">
                     {{ post.title }}
                 </span>
 
-                <span class="card-excerpt block text-sm text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
+                <span class="card-excerpt block  text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
                     {{post.excerpt | truncatewords: 40 | strip_html | strip_newlines | strip }}
                 </span>
             </span>

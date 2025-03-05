@@ -1,43 +1,14 @@
 ---
 ---
-{% include css/base.css %}
-{% include css/skeleton.css %}
-{% include css/screen.css %}
-{% include css/layout.css %}
-{% include css/syntax.css %}
 
 body {
-    /*background-image: url("/images/cool-background.jpg");*/
-    background-color: #EEE;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
+font-family: "Poppins", serif;
+font-optical-sizing: auto;
 }
-body .content {
-    border-left: none;
-}
-body h2, body h3,body h4,body h5,body h6, #post h1 {
-    margin: 2em 0 0.5em;
-    font-weight: bold;
-    color: #000;
-}
-h1, h2, h3, h4, h5, h6 {
-    color: #181818;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-}
-h1.title {
-    font-size: 2.5em;
-    line-height:1.3em;
-    margin: 0.5em 0 0.5em;
-    font-weight: 700;
-    color: #000;
-}
+
 #post {
     text-align: justify;
+    color: #4a5565;
 }
 #post li {
     list-style: disc;
@@ -50,8 +21,8 @@ h1.title {
 #post p {
     margin:1em 0;
     line-height: 1.7rem;
-    margin-bottom: 2.5rem;
-    color: #000;
+    margin-bottom: 1rem;
+    color: #4a5565;
 }
 #post p a {
     color: #0369a1;
@@ -62,12 +33,15 @@ h1.title {
 #post h2 {
     font-size: 2em;
     line-height: 1.2em;
-    text-decoration: underline;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    color: #000;
+    font-weight: bold;
 }
 #post h3 {
     font-size: 1.6em;
 }
-a, a:visited {
+#post a, #post  a:visited {
     color: #0369a1;
 }
 

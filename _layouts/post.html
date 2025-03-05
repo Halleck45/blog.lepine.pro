@@ -3,43 +3,97 @@ layout: default
 ---
 
 <div class="p-4 pt-16 bg-white rounded-lg ">
-  <div style="max-width:760px; margin: 0 auto">
-    <p class="meta">
-      {{ page.date | date: "%d/%m/%Y" }}
-      <a href="/">
-        <i class="home fa fa-home"></i>
-      </a>
-    </p>
-    {% include meta.html %}
-    {% include post_social.html %}
-
-    <h1 class="title">{{ page.title }}</h1>
-
-
-    <div id="post" class="leading-relaxed">
-
-      {% if page.language == "en" and page.canonical %}
-        <blockquote class="mb-8">
-          This post is a translation of
-          <a href="{{ page.canonical }}">the original article in 🇫🇷 French</a>
-        </blockquote>
+  <div class="mx-auto px-8 md:px-16">
+    <div class="flex items-center text-gray-500 mb-8">
+      {% if page and page.language == "en" %}
+        <a href="/en/" class="mr-8 hover:opacity-75 text-4xl">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          
+        </a>
+      {% else %}
+        <a href="/" class="mr-8 hover:opacity-75 text-4xl">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          
+        </a>
       {% endif %}
-      {% if page.en_permalink %}
-        <blockquote class="mb-8">
-          You will find the <a href="{{ page.en_permalink }}">🇬🇧 english version of this article here</a>
-        </blockquote>
-      {% endif %}
-      {{ content }}
+      
+      <div class="mr-2">
+        {{ page.date | date: "%Y-%m-%d" }}
+      </div>
+      <div class="ml-2 text-right">
+        <ul class="tag_list_in_post">{% for tag in page.tags %}
+            <li class="inline tag_list_item"><a class="hover:underline text-gray-500" href="/tag/{{ tag }}">#{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
     </div>
+    </div>
+
+    <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl ">{{ page.title }}</h1>
+
+    <div  class="leading-relaxed">
+
+      <div class="flex items-center mt-4 mb-12 md:mb-24">
+        <div>
+          <div class=" text-left">
+            <a
+                    href="https://twitter.com/intent/tweet" 
+                    class="whitespace-nowrap break-keep rounded-lg bg-black text-white hover:opacity-75 px-2 py-1 text-xs " 
+                    data-show-count="false"><i class="fa-brands fa-twitter-square"></i> Share on Twitter</a>
+            <a
+                    href="https://www.linkedin.com/shareArticle?mini=true&url={{site.url}}{{page.url}}&title={{page.title}}&summary={{page.excerpt}}&source={{site.url}}"
+                    class="whitespace-nowrap break-keep rounded-lg bg-black text-white hover:opacity-75 px-2 py-1 text-xs " 
+                    target="_blank"><i class="fa-brands fa-linkedin"></i> Share on LinkedIn</a>
+
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        
+            <!-- Add this just before the closing body tag of your web page -->
+            <script type="text/javascript">
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+
+
+        </div>
+        </div>
+        {% if page.language == "en" and page.canonical %}
+          <blockquote class="ml-2">
+            This post is a translation of
+            <a href="{{ page.canonical }}">the original article in 🇫🇷 French</a>
+          </blockquote>
+        {% endif %}
+        {% if page.en_permalink %}
+          <blockquote class="ml-2"> 
+            You will find the <a href="{{ page.en_permalink }}">🇬🇧 english version of this article here</a>
+          </blockquote>
+        {% endif %}
+        </div>
+      <div>
+
+      
+
+        <div id="post">
+          {{ content }}
+        </div>
+    </div>
+
+
+
   </div>
 </div>
 
-<div class="">
+<div class="mt-16">
   {% include cta_book.html %}
 </div>
 
 <div class="p-4 pt-16 bg-white rounded-lg mt-8 ">
-  <div style="max-width:760px; margin: 0 auto">
+  <div style="">
     {% include comments.html %}
   </div>
 </div>

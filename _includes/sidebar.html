@@ -1,33 +1,37 @@
-<nav>
+<nav class="text-gray-800">
     {% if page and page.language == "en" %}
 
-        <a href="/en/">
-            <img src="/logo.png" id="logo" alt="Jean-François Lépine's blog: PHP Industrialization and Software Quality"/>
+        <a href="/en/" class="text-center">
+            <img src="/logo.png" class="h-24 w-24 mx-auto" id="logo" alt="Jean-François Lépine's blog: PHP Industrialization and Software Quality"/>
         </a>
-        <h2>Blog by <br/><a href="https://lepine.pro">{{ site.theme.name }}</a></h2>
 
-        <p class="my-8 text-center">
-            Freelance PHP expert, DevOps and software quality.
+        <h2 class="mt-4">Blog of <a class="underline hover:no-underline" href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+
+        <p class="my-8 r">
+            PHP expert, DevOps and software quality.
         </p>
-        <p class=" text-center">
-            Find my 📖 book <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Software Quality for Back-End Developers</a> at Eyrolles.
+        <p class=" ">
+            Find my 📖 book <a class="underline hover:no-underline" href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Software Quality for Back-End Developers</a> at Eyrolles.
         </p>
-        <p class="mt-8 text-center">
-            Creator of <a href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>.
+        <p class="mt-8 ">
+            Creator of <a class="underline hover:no-underline" href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>,
+            <a class="underline hover:no-underline" href="https://github.com/halleck45/ast-metrics">AST Metrics</a>.
     {% else %}
         <a href="/">
             <img src="/logo.png" id="logo" alt="Blog de Jean-François Lépine : Industrialisation, qualité PHP"/>
         </a>
-        <h2>Blog de <br/><a href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+        <h2>Blog de <a class="underline hover:no-underline" href="https://lepine.pro">{{ site.theme.name }}</a></h2>
 
-        <p class="my-8 text-center">
-            Freelance expert PHP, DevOps et en qualité logicielle.
+        <p class="my-8 ">
+            Expert PHP, DevOps et en qualité logicielle.
         </p>
-        <p class=" text-center">
-            Retrouvez mon 📖 livre <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Qualité logicielle pour les développeurs</a> chez Eyrolles.
+        <p class=" ">
+            Retrouvez mon 📖 livre <a class="underline hover:no-underline" href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Qualité logicielle pour les développeurs</a> chez Eyrolles.
         </p>
-        <p class="mt-8 text-center">
-            Créateur de <a href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>.
+        <p class="mt-8 ">
+            Créateur de 
+                <a class="underline hover:no-underline" href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>, 
+                <a class="underline hover:no-underline" href="https://github.com/halleck45/ast-metrics">AST Metrics</a>.
         </p>
     {% endif %}
 
@@ -36,7 +40,7 @@
     </div>
 </nav>
 
-<div class="text-center text-xs mt-4">
+<div class="text-xs mt-4">
     {% if page and page.language == "en" %}
     <a href="/">
         🇫🇷 Français

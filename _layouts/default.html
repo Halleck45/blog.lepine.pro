@@ -6,14 +6,14 @@
 <head>
   {% include head.html %}
 </head>
-<body>
+<body class="bg-gray-100">
   {% include gtm.html %}
   <div class="flex gap-4">
     <div class="p-8 mt-8 max-w-xs hidden md:block">
       {% include sidebar.html %}
     </div>
 
-    <div class="max-w-6xl w-full">
+    <div class="w-full">
       <div class="px-8 py-8">
       {{ content }}
       </div>
@@ -24,6 +24,5 @@
     <div class="grow"></div>
   </div>
 
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
 </body>
 </html>

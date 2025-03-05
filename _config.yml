@@ -5,7 +5,7 @@ exclude: [LICENSE, CNAME, README.md, TODO.md, .gitignore, Makefile, Capfile, con
 
 permalink: :title
 lsi: false # articles associés améliorés (lent)
-markdown: rdiscount
+#markdown: rdiscount
 highlighter: true
 paginate: 10
 destination: build
