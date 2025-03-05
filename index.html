@@ -15,15 +15,15 @@ title: Industrialisation PHP et qualité logicielle
       transition duration-200 hover:shadow-xl
     ">
             <span class="block " style="min-height: 110px; max-height: 110px;">
-                <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis" style="min-height: 40px;height: 40px">
+                <span class="block mt-2 mb-2 font-medium text-xl overflow-hidden text-ellipsis ">
                     {{ post.title }}
                 </span>
 
-                <span class="card-excerpt block  text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
+                <span class="card-excerpt  hidden md:block text-gray-500 text-ellipsis  overflow-hidden" style="max-height: 3em;">
                     {{post.excerpt | truncatewords: 40 | strip_html | strip_newlines | strip }}
                 </span>
             </span>
-            <span class="card-tags block text-right invisible md:visible" style="min-height: 40px">
+            <span class="card-tags hidden md:block text-right invisible md:visible" style="min-height: 40px">
                 {% for tag in post.tags limit:2 %}
                 <div class="inline px-4 py-1 rounded-full bg-gray-100 text-sm  text-gray-500 mr-2">
                     {{ tag | truncate: 15 }}
