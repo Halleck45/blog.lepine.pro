@@ -1,13 +1,13 @@
 ---
 layout: post
 type: post
-title: "PHP Ecosystem Deep Dive: The Code Quality Landscape"
-excerpt: "I wanted to see the big picture of PHP code in the wild, so I went all in. I downloaded the entire PHP ecosystem - a whopping 236 GB of Git repositories. There is the result of my analysis."
+title: "Plongée dans l'écosystème PHP : État des lieux de la qualité du code"
+excerpt: "Je voulais avoir une vue d'ensemble du code PHP existant, alors j'ai tout analysé. J'ai téléchargé l'intégralité de l'écosystème PHP - pas moins de 236 Go de dépôts Git. Voici le résultat de mon analyse."
 status: published
 published: true
-permalink: /en/:title/
-language: en
-fr_permalink: /fr/plongee-dans-ecosysteme-php/
+permalink: /fr/:title/
+canonical: /en/php-ecosystem-deep-dive-code-quality-landscape/
+language: fr
 categories:
 - php
 - quality
@@ -19,297 +19,258 @@ tags:
 
 
 
- <!-- Chart.js -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/heatmap.js/2.0.2/heatmap.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/heatmap.js/2.0.2/heatmap.min.js"></script>
 
 
- <div class="rounded-lg mb-8 mt-8">
-    <h3 class="text-xl font-bold mb-3">A quick word about the approach</h3>
+<div class="rounded-lg mb-8 mt-8">
+    <h3 class="text-xl font-bold mb-3">Un mot rapide sur l'approche</h3>
     
     <div class="flex justify-between align-middle gap-8">
       <div>
         <p class="mb-3">
-          Hi! I'm Jean-François Lépine, and I've been interested in software quality for quite a few years now. I created PhpMetrics, then Ast-Metrics, and have helped many companies in industrializing their development processes.
+          Bonjour ! Je suis Jean-François Lépine, et je m'intéresse à la qualité logicielle depuis plusieurs années. J'ai créé PhpMetrics, puis Ast-Metrics, et j'ai aidé de nombreuses entreprises à industrialiser leurs processus de développement.
         </p>
-        <p class="mb-3">I wanted to see the big picture of PHP code in the wild, so I went all in. 
-          
-          I downloaded the entire PHP ecosystem—a whopping <span class="font-bold text-indigo-600">236 GB </span>of Git repositories containing a total of <span class="font-bold text-indigo-600">2.3 billion lines of code</span>.
-    
-        <p class="mb-3">The analysis script ran for three full days, processing every single file. I built it in Go for raw performance and precise CPU control - PHP analysis at this scale needs serious optimization.</p>
+        <p class="mb-3">Je voulais avoir une vue d'ensemble du code PHP existant, alors j'ai tout analysé. 
+          J'ai téléchargé l'intégralité de l'écosystème PHP - pas moins de <span class="font-bold text-indigo-600">236 Go</span> de dépôts Git contenant au total <span class="font-bold text-indigo-600">2,3 milliards de lignes de code</span>.
+        </p>
+        <p class="mb-3">Le script d'analyse a tourné pendant trois jours complets, traitant chaque fichier. Je l'ai développé en Go pour des performances optimales et un contrôle précis du CPU - l'analyse PHP à cette échelle nécessite une optimisation sérieuse.</p>
       </div>
     </div>
-  </div>
+</div>
 
 
-  <section class=" mt-48">
+<section class="mt-48">
     <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-      TL;DR - Too Long? Didn’t Read? Here’s the Short Version!
+      TL;DR - Trop long ? Pas lu ? Voici la version courte !
     </h2>
 
     <p class="text-gray-600 text-lg mt-4 mb-4">
-      PHP open-source is modern, modular, and maintainable. But beware of over-reliance on a few core packages and under-maintained projects.
+      Le PHP open-source est moderne, modulaire et maintenable. Mais attention à la dépendance excessive à quelques packages centraux et aux projets sous-maintenus.
     </p>
     
 
-      <div >
+    <div>
         <div class="font-bold">
-          Modern PHP is modular and concise
+          Le PHP moderne est modulaire et concis
         </div>
         <ul class="ml-8 list-disc list-inside">
-          <li>36% of files have fewer than 100 lines of code</li>
-          <li>Heavy use of interfaces makes the ecosystem highly modular.</li>
+          <li>36% des fichiers ont moins de 100 lignes de code</li>
+          <li>L'utilisation intensive des interfaces rend l'écosystème hautement modulaire.</li>
         </ul>
 
-        <div class="font-bold mt-4">Complexity is mostly under control, but…</div>
+        <div class="font-bold mt-4">La complexité est globalement maîtrisée, mais...</div>
         <ul class="ml-8 list-disc list-inside">
-          <li>76.5% of files have low cyclomatic complexity (0-10).</li>
-          <li>However, 23.5% of the code is complex, posing maintainability challenge</li>
+          <li>76,5% des fichiers ont une faible complexité cyclomatique (0-10).</li>
+          <li>Cependant, 23,5% du code est complexe, posant un défi de maintenabilité</li>
         </ul>
 
-        <div class="font-bold mt-4">Extreme dependency on a small set of packages</div>
+        <div class="font-bold mt-4">Dépendance extrême à un petit ensemble de packages</div>
         <ul class="ml-8 list-disc list-inside">
-          <li>Just 136 packages (0.05%) account for 50% of all downloads.</li>
-          <li>These core libraries are well-maintained, but they create strong dependency risks.</li>
+          <li>Seulement 136 packages (0,05%) représentent 50% de tous les téléchargements.</li>
+          <li>Ces bibliothèques centrales sont bien maintenues, mais créent des risques de dépendance importants.</li>
         </ul>
 
-        <div class="font-bold mt-4">The "shadow infrastructure" problem</div>
+        <div class="font-bold mt-4">Le problème de "l'infrastructure fantôme"</div>
         <ul class="ml-8 list-disc list-inside">
-          <li>Some highly used packages receive very little recognition (few GitHub stars).</li>
-          <li>Critical dependencies may be maintained by very small teams.</li>
+          <li>Certains packages très utilisés reçoivent très peu de reconnaissance (peu d'étoiles GitHub).</li>
+          <li>Des dépendances critiques peuvent être maintenues par de très petites équipes.</li>
         </ul>
 
-        <div class="font-bold mt-4">The PHP ecosystem is healthy but aging</div>
+        <div class="font-bold mt-4">L'écosystème PHP est sain mais vieillissant</div>
         <ul class="ml-8 list-disc list-inside">
-          <li>70% of packages show minimal activity.</li>
-          <li>23% appear abandoned, making dependency audits essential.</li>
+          <li>70% des packages montrent une activité minimale.</li>
+          <li>23% semblent abandonnés, rendant l'audit des dépendances essentiel.</li>
         </ul>
 
-      </div>  
+    </div>
     
-    </section>  
+</section>
 
-  <section class=" mt-48">
-    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">X-Ray of the PHP OpenSource Ecosystem</h2>
-
+<section class="mt-48">
+    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">Radiographie de l'écosystème Open Source PHP</h2>
 
     <div class="mt-6 mb-6 bg-yellow-50 p-5 rounded-lg border-l-4 border-yellow-500">
-      <h4 class="font-bold text-lg mb-2">Open Source vs Enterprise Context:</h4>
-      <p>It's important to note that these metrics come from open-source projects, which differ significantly from typical enterprise codebases. Open-source libraries often prioritize extensibility and abstraction (explaining the high interface-to-class ratio), while enterprise projects may focus more on business logic implementation and specific use cases. When benchmarking your own codebase, consider whether your context aligns more with library design patterns or application-specific implementations.</p>
+        <h4 class="font-bold text-lg mb-2">Open Source vs Contexte Entreprise :</h4>
+        <p>Il est important de noter que ces métriques proviennent de projets open-source, qui diffèrent significativement des bases de code typiques d'entreprise. Les bibliothèques open-source privilégient souvent l'extensibilité et l'abstraction (ce qui explique le ratio élevé interfaces/classes), tandis que les projets d'entreprise se concentrent davantage sur l'implémentation de la logique métier et des cas d'utilisation spécifiques. Lors de l'évaluation de votre propre base de code, considérez si votre contexte s'aligne davantage avec les modèles de conception de bibliothèques ou les implémentations spécifiques aux applications.</p>
     </div>
 
     <div class="bg-white rounded-lg shadow p-6">
-      <p class="mb-5 text-lg">
+        <p class="mb-5 text-lg">
+            J'ai analysé <span class="font-bold text-indigo-600">11,1 millions</span> de fichiers PHP,
+            totalisant plus de <span class="font-bold text-indigo-600">707,6 millions</span> de lignes de code PHP — faisant partie d'un
+            impressionnant total de <span class="font-bold text-indigo-600">2,3 milliards de lignes de code</span> toutes langues confondues dans l'écosystème Packagist.
+            Ces métriques offrent un aperçu réel de la structure du PHP dans la nature, au-delà des bonnes pratiques théoriques.
+        </p>
 
-        I analyzed <span class="font-bold text-indigo-600">11.1 million</span> PHP files, 
-        totaling over <span class="font-bold text-indigo-600">707.6 million lines</span> of PHP code—part of a 
-        staggering <span class="font-bold text-indigo-600">2.3 billion lines of code</span> across all languages in the Packagist ecosystem. 
-        
-        These metrics offer a real-world snapshot of how PHP is structured in the wild, beyond theoretical best practices."
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div class="border-l-4 border-indigo-500 pl-5 py-2">
-          <h3 class="font-bold text-xl mb-3 text-gray-800">File Size Distribution</h3>
-          <p class="mb-3">An overwhelming <span class="font-bold" >36%</span> 
-            of files contain fewer than 100 logical lines of code, with a median of just <span class="font-bold"><span >4.0</span> lines</span>.</p>
-          <p class="text-gray-600">This reveals a strong ecosystem-wide preference for small, focused implementations - much smaller than most style guides would suggest as maximums. It also reflects the massive use of interfaces in the ecosystem, with 
-            <span class="font-bold">
-<!-- convert xxx to xxxK, xxxM -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="border-l-4 border-indigo-500 pl-5 py-2">
+                <h3 class="font-bold text-xl mb-3 text-gray-800">Distribution de la taille des fichiers</h3>
+                <p class="mb-3">Une écrasante majorité de <span class="font-bold">36%</span>
+                    des fichiers contiennent moins de 100 lignes de code logique, avec une médiane de seulement <span class="font-bold"><span>4,0</span> lignes</span>.</p>
+                <p class="text-gray-600">Cela révèle une forte préférence à l'échelle de l'écosystème pour des implémentations petites et ciblées - bien plus petites que ce que la plupart des guides de style suggèrent comme maximum. Cela reflète également l'utilisation massive des interfaces dans l'écosystème, avec
+                    <span class="font-bold">3,7M d'interfaces</span> comparé à
+                    <span class="font-bold">7,4M de classes</span> - beaucoup de ces interfaces ne contenant aucun code logique, uniquement des signatures de méthodes.</p>
+            </div>
 
-3.7M
-
-interfaces</span> compared to 
-            <span class="font-bold">
-<!-- convert xxx to xxxK, xxxM -->
-
-7.4M
-
-classes</span> - many of these interfaces containing no logical code, only method signatures.</p>
+            <div class="border-l-4 border-indigo-500 pl-5 py-2">
+                <h3 class="font-bold text-xl mb-3 text-gray-800">Complexité Cyclomatique</h3>
+                <p class="mb-3"><span class="font-bold">76,5%</span> des fichiers maintiennent une faible complexité (0-10), tandis que <span class="font-bold">23,5%</span> s'aventurent dans un territoire de plus haute complexité.</p>
+                <p class="text-gray-600">Même avec un accent mis sur les petits fichiers, près d'un quart de la base de code montre encore une complexité significative – mettant en évidence des zones où la maintenabilité pourrait être problématique.</p>
+            </div>
         </div>
-        
-        <div class="border-l-4 border-indigo-500 pl-5 py-2">
-          <h3 class="font-bold text-xl mb-3 text-gray-800">Cyclomatic Complexity</h3>
-          <p class="mb-3"><span class="font-bold">76.5%</span> of files maintain low complexity (0-10), while <span class="font-bold">23.5%</span> venture into higher complexity territory.</p>
-          <p class="text-gray-600">Even with a focus on small files, nearly a quarter of the codebase still shows significant complexity – highlighting areas where maintainability might be challenging.</p>
-        </div>
-
-      </div>
-      
     </div>
-  </section>
-  <!-- Overview Stats -->
-  <section class="mt-4">
+</section>
+
+<!-- Statistiques générales -->
+<section class="mt-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Total Packages -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Analyzed Packages</h3>
-          <span class="text-indigo-600 bg-indigo-100 p-2 rounded-full">
+        <!-- Total des Packages -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Packages Analysés</h3>
+                <span class="text-indigo-600 bg-indigo-100 p-2 rounded-full">
             <i class="fas fa-box-open"></i>
           </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">411,6K</p>
+            <p class="text-sm text-gray-500">Packages PHP de l'écosystème PHP</p>
         </div>
-        <p class="text-3xl font-bold mb-2" >
-<!-- convert xxx to xxxK, xxxM -->
 
-411.6K
-
-</p>
-        <p class="text-sm text-gray-500">PHP packages from PHP ecosystem</p>
-      </div>
-      
-      <!-- Total Classes -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Files</h3>
-          <span class="text-green-600 bg-green-100 p-2 rounded-full">
+        <!-- Total des Fichiers -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Fichiers</h3>
+                <span class="text-green-600 bg-green-100 p-2 rounded-full">
             <i class="fas fa-cubes"></i>
           </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">11,1M</p>
+            <p class="text-sm text-gray-500">Fichiers PHP détectés</p>
         </div>
-        <p class="text-3xl font-bold mb-2" >
-<!-- convert xxx to xxxK, xxxM -->
 
-11.1M
-
-</p>
-        <p class="text-sm text-gray-500">Detected PHP files</p>
-      </div>
-      
-      <!-- Total Methods -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Methods</h3>
-          <span class="text-blue-600 bg-blue-100 p-2 rounded-full">
+        <!-- Total des Méthodes -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Méthodes</h3>
+                <span class="text-blue-600 bg-blue-100 p-2 rounded-full">
             <i class="fas fa-code"></i>
           </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">53,4M</p>
+            <p class="text-sm text-gray-500">Méthodes PHP analysées</p>
         </div>
-        <p class="text-3xl font-bold mb-2">
-<!-- convert xxx to xxxK, xxxM -->
 
-53.4M
-
-</p>
-        <p class="text-sm text-gray-500">Analyzed PHP methods</p>
-      </div>
-      
-      <!-- Total LOC -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Lines of Code</h3>
-          <span class="text-orange-600 bg-orange-100 p-2 rounded-full">
+        <!-- Total des lignes de code -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Lignes de Code</h3>
+                <span class="text-orange-600 bg-orange-100 p-2 rounded-full">
             <i class="fas fa-file-code"></i>
           </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">707,6M</p>
+            <div class="text-sm text-gray-500">
+                Total des lignes de code
+                <div class="text-gray-400">Dont <span class="font-bold">362,9M</span> lignes de code logique</span>
+                </div>
+            </div>
         </div>
-        <p class="text-3xl font-bold mb-2">
-<!-- convert xxx to xxxK, xxxM -->
+</section>
 
-707.6M
-
-</p>
-        <div class="text-sm text-gray-500">
-          Total lines of code
-          <div class="text-gray-400">Including <span class="font-bold ">
-<!-- convert xxx to xxxK, xxxM -->
-
-362.9M
-
-</span> logical lines of code</span>
-          </div>
-      </div>
-    </div>
-  </section>
-  
-  
-  <!-- Section de distribution des métriques -->
-  <section class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+<!-- Section de distribution des métriques -->
+<section class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
     <!-- Distribution des lignes de code -->
     <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-xl font-bold mb-4 text-gray-700">Logical lines of code distribution</h3> 
-      <div class="h-64">
-        <canvas id="loc-distribution-chart"></canvas>
-      </div>
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Distribution des lignes de code logique</h3>
+        <div class="h-64">
+            <canvas id="loc-distribution-chart"></canvas>
+        </div>
     </div>
-    
+
     <!-- Distribution de la complexité cyclomatique -->
     <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-xl font-bold mb-4 text-gray-700">Cyclomatic complexity distribution</h3>
-      <div class="h-64">
-        <canvas id="cyclomatic-distribution-chart"></canvas>
-      </div>
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Distribution de la complexité cyclomatique</h3>
+        <div class="h-64">
+            <canvas id="cyclomatic-distribution-chart"></canvas>
+        </div>
     </div>
-  </section>
+</section>
 
 
-
-  <section class=" mt-48">
-    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">Download Concentration: The Foundation of PHP</h2>
+<section class="mt-48">
+    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">Concentration des téléchargements : Le fondement de PHP</h2>
 
     <p class="text-gray-600 text-lg mt-4 mb-4">
-      One of the most revealing aspects of the PHP ecosystem is the extreme concentration of downloads.
+        L'un des aspects les plus révélateurs de l'écosystème PHP est l'extrême concentration des téléchargements.
     </p>
 
     <div class="bg-white rounded-lg shadow p-6 mt-4">
-      <p class="text-gray-800 mb-4">
-        The data shows that <span class="font-bold text-indigo-600">just 136 packages 
-          (0.05 % of all packages)</span> account for more than half of all monthly downloads in the entire ecosystem.
-      </p>
-      
-      <p class="text-gray-800 mb-4">
-        This concentration reflects several important dynamics in the PHP world:
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-        <div class="border-l-4 border-green-500 pl-4 py-2">
-          <h3 class="font-bold text-lg mb-2">Consolidated Foundation</h3>
-          <p class="text-gray-700">The PHP ecosystem has matured to rely on a relatively small set of core libraries that provide essential functionality. This stable foundation means developers don't need to constantly evaluate competing implementations for basic needs.</p>
+        <p class="text-gray-800 mb-4">
+            Les données montrent que <span class="font-bold text-indigo-600">seulement 136 packages
+          (0,05 % de tous les packages)</span> représentent plus de la moitié de tous les téléchargements mensuels dans l'ensemble de l'écosystème.
+        </p>
+
+        <p class="text-gray-800 mb-4">
+            Cette concentration reflète plusieurs dynamiques importantes dans le monde PHP :
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div class="border-l-4 border-green-500 pl-4 py-2">
+                <h3 class="font-bold text-lg mb-2">Une base consolidée</h3>
+                <p class="text-gray-700">L'écosystème PHP a mûri pour s'appuyer sur un ensemble relativement restreint de bibliothèques centrales qui fournissent des fonctionnalités essentielles. Cette base stable signifie que les développeurs n'ont pas besoin d'évaluer constamment des implémentations concurrentes pour les besoins fondamentaux.</p>
+            </div>
+
+            <div class="border-l-4 border-amber-500 pl-4 py-2">
+                <h3 class="font-bold text-lg mb-2">Effets de chaîne des dépendances</h3>
+                <p class="text-gray-700">De nombreux packages populaires sont des éléments fondamentaux qui sont inclus comme dépendances transitives dans des milliers de projets. Cet effet en cascade amplifie le nombre de téléchargements pour ces packages fondamentaux.</p>
+            </div>
         </div>
-        
-        <div class="border-l-4 border-amber-500 pl-4 py-2">
-          <h3 class="font-bold text-lg mb-2">Dependency Chain Effects</h3>
-          <p class="text-gray-700">Many top packages are fundamental building blocks that get pulled in as transitive dependencies across thousands of projects. This cascading effect magnifies download counts for these foundational packages.</p>
-        </div>
-      </div>
     </div>
-    
+
     <div class="rounded-lg shadow p-6 mt-4 bg-green-100 text-green-800">
-      <h3 class="font-bold text-lg mb-3">🎉 The Good News </h3>
-      <p class="text-gray-800 mb-3">
-        The encouraging finding is that these high-impact packages are overwhelmingly well-maintained and healthy:
-      </p>
-      <ul class="space-y-2">
-        <li class="flex items-start">
-          <span class="text-green-500 mr-2">✓</span>
-          <span>Nearly all top packages have active contributor communities</span>
-        </li>
-        <li class="flex items-start">
-          <span class="text-green-500 mr-2">✓</span>
-          <span>Most have robust test suites and CI/CD pipelines in place</span>
-        </li>
-        <li class="flex items-start">
-          <span class="text-green-500 mr-2">✓</span>
-          <span>Many are backed by companies or foundations ensuring long-term stability</span>
-        </li>
-      </ul>
+        <h3 class="font-bold text-lg mb-3">🎉 Les bonnes nouvelles</h3>
+        <p class="text-gray-800 mb-3">
+            La découverte encourageante est que ces packages à fort impact sont très majoritairement bien maintenus et sains :
+        </p>
+        <ul class="space-y-2">
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span>Presque tous les packages populaires ont des communautés de contributeurs actives</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span>La plupart disposent de suites de tests robustes et de pipelines CI/CD</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span>Beaucoup sont soutenus par des entreprises ou des fondations assurant leur stabilité à long terme</span>
+            </li>
+        </ul>
     </div>
-  </section>
+</section>
 
-  <!-- Section pour la concentration des téléchargements (Download Dominance) -->
+<!-- Section pour la dominance des téléchargements -->
 <section class="bg-white rounded-lg shadow p-6 mb-12 mt-4">
-<h3 class="text-xl font-bold mb-4 text-gray-700">Download Dominance</h3>
-<p class="text-gray-600 mb-4">Packages that collectively represent 50% or more of monthly downloads</p>
+    <h3 class="text-xl font-bold mb-4 text-gray-700">Dominance des téléchargements</h3>
+    <p class="text-gray-600 mb-4">Packages qui représentent collectivement 50% ou plus des téléchargements mensuels</p>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-<div class=" rounded p-4 bg-indigo-50">
-  <p class="text-sm text-gray-500">Number of dominant packages</p>
-  <p class="font-bold text-2xl text-indigo-600" > 136</p>
-</div>
-<div class=" rounded p-4 bg-indigo-50">
-  <p class="text-sm text-gray-500">% of total downloads</p>
-  <p class="font-bold text-2xl text-indigo-600" >0.05</p>
-</div>
-<div class=" rounded p-4 bg-indigo-50">
-  <p class="text-sm text-gray-500">Monthly total downloads</p>
-  <p class="font-bold text-2xl text-indigo-600" >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="rounded p-4 bg-indigo-50">
+            <p class="text-sm text-gray-500">Nombre de packages dominants</p>
+            <p class="font-bold text-2xl text-indigo-600">136</p>
+        </div>
+        <div class="rounded p-4 bg-indigo-50">
+            <p class="text-sm text-gray-500">% du total des téléchargements</p>
+            <p class="font-bold text-2xl text-indigo-600">0,05</p>
+        </div>
+        <div class="rounded p-4 bg-indigo-50">
+            <p class="text-sm text-gray-500">Total des téléchargements mensuels</p>
+            <p class="font-bold text-2xl text-indigo-600">2808,6M</p>
+        </div>
+    </div>
+
 <!-- convert xxx to xxxK, xxxM -->
 
 2808.6M
@@ -2245,38 +2206,39 @@ classes</span> - many of these interfaces containing no logical code, only metho
 
 
 <!-- Section pour les packages sous-reconnus -->
+<!-- Section pour les packages sous-reconnus -->
 <section class="mt-48">
-<h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-The Invisible Infrastructure: High-Impact, Low-Recognition Packages
-</h2>
-<p class="text-gray-600 text-lg mt-4 mb-4">
-While analyzing the relationship between GitHub stars and download counts, we discovered a fascinating subset of PHP packages: those with massive download numbers but surprisingly few stars. These packages form what might be called the "invisible infrastructure" of PHP—critically important components that operate silently beneath the surface of countless applications.
-</p>
+    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        L'Infrastructure Invisible : Les Packages à Fort Impact mais Peu Reconnus
+    </h2>
+    <p class="text-gray-600 text-lg mt-4 mb-4">
+        En analysant la relation entre les étoiles GitHub et le nombre de téléchargements, j'ai découvert un sous-ensemble fascinant de packages PHP : ceux qui ont des nombres de téléchargements massifs mais étonnamment peu d'étoiles. Ces packages forment ce qu'on pourrait appeler "l'infrastructure invisible" de PHP — des composants d'une importance cruciale qui opèrent silencieusement sous la surface d'innombrables applications.
+    </p>
 
-<div class="bg-white rounded-lg shadow p-6 mt-4">
-  
-  
-  <p class="text-gray-600 mb-4">
-    This "recognition gap" has several important implications:
-  </p>
+    <div class="bg-white rounded-lg shadow p-6 mt-4">
 
-  <ul class="space-y-2">
-    <li class="flex items-start">
-      <span class="text-red-500 mr-2">⚠</span>
-      <span class="text-red-700 mr-2">Packages with high impact but low visibility might struggle to attract contributors</span>
-    </li>
-    <li class="flex items-start">
-      <span class="text-red-500 mr-2">⚠</span>
-      <span class="text-red-700 mr-2">Critical dependencies may be maintained by small teams despite their outsized ecosystem importance</span>
-    </li>
-    <li class="flex items-start">
-      <span class="text-green-500 mr-2">✓</span>
-      <span class="text-green-700 mr-2">However, many represent opportunities for developers looking to make meaningful contributions to the PHP ecosystem</span>
-    </li>
-    </ul>
-<div class="h-64 mt-4 mb-4">
-  <canvas id="underrated-packages-chart"></canvas>
-</div>
+        <p class="text-gray-600 mb-4">
+            Ce "déficit de reconnaissance" a plusieurs implications importantes :
+        </p>
+
+        <ul class="space-y-2">
+            <li class="flex items-start">
+                <span class="text-red-500 mr-2">⚠</span>
+                <span class="text-red-700 mr-2">Les packages à fort impact mais à faible visibilité peuvent avoir du mal à attirer des contributeurs</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-red-500 mr-2">⚠</span>
+                <span class="text-red-700 mr-2">Des dépendances critiques peuvent être maintenues par de petites équipes malgré leur importance démesurée dans l'écosystème</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-green-500 mr-2">✓</span>
+                <span class="text-green-700 mr-2">Cependant, beaucoup représentent des opportunités pour les développeurs cherchant à apporter des contributions significatives à l'écosystème PHP</span>
+            </li>
+        </ul>
+
+        <div class="h-64 mt-4 mb-4">
+            <canvas id="underrated-packages-chart"></canvas>
+        </div>
 
 <div class="overflow-x-auto mt-6" style="height: 500px; overflow: scroll;">
   <table class="min-w-full divide-y divide-gray-200">
@@ -2687,98 +2649,82 @@ While analyzing the relationship between GitHub stars and download counts, we di
 
 <!-- Graphique à bulles de popularité -->
 <section class="bg-white rounded-lg shadow p-6 mt-4">
-<h3 class="text-xl font-bold mb-4 text-gray-700">Popular packages</h3>
-<p>
-In contrast, these packages are both very popular and widely used. They are the cornerstone of PHP.
-</p>
-<div class="h-80 mt-4">
-<canvas id="popularity-bubble-chart"></canvas>
-</div>
-<p class="text-sm text-right text-xs text-gray-500 mt-4">bubble size proportional to GitHub forks</p>
+    <h3 class="text-xl font-bold mb-4 text-gray-700">Packages populaires</h3>
+    <p>
+        En contraste, ces packages sont à la fois très populaires et largement utilisés. Ils constituent la pierre angulaire de PHP.
+    </p>
+    <div class="h-80 mt-4">
+        <canvas id="popularity-bubble-chart"></canvas>
+    </div>
+    <p class="text-sm text-right text-xs text-gray-500 mt-4">taille des bulles proportionnelle aux forks GitHub</p>
 </section>
 
-
-
-  <!-- Additional Stats -->
-  <section class="mb-12 mt-48">
+<!-- Statistiques additionnelles -->
+<section class="mb-12 mt-48">
     <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-      Packagist Ecosystem Health Status
-
+        État de santé de l'écosystème Packagist
     </h2>
 
     <p class="text-gray-600 text-lg mt-4 mb-4">
-      Analysis of PHP packages reveals significant health concerns in the Packagist ecosystem: 
-      <span class="font-bold text-indigo-600">70%
-       show minimal activity</span> with few downloads and GitHub interactions, while 
-       <span class="font-bold text-indigo-600">23% appear abandoned</span> with no recent updates. With an average of just 60 stars per package (heavily skewed by popular outliers), these metrics highlight the typical "long tail" distribution in open source ecosystems. This data emphasizes the importance of carefully evaluating dependency health through metrics like bus factor, update frequency, and community engagement when integrating packages into production projects.
+        L'analyse des packages PHP révèle des préoccupations importantes concernant la santé de l'écosystème Packagist :
+        <span class="font-bold text-indigo-600">70% montrent une activité minimale</span> avec peu de téléchargements et d'interactions GitHub, tandis que
+        <span class="font-bold text-indigo-600">23% semblent abandonnés</span> sans mises à jour récentes. Avec une moyenne de seulement 60 étoiles par package (fortement influencée par les cas exceptionnels populaires), ces métriques mettent en évidence la distribution typique en "longue traîne" des écosystèmes open source. Ces données soulignent l'importance d'évaluer soigneusement la santé des dépendances à travers des métriques comme le facteur bus, la fréquence des mises à jour et l'engagement de la communauté lors de l'intégration de packages dans des projets de production.
     </p>
 
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Empty Packages -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Empty Packages</h3>
-          <span class="text-red-600 bg-red-100 p-2 rounded-full">
-            <i class="far fa-file"></i>
-          </span>
+        <!-- Packages vides -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Packages vides</h3>
+                <span class="text-red-600 bg-red-100 p-2 rounded-full">
+                    <i class="far fa-file"></i>
+                </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">94,9K</p>
+            <p class="text-sm text-gray-500">Packages abandonnés</p>
         </div>
-        <p class="text-3xl font-bold mb-2">
-<!-- convert xxx to xxxK, xxxM -->
 
-94.9K
-
-</p>
-        <p class="text-sm text-gray-500">Abandonned packages</p>
-      </div>
-      
-      <!-- Zero Stars Packages -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Shadow packages</h3>
-          <span class="text-yellow-600 bg-yellow-100 p-2 rounded-full">
-            <i class="far fa-star"></i>
-          </span>
+        <!-- Packages sans étoiles -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Packages fantômes</h3>
+                <span class="text-yellow-600 bg-yellow-100 p-2 rounded-full">
+                    <i class="far fa-star"></i>
+                </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">288,5K</p>
+            <p class="text-sm text-gray-500">Packages avec peu de téléchargements, peu d'étoiles ou de forks GitHub</p>
         </div>
-        <p class="text-3xl font-bold mb-2">
-<!-- convert xxx to xxxK, xxxM -->
 
-288.5K
-
-</p>
-        <p class="text-sm text-gray-500">Packages with few downloads, few GitHub stars or forks</p>
-      </div>
-      
-      <!-- Average Popularity -->
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-700">Average Popularity</h3>
-          <span class="text-purple-600 bg-purple-100 p-2 rounded-full">
-            <i class="fas fa-star"></i>
-          </span>
+        <!-- Popularité moyenne -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-700">Popularité moyenne</h3>
+                <span class="text-purple-600 bg-purple-100 p-2 rounded-full">
+                    <i class="fas fa-star"></i>
+                </span>
+            </div>
+            <p class="text-3xl font-bold mb-2">60</p>
+            <div class="text-sm text-gray-500">
+                Moyenne d'étoiles par package
+                <div class="text-xs">Excluant les packages sans étoiles</div>
+            </div>
         </div>
-        <p class="text-3xl font-bold mb-2" >60</p>
-        <div class="text-sm text-gray-500">
-          Average stars per package
-          <div class="text-xs">Excluding non-starred packages</div>
-        </div>
-      </div>
-      
     </div>
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-xl font-bold mb-4 text-gray-700">Top required packages for development</h3>
-        <div style="max-height: 400px; overflow-y: auto;">
-          <table class="w-full">
-            <thead>
-              <tr>
-                <th class="text-left">Package</th>
-                <th class="text-right">Number of packages using it</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-bold mb-4 text-gray-700">Packages les plus requis pour le développement</h3>
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table class="w-full">
+                    <thead>
+                    <tr>
+                        <th class="text-left">Package</th>
+                        <th class="text-right">Nombre de packages l'utilisant</th>
+                    </tr>
+                    </thead>
+                    <tbody>
               
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-left">
@@ -3283,75 +3229,74 @@ In contrast, these packages are both very popular and widely used. They are the 
       </div>
     </div>
   </section>
-  
 
 
-  <section class="mt-48">
+
+<section class="mt-48">
     <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-      But What About Quality?
+        Et qu'en est-il de la qualité ?
     </h2>
     <p class="text-gray-600 text-lg mt-4 mb-4">
-      Despite PHP's occasionally maligned reputation, the data tells a different story. 
-      <span class="font-bold text-indigo-600">PHP packages show surprisingly clean code that's easy to maintain and understand. </span>
-      Functions are refreshingly short, different parts of the code play well together, and packages stay reasonably sized. Turns out PHP developers aren't writing spaghetti code after all - they're crafting well-structured dishes that would make even the pickiest code chefs nod in approval.
+        Malgré la réputation parfois critiquée de PHP, les données racontent une histoire différente.
+        <span class="font-bold text-indigo-600">Les packages PHP montrent un code étonnamment propre, facile à maintenir et à comprendre.</span>
+        Les fonctions sont remarquablement courtes, les différentes parties du code s'harmonisent bien et les packages gardent une taille raisonnable. Il s'avère que les développeurs PHP n'écrivent pas du code spaghetti après tout - ils élaborent des plats bien structurés qui feraient hocher la tête d'approbation même aux chefs de code les plus exigeants.
     </p>
-  </section>
-  
-  <!-- Charts Row 1 -->
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- Complexity Distribution -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-xl font-bold mb-4 text-gray-700">Complexity Distribution</h3>
-      <div class="h-64">
-        <canvas id="complexity-chart"></canvas>
-      </div>
-      <div class="grid grid-cols-2 gap-4 mt-4">
-        <div class="rounded p-3 bg-blue-50">
-          <p class="text-sm text-gray-500">Average Cyclomatic</p>
-          <p class="font-bold text-xl" >8.8</p>
-        </div>
-        <div class=" rounded p-3 bg-blue-50">
-          <p class="text-sm text-gray-500">Median Cyclomatic</p>
-          <p class="font-bold text-xl" >4.0</p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Code Metrics -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-xl font-bold mb-4 text-gray-700">Code Quality</h3>
-      <div class="h-64">
-        <canvas id="code-quality-chart"></canvas>
-      </div>
-      <div class="grid grid-cols-2 gap-4 mt-4">
-        <div class="rounded p-3 bg-blue-50">
-          <p class="text-sm text-gray-500">Maintainability Index</p>
-          <p class="font-bold text-xl" >108</p>
-        </div>
-        <div class="rounded p-3 bg-blue-50">
-          <p class="text-sm text-gray-500">Lines per Method</p>
-          <p class="font-bold text-xl">3.0</p>
-        </div>
-      </div>
-    </div>
-  </section>
+</section>
 
+<!-- Rangée de graphiques 1 -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Distribution de la complexité -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Distribution de la complexité</h3>
+        <div class="h-64">
+            <canvas id="complexity-chart"></canvas>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="rounded p-3 bg-blue-50">
+                <p class="text-sm text-gray-500">Complexité cyclomatique moyenne</p>
+                <p class="font-bold text-xl">8,8</p>
+            </div>
+            <div class="rounded p-3 bg-blue-50">
+                <p class="text-sm text-gray-500">Complexité cyclomatique médiane</p>
+                <p class="font-bold text-xl">4,0</p>
+            </div>
+        </div>
+    </div>
 
-  <div class="mt-4 bg-white rounded-lg shadow p-6">
-    <h3 class="text-xl font-bold text-gray-700">Packages with Most Lines of Code</h3>
+    <!-- Métriques de code -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Qualité du code</h3>
+        <div class="h-64">
+            <canvas id="code-quality-chart"></canvas>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="rounded p-3 bg-blue-50">
+                <p class="text-sm text-gray-500">Indice de maintenabilité</p>
+                <p class="font-bold text-xl">108</p>
+            </div>
+            <div class="rounded p-3 bg-blue-50">
+                <p class="text-sm text-gray-500">Lignes par méthode</p>
+                <p class="font-bold text-xl">3,0</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mt-4 bg-white rounded-lg shadow p-6">
+    <h3 class="text-xl font-bold text-gray-700">Packages avec le plus de lignes de code</h3>
     <p class="text-gray-600 text-lg mt-4 mb-4">
-      If you are curious about the packages with the most lines of code, you can find the top 100 packages below.
-      Note that the biggest packages concerns geographical data, and embed a lot of data in their code.
+        Si vous êtes curieux des packages ayant le plus de lignes de code, vous trouverez les 100 premiers packages ci-dessous.
+        Notez que les plus gros packages concernent les données géographiques et intègrent beaucoup de données dans leur code.
     </p>
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lines of Code</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Files</th>
-          </tr>
-        </thead>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lignes de code</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fichiers</th>
+            </tr>
+            </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           
           <tr>
@@ -3540,64 +3485,63 @@ In contrast, these packages are both very popular and widely used. They are the 
   </div>
 
 
-  <section class=" mt-48">
+<section class="mt-48">
     <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-      What Else Is Hiding in PHP Repositories?
-  </h2>
-
-    <div class="text-gray-600 text-lg mt-4 mb-4">
-    Analyzing PHP on Packagist is one thing, but what about everything around PHP? The reality is, modern PHP projects rely on a diverse tech stack.
-    </div>
-
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div >
-        <div>🔍 Here’s what I found inside the repositories:</div>
-        <ul class="list-disc list-inside text-gray-700 mb-4 ml-8">
-            <li><strong>PHP dominates</strong> (707M+ lines of code), but it’s far from alone.</li>
-            <li><strong>JavaScript</strong> is the most common companion (216M+ lines), proving that front-end and back-end integration is key.</li>
-            <li><strong>JSON & YAML</strong> are everywhere (200M+ lines combined), highlighting the rise of configuration-driven architectures.</li>
-            <li><strong>CSS & HTML</strong> (167M+ lines total) showcase the full-stack nature of many PHP applications.</li>
-            <li><strong>SQL, XML, and Markdown</strong> reflect the importance of structured data and documentation in modern PHP projects.</li>
-        </ul>
-        
-        <div class="mb-2">💡 Surprising finds:</div>
-        <ul class="list-disc list-inside text-gray-700 mb-4 ml-8">
-            <li><strong>TypeScript is growing</strong> (2.7M lines) – are PHP projects becoming more structured in the front end?</li>
-            <li><strong>C, Go, and Rust</strong> appear in small amounts – a sign of performance-critical extensions?</li>
-            <li><strong>Even Lua, Perl, and Scheme</strong> pop up – legacy integrations or scripting tools within PHP projects?</li>
-        </ul>
-        
-        <p class="text-gray-700 mb-4">👉 <strong class="font-bold text-purple-600">Modern PHP is more than just PHP.</strong> It’s an ecosystem that blends with various technologies, making cross-language skills increasingly valuable for PHP developers.</p>
-      </div>    
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <div class="text-center text-gray-700 mb-4">
-          Repartition of lines of code by language (top 10)
-        </div>
-        <canvas id="chart-languages"></canvas>
-      </div>
-    </div>
-
-  </section>  
-
-
-  
-  <section class="mt-48">
-    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-      What's Next?
+        Que cache-t-on d'autre dans les dépôts PHP ?
     </h2>
 
     <div class="text-gray-600 text-lg mt-4 mb-4">
-      <p class="text-gray-600 text-lg mt-4 mb-4">
-        Now that most of the process is scripted, I still have some code cleanup to tackle, but I think it would be valuable to run this analysis at least twice a year to keep an up-to-date view of the PHP ecosystem. So far, I've focused exclusively on Packagist, but it's not the only package manager out there - adding new code sources would provide a more comprehensive picture.
-      </p>
-      <p class="text-gray-600 text-lg mt-4 mb-4">
-      I'm also considering implementing more advanced code metrics to deepen the analysis. The current metrics give us a good foundation, but there's always more we could learn about code quality and ecosystem health.
-      </p>
-      <p class="text-gray-600 text-lg mt-4 mb-4">
-      If you have ideas for additional metrics or features that would enhance this dashboard, please reach out - your insights could help shape the future direction of this project!
-      </p>
+        Analyser PHP sur Packagist est une chose, mais qu'en est-il de tout ce qui entoure PHP ? En réalité, les projets PHP modernes s'appuient sur une pile technologique diverse.
     </div>
-  </section>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <div>🔍 Voici ce que j'ai trouvé dans les dépôts :</div>
+            <ul class="list-disc list-inside text-gray-700 mb-4 ml-8">
+                <li><strong>PHP domine</strong> (plus de 707M lignes de code), mais il est loin d'être seul.</li>
+                <li><strong>JavaScript</strong> est le compagnon le plus courant (plus de 216M lignes), prouvant que l'intégration front-end et back-end est essentielle.</li>
+                <li><strong>JSON & YAML</strong> sont omniprésents (plus de 200M lignes combinées), soulignant l'essor des architectures pilotées par la configuration.</li>
+                <li><strong>CSS & HTML</strong> (plus de 167M lignes au total) démontrent la nature full-stack de nombreuses applications PHP.</li>
+                <li><strong>SQL, XML et Markdown</strong> reflètent l'importance des données structurées et de la documentation dans les projets PHP modernes.</li>
+            </ul>
+
+            <div class="mb-2">💡 Découvertes surprenantes :</div>
+            <ul class="list-disc list-inside text-gray-700 mb-4 ml-8">
+                <li><strong>TypeScript est en croissance</strong> (2,7M lignes) – les projets PHP deviennent-ils plus structurés côté front-end ?</li>
+                <li><strong>C, Go et Rust</strong> apparaissent en petites quantités – un signe d'extensions critiques en performance ?</li>
+                <li><strong>Même Lua, Perl et Scheme</strong> font leur apparition – des intégrations héritées ou des outils de script au sein des projets PHP ?</li>
+            </ul>
+
+            <p class="text-gray-700 mb-4">👉 <strong class="font-bold text-purple-600">Le PHP moderne est plus que du PHP.</strong> C'est un écosystème qui se mélange avec diverses technologies, rendant les compétences multi-langages de plus en plus précieuses pour les développeurs PHP.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="text-center text-gray-700 mb-4">
+                Répartition des lignes de code par langage (top 10)
+            </div>
+            <canvas id="chart-languages"></canvas>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="mt-48">
+    <h2 class="text-4xl mt-8 font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+        Et après ?
+    </h2>
+
+    <div class="text-gray-600 text-lg mt-4 mb-4">
+        <p class="text-gray-600 text-lg mt-4 mb-4">
+            Maintenant que la majorité du processus est automatisée, il me reste encore quelques nettoyages de code à effectuer, mais je pense qu'il serait utile de réaliser cette analyse au moins deux fois par an pour maintenir une vue actualisée de l'écosystème PHP. Jusqu'à présent, je me suis concentré exclusivement sur Packagist, mais ce n'est pas le seul gestionnaire de packages - l'ajout de nouvelles sources de code fournirait une image plus complète.
+        </p>
+        <p class="text-gray-600 text-lg mt-4 mb-4">
+            J'envisage également d'implémenter des métriques de code plus avancées pour approfondir l'analyse. Les métriques actuelles nous donnent une bonne base, mais il y a toujours plus à apprendre sur la qualité du code et la santé de l'écosystème.
+        </p>
+        <p class="text-gray-600 text-lg mt-4 mb-4">
+            Si vous avez des idées de métriques ou de fonctionnalités supplémentaires qui pourraient améliorer ce tableau de bord, n'hésitez pas à me contacter - vos suggestions pourraient aider à façonner l'orientation future de ce projet !
+        </p>
+    </div>
+</section>
 
 
   

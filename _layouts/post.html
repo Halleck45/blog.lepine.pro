@@ -62,16 +62,28 @@ layout: default
 
         </div>
         </div>
-        {% if page.language == "en" and page.canonical %}
+        {% if page.language == "en"%}
           <blockquote class="ml-2">
-            This post is a translation of
-            <a href="{{ page.canonical }}">the original article in 🇫🇷 French</a>
+            You will find
+            {% if page.fr_permalink %}
+              <a href="{{ page.fr_permalink }}">the 🇫🇷 French version</a>
+            {% else %}
+              <a href="{{ page.canonical }}">the 🇫🇷 French version</a>
+            {% endif %}
+            of this article here
           </blockquote>
-        {% endif %}
-        {% if page.en_permalink %}
-          <blockquote class="ml-2"> 
-            You will find the <a href="{{ page.en_permalink }}">🇬🇧 english version of this article here</a>
+        {% else %}
+          {% assign has_canonical = page.canonical %}
+          {% assign has_en_permalink = page.en_permalink %}
+
+          {% if has_canonical or has_en_permalink %}
+          <blockquote class="ml-2">
+            You will find the
+            <a href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
+              🇬🇧 english version of this article here
+            </a>
           </blockquote>
+          {% endif %}
         {% endif %}
         </div>
       <div>
