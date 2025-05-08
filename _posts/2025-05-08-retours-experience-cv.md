@@ -81,7 +81,7 @@ Parce qu'on n'a pas toujours le temps de lire un article entier, voici un résum
         </div>
         <div>
             <iframe class="my-8 mx-auto" width="560" height="315" style="max-width: 100%" src="https://www.youtube.com/embed/S_Macvy5CQE?si=WXHVu_M3U-yyf8dx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>max-width: 100%; width: 400px; 
+        </div>
     </div>
 </div>
 
@@ -233,8 +233,8 @@ Technos : Docker, PostgreSQL, React, PHP, Git, bash
 
 Essayez de mettre :
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
-<div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
+<div class="border bg-lime-100 border-lime-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
 <div><b>Développeuse front-end chez MonEntreprise (3 ans)</b></div>
 (...)
 <div>
