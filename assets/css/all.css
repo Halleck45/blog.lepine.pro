@@ -41,6 +41,7 @@ font-optical-sizing: auto;
 }
 #post h3 {
     font-size: 1.6em;
+    margin-top: 2em;
 }
 #post a, #post  a:visited {
     color: #0369a1;
