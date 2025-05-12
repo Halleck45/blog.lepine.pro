@@ -55,7 +55,7 @@ impact monumental sur la vie des gens, et c'est pas un geste anodin. Mais il fau
 
 ## Comment faire pour se démarquer ?
 
-### TL;DR : les essentiels
+## TL;DR : les essentiels
 
 Parce qu'on n'a pas toujours le temps de lire un article entier, voici un résumé des conseils que je vais vous donner dans cet article :
 
@@ -86,7 +86,7 @@ Parce qu'on n'a pas toujours le temps de lire un article entier, voici un résum
 
 Vous pouvez vous arrêter là, ou continuer à lire pour avoir plus de détails sur chacun de ces conseils.
 
-### Parlez de votre impact
+## Parlez de votre impact
 
 La première chose de mon point de vue consiste à afficher vos accomplissements.
 
@@ -133,7 +133,7 @@ Vous pouvez toujours trouver un moyen de quantifier votre impact. Posez-vous ces
 - Est-ce que vous avez amélioré l'expérience utilisateur ?
 - etc.
 
-### Faites un résumé de votre expérience et de ce que vous recherchez
+## Faites un résumé de votre expérience et de ce que vous recherchez
 
 De ce que j'ai pu glaner comme informations, **un recruteur se fait une idée de votre profil en lisant la première 
 moitié de la première page de votre CV.**
@@ -151,7 +151,7 @@ Je recherche un poste dans une entreprise SaaS qui met l'accent sur la qualité 
 C'est un gain de temps pour le·la recruteur·se, et ça lui permet de savoir si vous correspondez à ce qu'il recherche. Et un 
 bon moyen de vous démarquer.
 
-### Donnez du contexte
+## Donnez du contexte
 
 Un autre point important est de donner du contexte à vos missions. Par exemple, précisez combien vous
 étiez dans l'équipe, quel était le produit, quel était le contexte de votre mission, etc.
@@ -344,7 +344,7 @@ Je fais un aparté un instant : le marché est, de mon point de vue, sursaturé 
 trouverez un CDI payé 50 K€. C'est faux, et ça le sera toujours.** Je ne dis pas que ces formations sont inutiles, mais elles ne
 sont pas suffisantes pour vous faire décrocher un CDI.
 
-### Faites les calculs vous-mêmes
+## Faites les calculs vous-mêmes
 
 Un truc un peu idiot mais impactant, c'est de faire les calculs vous-mêmes. Par exemple, indiquez
 le nombre d'années passées dans une entreprise plutôt que simplement mettre les dates de début et de fin.
