@@ -12,7 +12,6 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
-en_permalink: /fr/comment-ameliorer-votre-cv/
 ---
 
 Je ne suis pas recruteur, et je n'ai pas la prétention d'être expert en recrutement. 
@@ -26,7 +25,7 @@ C’est un billet que j’aurais aimé lire il y a quelques années, côté cand
 
 Il existe des tonnes
 de sites sur le sujet, mais curieusement peu me paraissent concrets, c'est souvent des sites qui semblent plus vouloir faire du trafic que de 
-réellement partager des retours d'expérience concrets; J'espère combler un peu ce manque.
+réellement partager des retours d'expérience réels ; J'espère combler un peu ce manque.
 
 ## Comment ça se passe quand un recruteur reçoit un CV ?
 
@@ -94,7 +93,7 @@ La première chose de mon point de vue consiste à afficher vos accomplissements
 Par exemple, dans votre expérience précédente, plutôt que de mettre quelque chose comme:
 
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
 <div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
 <b>Développeur front-end chez MonEntreprise (2020 - 2023)</b>
 <ul style="margin-bottom:0; ">
@@ -105,7 +104,7 @@ Par exemple, dans votre expérience précédente, plutôt que de mettre quelque 
 
 Trouvez un moyen de **mettre en avant l'impact de votre travail**. Par exemple :
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
 <b>Développeur front-end chez MonEntreprise (2020 - 2023)</b>
 <ul style="margin-bottom:0; ">
@@ -143,7 +142,7 @@ C'est un peu comme la ligne de flottaison d'un site web : il faut que ça soit c
 
 Je vous conseille d'ajouter une phrase ou deux en haut de votre CV, qui résume votre expérience et ce que vous recherchez. Par exemple :
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version suggérée</div>
 <b>Développeuse front-end avec 5 ans d'expérience spécialisée en Vue.js, je suis passionnée par l'accessibilité et l'optimisation des performances. 
 Je recherche un poste dans une entreprise SaaS qui met l'accent sur la qualité du code et l'expérience utilisateur.</b>
@@ -152,28 +151,6 @@ Je recherche un poste dans une entreprise SaaS qui met l'accent sur la qualité 
 C'est un gain de temps pour le·la recruteur·se, et ça lui permet de savoir si vous correspondez à ce qu'il recherche. Et un 
 bon moyen de vous démarquer.
 
-### Faites les calculs vous-mêmes
-
-Un truc un peu idiot mais impactant, c'est de faire les calculs vous-mêmes. Par exemple, indiquez 
-le nombre d'années passées dans une entreprise plutôt que simplement mettre les dates de début et de fin.
-
-Par exemple, au lieu de mettre :
-
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
-<div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
-<b>Développeur front-end chez MonEntreprise (2020 - 2023)</b>
-</div>
-
-Essayez de mettre :
-
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
-<div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
-<b>Développeur front-end chez MonEntreprise (3 ans)</b>
-</div>
-
-Excepté si les dates sont importantes, évitez d'ajouter trop de charge mentale au recruteur, qui, je le rappelle, ne
-passera pas plus de quelques secondes sur votre CV.
-
 ### Donnez du contexte
 
 Un autre point important est de donner du contexte à vos missions. Par exemple, précisez combien vous
@@ -181,7 +158,7 @@ Un autre point important est de donner du contexte à vos missions. Par exemple,
 
 Par exemple, au lieu de mettre :
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
 <div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
 <b>Développeuse front-end chez MonEntreprise (3 ans)</b>
 <ul style="margin-bottom:0; ">
@@ -192,7 +169,7 @@ Par exemple, au lieu de mettre :
 
 Essayez de mettre :
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
 <div><b>Développeuse front-end chez MonEntreprise (3 ans)</b></div>
 <div>Équipe de 5 personnes, produit SaaS B2C utilisé par 1000 utilisateurs actifs.</div>
@@ -222,7 +199,7 @@ Mentionnez aussi les "évidences" comme Git, bash, etc. quand vous avez un profi
 
 Par exemple, au lieu de mettre :
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
 <div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
 <div><b>Développeuse front-end chez MonEntreprise (3 ans)</b></div>
 (...)
@@ -233,7 +210,7 @@ Technos : Docker, PostgreSQL, React, PHP, Git, bash
 
 Essayez de mettre :
 
-<div class="border bg-lime-100 border-lime-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
 <div><b>Développeuse front-end chez MonEntreprise (3 ans)</b></div>
 (...)
@@ -309,7 +286,7 @@ surtout permettra au recruteur que vous êtes déjà à l'aise avec le travail �
 
 Par exemple, vous pouvez mettre :
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version suggérée</div>
 <div><b>Développeuse front-end chez MonEntreprise (3 ans - 🏠 Full remote)</b></div>
 </div>
@@ -327,14 +304,14 @@ Je vous conseille de mettre plutôt un petit paragraphe qui explique votre nivea
 
 Par exemple, plutôt que de mettre :
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
 <div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
 <div><b>PHP : ⭐⭐⭐⭐</b></div>
 </div>
 
 Essayez de mettre :
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version suggérée</div>
 <div><b>PHP</b> : 4 ans d'expérience, développement d'API RESTful avec Symfony et Laravel, optimisation de requêtes SQL, tests unitaires et fonctionnels.</div>
 </div>
@@ -353,7 +330,7 @@ n'est pas très intéressant pour le·la recruteur·se. Essayez de mettre en ava
 
 ## vous venez d'un bootcamp ? Ajoutez un portfolio.
 
-Je l'ai mentionné, les formations bootcamp (type OpenClassroom) sont légion. Pour ne pas dire hyper saturées.
+Les formations bootcamp (type OpenClassroom) sont légion. Pour ne pas dire hyper saturées.
 
 Si vous êtes junior·e, avec peu d'expérience, le seul moyen efficace de vous démarquer est de montrer vos projets. Je 
 sais que c'est pénible, mais c'est un passage obligé dans votre cas, car le marché est saturé de candidats avec des formations similaires.
@@ -367,11 +344,33 @@ Je fais un aparté un instant : le marché est, de mon point de vue, sursaturé 
 trouverez un CDI payé 50 K€. C'est faux, et ça le sera toujours.** Je ne dis pas que ces formations sont inutiles, mais elles ne
 sont pas suffisantes pour vous faire décrocher un CDI.
 
+### Faites les calculs vous-mêmes
+
+Un truc un peu idiot mais impactant, c'est de faire les calculs vous-mêmes. Par exemple, indiquez
+le nombre d'années passées dans une entreprise plutôt que simplement mettre les dates de début et de fin.
+
+Par exemple, au lieu de mettre :
+
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
+<div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
+<b>Développeur front-end chez MonEntreprise (2020 - 2023)</b>
+</div>
+
+Essayez de mettre :
+
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
+<div class="text-lime-800 text-center text-sm pb-4">Version améliorée</div>
+<b>Développeur front-end chez MonEntreprise (3 ans)</b>
+</div>
+
+Excepté si les dates sont importantes, évitez d'ajouter trop de charge mentale au recruteur, qui, je le rappelle, ne
+passera pas plus de quelques secondes sur votre CV.
+
 ## Ne mettez pas de lettre de motivation, sauf si
 
 Que pensez-vous de cette lettre de motivation ?
 
-<div class="border bg-rose-100 border-rose-400 text-rose-800 px-4 py-3 rounded relative">
+<div class="border bg-rose-50 border-rose-100 text-rose-800 px-4 py-3 rounded relative">
 <div class="text-rose-800 text-center text-sm pb-4">Version améliorable</div>
 <div><b>Lettre de motivation</b></div>
 <p>Bonjour,</p>
@@ -404,7 +403,7 @@ Parfois, il suffit de changer le résumé en haut de votre CV, ou de mettre en a
 
 Par exemple, pour une annonce "Développeur·se front-end React", mettez en avant la compétence React, et mettez le en avant dans votre résumé de haut de page.
 
-<div class="border bg-lime-100 border-green-400 text-lime-800 px-4 py-3 rounded relative">
+<div class="border bg-lime-50 border-lime-100 text-lime-800 px-4 py-3 rounded relative">
 <div class="text-lime-800 text-center text-sm pb-4">Version suggérée</div>
 <div><b>Développeuse front-end avec 5 ans d'expérience, ayant une forte appétence en React, je suis passionnée par l'accessibilité et l'optimisation des performances.
 Je recherche un poste dans une entreprise SaaS qui met l'accent sur la qualité du code et l'expérience utilisateur.</b>
