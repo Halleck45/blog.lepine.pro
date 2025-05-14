@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Comment améliorer votre CV (du point de vue d'un CTO) ?"
-cover: ""
+cover: "cover-improve-cv.png"
 categories:
 - career
 tags:
