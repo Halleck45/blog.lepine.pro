@@ -25,6 +25,7 @@ font-optical-sizing: auto;
     margin-bottom: 1rem;
     color: #4a5565;
 }
+
 #post p a {
     color: #0369a1;
 }
@@ -38,10 +39,12 @@ font-optical-sizing: auto;
     margin-bottom: 1em;
     color: #000;
     font-weight: bold;
+    text-align :left;
 }
 #post h3 {
     font-size: 1.6em;
     margin-top: 2em;
+    text-align :left;
 }
 #post a, #post  a:visited {
     color: #0369a1;
@@ -80,4 +83,12 @@ font-optical-sizing: auto;
 .post_social {
     min-height: 30px;
     max-height: 30px;
+}
+
+#post blockquote {
+    font-style: italic;
+    color: #000;
+    background-color: #f7fafc;
+    padding: 1em;
+    border-radius: 0.5rem;
 }
