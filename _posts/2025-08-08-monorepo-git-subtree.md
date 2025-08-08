@@ -46,7 +46,7 @@ Il y a vraiment de nombreux avantages à fusionner vos projets dans un seul dép
 
 La simplicité de ne faire qu'une seule Pull Request à un seul endroit est vraiment un plaisir au quotidien.
 
-Par exemple : si vous travaillez sur un projet avev un dépôt pour le front et un autre pour le back. Si jusqu'ici vous 
+Par exemple : si vous travaillez sur un projet avec un dépôt pour le front et un autre pour le back. Si jusqu'ici vous 
 deviez faire deux Pull Requests, attendre que la première soit mergée pour accepter la seconde... désormais vous pouvez faire une seule PR pour les deux.
 
 ## `subtree` n'a rien de mystique
