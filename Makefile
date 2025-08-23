@@ -7,6 +7,7 @@ jekyll: docker
 optimize:
 	optipng images/* ||true
 	optipng images/cover/* ||true
+	optipng images/cover-auto/* ||true
 	jpegoptim images/*  ||true
 
 server: docker
