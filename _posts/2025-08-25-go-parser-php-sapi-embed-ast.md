@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Parser du code PHP, sans dépendre de PHP"
-cover: "cover-go-php-parser-parser-du-code-php-depuis-go-sans-d-pendre-de-php.png"
+cover: "cover-parser-du-code-php-sans-d-pendre-de-php.png"
 categories:
   - go
   - php
