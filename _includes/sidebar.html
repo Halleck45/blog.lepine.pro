@@ -1,53 +1,114 @@
-<nav class="text-gray-800">
-    {% if page and page.language == "en" %}
+<div class="h-full p-8">
+<aside class=" hidden h-full  md:block md:w-80 shrink-0">
+    <div class="sticky h-full top-8">
+        <section class="h-full rounded-2xl overflow-hidden">
+            <!-- Bandeau -->
+            <div class="h-28 "></div>
 
-        <a href="/en/" class="text-center">
-            <img src="/logo.png" class="h-24 w-24 mx-auto" id="logo" alt="Jean-François Lépine's blog: PHP Industrialization and Software Quality"/>
-        </a>
+            <div class="-mt-12 px-6 pb-6">
+                <!-- Logo -->
+                {% if page and page.language == "en" %}
+                <a href="/en/" class="block text-center">
+                    <img src="/logo.png" alt="Jean-François Lépine's blog" class="h-24 w-24 rounded-2xl mx-auto"/>
+                </a>
+                {% else %}
+                <a href="/" class="block text-center">
+                    <img src="/logo.png" alt="Blog de Jean-François Lépine" class="h-24 w-24  mx-auto"/>
+                </a>
+                {% endif %}
 
-        <h2 class="mt-4">Blog of <a class="underline hover:no-underline" href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+                <!-- Titre + pitch -->
+                {% if page and page.language == "en" %}
+                <h2 class="mt-4 text-xl font-semibold text-gray-900">
+                    Blog of <a href="https://lepine.pro" class="underline decoration-indigo-400 hover:decoration-2">{{ site.theme.name }}</a>
+                </h2>
+                <p class="mt-2 text-sm text-gray-600">DevOps, and software quality.</p>
+                {% else %}
+                <h2 class="mt-4 text-xl font-semibold text-gray-900">
+                    Blog de <a href="https://lepine.pro" class="underline decoration-indigo-400 hover:decoration-2">{{ site.theme.name }}</a>
+                </h2>
+                <p class="mt-2 text-sm text-gray-600">DevOps et qualité logicielle.</p>
+                {% endif %}
 
-        <p class="my-8 r">
-            PHP expert, DevOps and software quality.
-        </p>
-        <p class=" ">
-            Find my 📖 book <a class="underline hover:no-underline" href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Software Quality for Back-End Developers</a> at Eyrolles.
-        </p>
-        <p class="mt-8 ">
-            Creator of <a class="underline hover:no-underline" href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>,
-            <a class="underline hover:no-underline" href="https://github.com/halleck45/ast-metrics">AST Metrics</a>.
-    {% else %}
-        <a href="/">
-            <img src="/logo.png" class="h-24 w-24 mx-auto" id="logo" alt="Blog de Jean-François Lépine : Industrialisation, qualité PHP"/>
-        </a>
-        <h2>Blog de <a class="underline hover:no-underline" href="https://lepine.pro">{{ site.theme.name }}</a></h2>
+                <!-- Actions -->
+                <div class="mt-4 flex gap-2">
+                    <a href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673"
+                       class="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-3 py-2 text-xs font-medium text-white hover:opacity-90">
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4"><path d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001Z"/></svg>
+                        {% if page and page.language == "en" %}My book{% else %}Mon livre{% endif %}
+                    </a>
+                    <a href="/atom.xml" class="inline-flex items-center rounded-lg ring-1 ring-gray-200 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50">RSS</a>
+                </div>
 
-        <p class="my-8 ">
-            Expert PHP, DevOps et en qualité logicielle.
-        </p>
-        <p class=" ">
-            Retrouvez mon 📖 livre <a class="underline hover:no-underline" href="https://www.amazon.fr/Qualit%C3%A9-logicielle-pour-d%C3%A9veloppeurs-back-end/dp/2416012673">Qualité logicielle pour les développeurs</a> chez Eyrolles.
-        </p>
-        <p class="mt-8 ">
-            Créateur de 
-                <a class="underline hover:no-underline" href="https://github.com/phpmetrics/PhpMetrics">PHPMetrics</a>, 
-                <a class="underline hover:no-underline" href="https://github.com/halleck45/ast-metrics">AST Metrics</a>.
-        </p>
-    {% endif %}
+                <!-- Projets -->
+                <div class="mt-6 grid gap-2 text-sm">
+                    <a href="https://github.com/phpmetrics/PhpMetrics" class="group flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 hover:bg-gray-100">
+                        <span class="font-medium text-gray-800">PHPMetrics</span>
+                        <i class="fa-brands fa-github text-gray-500 group-hover:text-gray-700"></i>
+                    </a>
+                    <a href="https://github.com/halleck45/ast-metrics" class="group flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 hover:bg-gray-100">
+                        <span class="font-medium text-gray-800">AST Metrics</span>
+                        <i class="fa-brands fa-github text-gray-500 group-hover:text-gray-700"></i>
+                    </a>
+                </div>
 
-    <div id="social" class="my-8">
-        {% include social.html %}
+                <!-- Nav tags + switch langue -->
+                <nav class="mt-6">
+                    <ul class="space-y-1 text-sm">
+                        <li>
+                            <a href="{% if page and page.language == 'en' %}/en/{% else %}/{% endif %}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3 10.5 9-7.5 9 7.5V21a.75.75 0 0 1-.75.75H6.75A.75.75 0 0 1 6 21v-6.75"/></svg>
+                                {% if page and page.language == "en" %}Home{% else %}Accueil{% endif %}
+                            </a>
+                        </li>
+<!--                        <li><a href="/tag/php" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">#php</a></li>-->
+<!--                        <li><a href="/tag/Go"  class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">#Go</a></li>-->
+                        <li class="pt-1">
+                            {% if page and page.language == "en" %}
+                            <a href="/" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">🇫🇷 Français</a>
+                            {% else %}
+                            <a href="/en" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">🇬🇧 English</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Réseaux -->
+                <div class="mt-6">
+                    <div id="social" class="text-xl text-gray-600 flex items-center gap-4">
+                        {% include social.html %}
+                    </div>
+                </div>
+
+                <p class="mt-6 text-[11px] text-gray-500">© Jean-François Lépine · 2010–2025</p>
+            </div>
+        </section>
     </div>
-</nav>
+</aside>
 
-<div class="text-xs mt-4">
-    {% if page and page.language == "en" %}
-    <a href="/">
-        🇫🇷 Français
-    </a>
-    {% else %}
-    <a href="/en">
-        🇬🇧 English
-    </a>
-    {% endif %}
+<!-- Mobile drawer -->
+<div class="md:hidden">
+    <details class="group">
+        <summary class="flex items-center gap-2 px-4 py-3 text-sm font-medium bg-white shadow rounded-xl">
+            Menu
+            <span class="ml-auto text-gray-500 group-open:hidden">▼</span>
+            <span class="ml-auto text-gray-500 hidden group-open:inline">▲</span>
+        </summary>
+        <div class="mt-2 rounded-2xl bg-white p-4 shadow ring-1 ring-black/5">
+            <a href="{% if page and page.language == 'en' %}/en/{% else %}/{% endif %}" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">
+                {% if page and page.language == "en" %}Home{% else %}Accueil{% endif %}
+            </a>
+            <a href="/tag/php" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">#php</a>
+            <a href="/tag/Go"  class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">#Go</a>
+            {% if page and page.language == "en" %}
+            <a href="/" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">🇫🇷 Français</a>
+            {% else %}
+            <a href="/en" class="block rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50">🇬🇧 English</a>
+            {% endif %}
+            <div class="mt-3 text-xl text-gray-600">
+                {% include social.html %}
+            </div>
+        </div>
+    </details>
+</div>
 </div>
