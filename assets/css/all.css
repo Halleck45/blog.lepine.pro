@@ -10,6 +10,11 @@ font-optical-sizing: auto;
     text-align: justify;
     color: #4a5565;
 }
+@media screen and (max-width: 750px) {
+    #post {
+        text-align: left;
+    }
+}
 #post li {
     list-style: disc;
     margin-bottom: 1em;
@@ -28,6 +33,9 @@ font-optical-sizing: auto;
 
 #post p a {
     color: #0369a1;
+}
+#post p a:hover {
+    text-decoration: underline;
 }
 #post strong {
     font-weight: bold;
@@ -95,4 +103,17 @@ font-optical-sizing: auto;
 
 #post table {
     width:100%;
+}
+#post tbody td {
+    border:1px solid #ddd;
+    padding:8px;
+}
+@media screen and (max-width: 750px) {
+    #post table {
+        display: block;
+        overflow-x: auto;
+    }
+    #post table th, #post table td {
+        white-space: nowrap;
+    }
 }
