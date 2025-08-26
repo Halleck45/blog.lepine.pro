@@ -8,12 +8,14 @@ categories:
 tags:
   - Go
   - php
+  - opensource
 status: publish
 type: post
 published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+en_permalink: /en/parsing-php-code-ast-go/
 ---
 
 

@@ -66,9 +66,9 @@ layout: default
           <blockquote class="ml-2">
             You will find
             {% if page.fr_permalink %}
-              <a href="{{ page.fr_permalink }}">the 🇫🇷 French version</a>
+              <a href="{{ page.fr_permalink }}" class="hover:underline">the 🇫🇷 French version</a>
             {% else %}
-              <a href="{{ page.canonical }}">the 🇫🇷 French version</a>
+              <a href="{{ page.canonical }}" class="hover:underline">the 🇫🇷 French version</a>
             {% endif %}
             of this article here
           </blockquote>
@@ -79,7 +79,7 @@ layout: default
           {% if has_canonical or has_en_permalink %}
           <blockquote class="ml-2">
             You will find the
-            <a href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
+            <a class="hover:underline" href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
               🇬🇧 english version of this article here
             </a>
           </blockquote>
