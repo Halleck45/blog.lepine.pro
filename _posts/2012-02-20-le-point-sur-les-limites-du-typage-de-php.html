@@ -18,6 +18,10 @@ meta:
   seo_follow: 'false'
   seo_noindex: 'false'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - PHP est un langage à typage faible avec un typage fort limité aux objets et tableaux, mais pas aux scalaires (int, string, etc.).
+  - Plusieurs solutions existent (patchs, extensions, gestionnaires d’erreurs) mais restent des rustines peu pratiques et coûteuses en performance.
+  - Ce billet explore ces limites et débats, et invite à réfléchir : le typage fort manque-t-il vraiment à PHP ou sa souplesse est-elle une force ?
 ---
 <h2>Les limites</h2>
 <p>PHP a ceci de particulier qu'il est est un <strong>langage de typage faible</strong> (le type des variables peut changer en cours de route), mais qu'il <strong>autorise un typage fort partiel des paramètres de fonctions</strong> pour ce qui concerne les objets et les tableaux. On pourra ainsi écrire :</p>

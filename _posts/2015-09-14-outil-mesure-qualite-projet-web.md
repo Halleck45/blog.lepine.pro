@@ -15,6 +15,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - La qualité d’un projet web se mesure via plusieurs facteurs clés comme la maintenabilité, l’évolutivité et la fiabilité, mais les outils pour les évaluer restent rares.
+  - Qualiboo.com est une nouvelle plateforme qui agrège métriques de code, bugs, intégration continue et dépendances sur plusieurs dépôts pour un suivi global.
+  - Découvrez comment cet outil innovant peut vous aider à mieux piloter la qualité de vos projets web, open source ou privés.
 ---
 
 

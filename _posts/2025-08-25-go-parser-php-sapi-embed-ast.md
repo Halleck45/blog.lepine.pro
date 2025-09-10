@@ -16,6 +16,12 @@ meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
 en_permalink: /en/parsing-php-code-ast-go/
+tldr: |
+  - AstMetrics analyse le code via l’AST, pour des métriques précises et multi-langages, dont PHP.
+  - Parser PHP soi-même avec Lex/Yacc est trop complexe et difficile à maintenir.
+  - Solution retenue : embarquer le moteur PHP officiel en C via SAPI Embed, exposé en Go, pour récupérer un AST toujours à jour sans dépendance PHP installée.
+  - Résultat : un outil performant, simple à utiliser, capable d’analyser du PHP sans installer PHP.
+  Découvrez comment ce pont Go ↔ PHP révolutionne l’analyse de code PHP !
 ---
 
 

@@ -15,6 +15,10 @@ meta:
 permalink: /en/:title/
 language: en
 canonical: /protobuf-standard-pour-echanger-des-donnes-php-go
+tldr: |
+  - Discover how to efficiently serialize data between PHP and Go microservices using Protocol Buffers (ProtoBuf).
+  - Learn to define data schemas with `.proto` files, generate PHP and Go code, and exchange typed, compact messages effortlessly.
+  - Gain a practical, step-by-step guide to install, use, and benefit from ProtoBuf’s speed, standardization, and cross-language compatibility.
 ---
 
 Today I want to talk about a tool that I now use almost every day: [Protocol Buffers](https://developers.google.com/protocol-buffers) (or ProtoBuf for short).

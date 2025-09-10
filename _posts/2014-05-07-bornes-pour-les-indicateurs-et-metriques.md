@@ -14,6 +14,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Découvrez comment fixer des valeurs limites pour la qualité logicielle avec PhpMetrics.
+  - Suivez un processus en quatre étapes : théorique, pondération, analyse démographique et ajustements pratiques.
+  - Apprenez à adapter les métriques à la réalité des projets PHP pour améliorer la maintenabilité et la cohésion du code.
 ---
 
 

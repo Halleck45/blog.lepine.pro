@@ -19,6 +19,10 @@ meta:
   image: ''
   seo_follow: 'false'
   seo_noindex: 'false'
+tldr: |
+  - Tester un Trait PHP peut être compliqué car il nécessite une classe pour l’implémenter.
+  - PHPUnit facilite cela avec la méthode `getObjectForTrait()`, permettant de tester directement le comportement du Trait.
+  - Découvrez comment écrire des tests unitaires précis et fiables pour vos Traits, et gagnez en qualité de code.
 ---
 
 Il peut être intéressant de tester un code avec des `Traits`, PHP et phpUnit. Les `Traits` sont apparus en PHP 5.4, et permettent de définir des comportements qui peuvent être réutilisés dans plusieurs classes. 

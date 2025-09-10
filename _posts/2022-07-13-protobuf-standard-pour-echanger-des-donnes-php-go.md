@@ -14,6 +14,10 @@ meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
 en_permalink: /en/protobuf-php-go/
+tldr: |
+  - Découvrez comment utiliser ProtoBuf en PHP pour une sérialisation rapide et interopérable entre microservices.
+  - Apprenez à définir vos données avec des fichiers `.proto` et générer automatiquement du code PHP et Go.
+  - Gagnez en performance, fiabilité et simplicité dans l’échange de données typées, tout en restant agnostique des langages.
 ---
 
 Aujourd'hui j'ai envie de vous parler d'un outil que j'utilise 

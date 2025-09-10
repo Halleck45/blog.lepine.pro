@@ -12,6 +12,12 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Le monorepo simplifie la gestion de plusieurs projets en un seul dépôt, avec historique préservé.
+  - `git subtree` est la solution simple et fiable pour rapatrier vos dépôts existants, sans les inconvénients des submodules.
+  - Découvrez un script prêt à l’emploi pour intégrer proprement vos dépôts dans un monorepo, tout en gardant l’historique intact.
+  - Bonus : automatisez la synchronisation avec l’ancien dépôt via GitHub Actions.
+  Un guide clair et concret pour franchir le pas du monorepo sans prise de tête !
 ---
 
 

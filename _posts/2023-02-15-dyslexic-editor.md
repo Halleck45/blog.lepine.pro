@@ -13,6 +13,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Un éditeur de texte en ligne simple et open source, pensé pour les enfants dyslexiques.
+  - Fonctionnalités clés : lecture vocale, mise en couleur des phonèmes, reconnaissance vocale et d’images.
+  - Un outil pratique pour faciliter les devoirs, avec une communauté active pour l’améliorer. À tester et soutenir !
 ---
 
 La dyslexie est une chose complexe et multiple. On parle d'ailleurs en général de dyslexies, au pluriel. 

@@ -13,6 +13,11 @@ meta:
   image: ''
   seo_follow: 'false'
   seo_noindex: 'false'
+tldr: |
+  - PHP 5.4 permet de redéfinir la portée des attributs d’un trait, par exemple rendre public un attribut protégé.
+  - Cette pratique remet en question l’encapsulation, principe clé de la POO, surtout quand on passe du privé au public.
+  - L’auteur explore aussi une alternative en PHP 5.3 via Reflection pour accéder aux attributs privés.
+  - À vous de juger : innovation utile ou brèche dangereuse dans la conception orientée objet ?
 ---
 <p>PHP 5.4 est enfin sorti ; on parle beaucoup des Traits en ce moment, et un point <strike>]me dérange</strike> m'intrigue : la redéfinition de portée d'un attribut d'un trait.</p>
 

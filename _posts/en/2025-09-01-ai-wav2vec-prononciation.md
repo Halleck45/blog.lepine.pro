@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AI: Wav2Vec2, distances and visemes explained simply"
+title: "Speech Vectorization Explained: Building a Local AI for Pronunciation Detection"
 cover: "cover-parser-du-code-php-sans-d-pendre-de-php.png"
 categories:
   - ai
@@ -17,6 +17,12 @@ meta:
 permalink: /en/:title/
 language: en
 canonical: /ai-wav2vec-prononciation
+tldr: |
+  - Discover how Wav2Vec2 transforms speech into numerical embeddings to compare pronunciations precisely.
+  - Learn how Dynamic Time Warping (DTW) aligns speech at different speeds for accurate analysis.
+  - See how phonemes and visemes provide clear, visual feedback to improve mouth movements and pronunciation.
+  - Follow a practical project that combines AI and simple algorithms to create a personal pronunciation coach.
+  - Gain insights to build your own tool and understand the tech behind speech learning—code included!
 ---
 
 Reading or writing is not much of a problem for me, but as soon as it comes to speaking, I realize that my pronunciation is not always clear.

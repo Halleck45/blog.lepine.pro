@@ -17,6 +17,11 @@ meta:
 permalink: /en/:title/
 language: en
 canonical: /ast-metrics-analyse-statique
+tldr: |
+  - AST Metrics is a fast, simple, language-agnostic static analysis tool written in Go, designed to analyze millions of lines of code in seconds.
+  - It produces clear, accessible metrics like complexity and maintainability, with easy installation and no dependencies.
+  - Integrate it into your CI pipeline to enforce code quality thresholds and architectural rules automatically.
+  - Try it now to catch code issues early, improve maintainability, and help shape the future of this promising open-source project!
 ---
 
 10 years after starting the development of [PHP Metrics](https://github.com/Phpmetrics/PhpMetrics), I think it's time to start something new, more modern... and more ambitious.

@@ -14,6 +14,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Apprenez à utiliser votre fichier `.travis.yml` dans Jenkins avec Docker pour éviter la double configuration.
+  - Créez facilement des environnements de test isolés pour différentes versions de PHP avec des containers Docker.
+  - Simplifiez vos builds Jenkins et gagnez du temps tout en maintenant une intégration continue efficace.
 ---
 
 

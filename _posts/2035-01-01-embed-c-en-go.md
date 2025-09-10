@@ -14,6 +14,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Deux méthodes pour gérer l’embed C en Go : stocker les binaires statiques dans le dépôt ou les télécharger à la demande.
+  - Stocker alourdit le dépôt et complique les releases, idéal pour environnements fermés. Télécharger à l’usage allège le dépôt, facilite les mises à jour et supporte toutes plateformes.
+  - Découvrez comment Go-PHP-Parser implémente cette approche pratique, avec cache, vérification d’intégrité et gestion multi-OS/arch.
 ---
 
 En travaillant sur **Go-PHP-Parser**, je me suis retrouvé face à une question classique :  

@@ -13,6 +13,11 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Découvrez comment structurer et standardiser vos échanges de données entre micro-services avec RabbitMQ, Protobuf et un modèle simple Sujet-Verbe-Prédicat.
+  - Apprenez à optimiser la diffusion via des échanges et queues pour un traitement efficace et scalable, tout en évitant les dépendances complexes.
+  - Inspirez-vous d’exemples concrets : suivi d’activité en temps réel, moteur de recommandations, synchronisation inter-systèmes.
+  Un guide clair pour booster la robustesse et la lisibilité de vos flux de données métier.
 ---
 
 Je vous propose de parler un peu de Bus de données. Un bus de données permet de transférer des données entre plusieurs logiciels.

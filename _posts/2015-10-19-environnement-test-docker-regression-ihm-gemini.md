@@ -15,6 +15,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Découvrez comment tester efficacement l'interface graphique de votre site web avec Docker et Gemini.
+  - Apprenez à capturer des références visuelles et à détecter les régressions sous différents navigateurs.
+  - Simplifiez vos tests d'IHM et assurez-vous que votre site reste fonctionnel, peu importe les changements.
 ---
 
 Ce billet est le second d'une [série sur la création d'un environnement de test pour des projets web](/environnement-test-docker-behat/). 

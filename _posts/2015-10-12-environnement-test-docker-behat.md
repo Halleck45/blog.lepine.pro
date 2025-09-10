@@ -15,6 +15,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Découvrez comment créer un environnement Docker complet pour lancer facilement des tests fonctionnels avec Behat et Selenium Grid.
+  - Apprenez à écrire vos premiers tests automatisés dans un vrai navigateur (Chrome, Firefox) sans polluer votre machine.
+  - Suivez ce premier billet pour maîtriser Behat prêt à l’emploi et préparez-vous à automatiser la qualité de vos projets web simplement et efficacement.
 ---
 
 

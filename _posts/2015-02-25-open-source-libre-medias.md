@@ -14,6 +14,10 @@ en_permalink: /en/open-source-assets/
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Gérer les licences des médias libres dans vos projets est souvent chaotique et source d’oubli.
+  - OSS, un outil simple et sans dépendance, centralise et organise ces fichiers avec le référentiel SPDX.
+  - Vous gagnerez en clarté, conformité et sérénité pour utiliser et partager vos médias libres de droit.
 ---
 
 `Composer`, `NPM`... autant d'outils pour gérer les dépendances techniques de nos projets. C'est bien. 

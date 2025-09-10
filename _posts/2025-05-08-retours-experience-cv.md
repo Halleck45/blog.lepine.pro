@@ -12,6 +12,16 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  TL;DR – Comment améliorer votre CV selon un CTO :
+  
+  - Résumez clairement votre parcours et ce que vous recherchez dès le début.
+  - Mettez en avant vos impacts concrets avec des chiffres (ex : amélioration de performance, réduction des bugs).
+  - Donnez du contexte à vos missions (taille d’équipe, produit, enjeux).
+  - Privilégiez la clarté, un design soigné et évitez les éléments inutiles (lettre de motivation générique, barres de compétences).
+  - Aidez le recruteur à comprendre rapidement votre valeur pour capter son attention en quelques secondes.
+  
+  Des conseils simples, concrets et issus de 350 entretiens techniques pour booster votre CV et sortir du lot !
 ---
 
 Je ne suis pas recruteur, et je n'ai pas la prétention d'être expert en recrutement. 

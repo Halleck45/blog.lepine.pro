@@ -117,3 +117,36 @@ font-optical-sizing: auto;
         white-space: nowrap;
     }
 }
+
+/* TLDR box styles */
+.tldr-box {
+    border: 1px solid #e5e7eb; /* gray-200 */
+    background: #f9fafb;       /* gray-50 */
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+}
+.tldr-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.tldr-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #6b7280; /* gray-500 */
+    background: #eef2ff; /* indigo-50 */
+    border: 1px solid #e5e7eb; /* gray-200 */
+    border-radius: 9999px;
+    padding: .15rem .5rem;
+}
+.tldr-content {
+    color: #374151; /* gray-700 */
+}
+.tldr-content ul { margin: .25rem 0 .25rem 1.25rem; }
+.tldr-content li { margin: .15rem 0; list-style: disc; }
+.tldr-note {
+    margin-top: .5rem;
+    font-size: 0.75rem;
+    color: #9ca3af; /* gray-400 */
+}

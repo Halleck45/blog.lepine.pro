@@ -15,6 +15,11 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Managing licenses for free media (images, sounds, videos) in projects is often neglected and messy.
+  - OSS is a simple, dependency-free tool to track and declare free media files with valid SPDX licenses.
+  - It helps developers avoid license confusion, ensures compliance, and organizes media usage clearly.
+  - Read on to discover how OSS can simplify your project’s media license management and why license awareness matters.
 ---
 
 `Composer`, `NPM`... so many tools to manage the technical dependencies of our projects. That's good. 

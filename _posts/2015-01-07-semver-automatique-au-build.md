@@ -14,6 +14,10 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Le versionning sémantique distingue versions majeures, mineures et correctifs selon l’impact des changements.
+  - Automatiser l’incrémentation et le tagging Git évite les oublis et simplifie les releases, grâce à l’outil semver et un Makefile.
+  - Résultat : un processus rapide, fiable et manuel, directement depuis le terminal, pour garder toujours la bonne version dans PhpMetrics.
 ---
 
 Pour résumer, le [sémantique versionning](http://semver.org/lang/fr/) est une logique de fabrication des numéros de version d'un produit 

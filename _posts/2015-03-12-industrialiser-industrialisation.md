@@ -14,6 +14,10 @@ published: false
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+tldr: |
+  - Industrialiser les processus est essentiel, mais souvent difficile à maintenir sans une équipe dédiée à l’assurance qualité.
+  - Un cadre simple, des outils adaptés et un suivi régulier sont indispensables pour que l’industrialisation dure et soit efficace.
+  - En appliquant pragmatisme et patience, vous gagnerez en qualité, rapidité et plaisir au travail. Découvrez comment éviter les pièges courants et réussir votre industrialisation sur le long terme.
 ---
 
 Industrialiser (tester, automatiser, communiquer...) c'est bien. Mais ça ne dure pas.

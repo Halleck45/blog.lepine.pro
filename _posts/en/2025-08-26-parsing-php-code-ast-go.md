@@ -19,6 +19,11 @@ meta:
 permalink: /en/:title/
 language: en
 canonical: /go-parser-php-sapi-embed-ast
+tldr: |
+  - AstMetrics analyzes code by parsing its AST, enabling deep metrics beyond line counts, for any language with a stable AST format.
+  - Parsing PHP is tough: building a custom parser with Lex/Yacc is complex and hard to maintain; calling PHP externally is slow and requires dependencies.
+  - The solution: embed PHP’s official parser (ext-ast) inside Go via C (SAPI Embed), producing up-to-date ASTs efficiently without external installs.
+  - Read to discover how this innovative approach solves PHP parsing challenges and powers scalable, language-agnostic code analysis.
 ---
 
 For the past few months, I’ve been working on [**AstMetrics**](https://github.com/Halleck45/ast-metrics), a tool for
