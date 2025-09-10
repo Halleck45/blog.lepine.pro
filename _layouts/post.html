@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="p-4 pt-16 bg-white rounded-lg text-left md:text-justify">
+<div class="p-4 md:pt-16 bg-white md:rounded-lg text-left md:text-justify">
   <div class="mx-auto px-4 md:px-16">
     <div class="flex items-center text-gray-500 mb-8">
       {% if page and page.language == "en" %}
@@ -21,15 +21,15 @@ layout: default
         </a>
       {% endif %}
       
-      <div class="mr-2">
+      <div class="mr-2 text-xs">
         {{ page.date | date: "%Y-%m-%d" }}
       </div>
-      <div class="ml-2 text-right">
+      <!--<div class="ml-2 text-xs text-right">
         <ul class="tag_list_in_post">{% for tag in page.tags %}
             <li class="inline tag_list_item"><a class="hover:underline text-gray-500" href="/tag/{{ tag }}">#{{ tag }}</a></li>
             {% endfor %}
         </ul>
-    </div>
+      </div>-->
     </div>
 
     <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl text-left ">{{ page.title }}</h1>

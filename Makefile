@@ -1,5 +1,5 @@
 .PHONY: build
-build: optimize jekyll
+build: optimize tldr jekyll
 
 jekyll:
 	jekyll build

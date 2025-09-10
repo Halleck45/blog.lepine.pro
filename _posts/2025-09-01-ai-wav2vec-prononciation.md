@@ -14,7 +14,7 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
-en_permalink: /en/ai-wav2vec-prononciation/
+en_permalink: /en/ai-wav2vec-pronunciation-vectorization/
 tldr: |
   - Découvrez comment créer un coach de prononciation simple avec Wav2Vec2, DTW et visèmes pour s’améliorer à l’oral.
   - Comprenez facilement les concepts clés : embeddings, distances, alignement temporel et visualisation des mouvements de bouche.
