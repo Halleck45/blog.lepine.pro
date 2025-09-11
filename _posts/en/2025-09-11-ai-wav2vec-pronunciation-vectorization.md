@@ -57,7 +57,7 @@ Here's an overview of the architecture I set up:
     <img src="/images/2025-08-audio-embedding.png" alt="Embedding architecture" width="600px">
 </p>
 
-Don't worry—we'll break down all these concepts step by step.
+Don't worry(we'll break down all these concepts step by step.
 
 
 ## Turning sound into numbers: embeddings
