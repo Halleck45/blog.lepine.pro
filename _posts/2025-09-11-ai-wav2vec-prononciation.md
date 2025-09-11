@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Speech Embeddings et Pronunciation Detection : construire un pipeline IA local avec Wav2Vec2"
-cover: "cover-parser-du-code-php-sans-d-pendre-de-php.png"
+cover: "cover-speech-embeddings-et-pronunciation-detection-construire-un-pipeline-ia-local-avec-wav2vec2.png"
 categories:
   - ai
 tags:

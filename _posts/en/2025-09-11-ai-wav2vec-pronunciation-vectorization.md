@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Speech Vectorization Explained: Building a Local AI for Pronunciation Detection"
-cover: "cover-parser-du-code-php-sans-d-pendre-de-php.png"
+cover: "cover-speech-vectorization-explained-building-a-local-ai-for-pronunciation-detection.png"
 categories:
   - ai
 tags:
