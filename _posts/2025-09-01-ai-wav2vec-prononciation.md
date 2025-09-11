@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "IA : Wav2Vec2, distances et visèmes expliqués simplement"
+title: "Speech Embeddings et Pronunciation Detection : construire un pipeline IA local avec Wav2Vec2"
 cover: "cover-parser-du-code-php-sans-d-pendre-de-php.png"
 categories:
   - ai

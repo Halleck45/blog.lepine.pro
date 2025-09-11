@@ -63,7 +63,7 @@ layout: default
         </div>
         </div>
         {% if page.language == "en"%}
-          <blockquote class="ml-2">
+          <blockquote class="ml-2 mt-2">
             You will find
             {% if page.fr_permalink %}
               <a href="{{ page.fr_permalink }}" class="hover:underline">the 🇫🇷 French version</a>
@@ -77,7 +77,7 @@ layout: default
           {% assign has_en_permalink = page.en_permalink %}
 
           {% if has_canonical or has_en_permalink %}
-          <blockquote class="ml-2">
+          <blockquote class="ml-2 mt-2">
             You will find the
             <a class="hover:underline" href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
               🇬🇧 english version of this article here

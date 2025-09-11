@@ -5,3 +5,4 @@ _site/
 build
 tmp
 .jekyll-cache
+.jekyll-metadata
