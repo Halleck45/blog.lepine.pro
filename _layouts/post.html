@@ -62,29 +62,31 @@ layout: default
 
         </div>
         </div>
-        {% if page.language == "en"%}
-          <blockquote class="ml-2 mt-2">
-            You will find
-            {% if page.fr_permalink %}
-              <a href="{{ page.fr_permalink }}" class="hover:underline">the 🇫🇷 French version</a>
-            {% else %}
-              <a href="{{ page.canonical }}" class="hover:underline">the 🇫🇷 French version</a>
-            {% endif %}
-            of this article here
-          </blockquote>
-        {% else %}
-          {% assign has_canonical = page.canonical %}
-          {% assign has_en_permalink = page.en_permalink %}
+        {% if page.language == "en" %}
+          {% if page.fr_permalink != nil or page.canonical != nil %}
+            <blockquote class="ml-2 mt-2">
+              You will find
+              {% if page.fr_permalink %}
+                <a href="{{ page.fr_permalink }}" class="hover:underline">the 🇫🇷 French version</a>
+              {% else %}
+                <a href="{{ page.canonical }}" class="hover:underline">the 🇫🇷 French version</a>
+              {% endif %}
+              of this article here
+            </blockquote>
+          {% else %}
+            {% assign has_canonical = page.canonical %}
+            {% assign has_en_permalink = page.en_permalink %}
 
-          {% if has_canonical or has_en_permalink %}
-          <blockquote class="ml-2 mt-2">
-            You will find the
-            <a class="hover:underline" href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
-              🇬🇧 english version of this article here
-            </a>
-          </blockquote>
+            {% if has_canonical or has_en_permalink %}
+            <blockquote class="ml-2 mt-2">
+              You will find the
+              <a class="hover:underline" href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
+                🇬🇧 english version of this article here
+              </a>
+            </blockquote>
+            {% endif %}
           {% endif %}
-        {% endif %}
+          {% endif %}
         </div>
       <div>
 
@@ -112,9 +114,11 @@ layout: default
   </div>
 </div>
 
+{% if page and page.language != "en" %}
 <div class="mt-24">
   {% include cta_book.html %}
 </div>
+{% endif %}
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
