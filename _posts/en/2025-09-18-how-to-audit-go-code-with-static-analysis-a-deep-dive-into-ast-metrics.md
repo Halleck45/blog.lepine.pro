@@ -177,7 +177,7 @@ I have a good experience with static analysis tools. In 2013, I created [PhpMetr
 
 It's a tool that is quite unique in its approach, and I haven't found anything like it in static analysis tools for other languages.
 
-Since then, I have traveled a lot, and I have had the opportunity to work on more and more complex projects, with more and more teams. I noticed that static analysis tools were often limited, and that teams didn't know how to use them. It's necessary to configure them for each language, integrate them into the CI, etc.
+Since then, I have had the opportunity to work on more and more complex projects, with more and more teams. I noticed that static analysis tools were often limited, and that teams didn't know how to use them. It's necessary to configure them for each language, integrate them into the CI, etc.
 
 **I have therefore decided to create ast-metrics, a static analysis tool agnostic of the programming language, and above all which gives a view of the code and its architecture.** Not necessarily a tool to check such or such instruction, but rather something that tells you if your packages are too coupled, if your methods are too complex, if your data structures are too large, etc.
 
