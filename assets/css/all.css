@@ -150,3 +150,9 @@ font-optical-sizing: auto;
     font-size: 0.75rem;
     color: #9ca3af; /* gray-400 */
 }
+#post .caption {
+    font-size: 0.875rem;
+    color: #6b7280; /* gray-500 */
+    text-align: center;
+    margin-top: 0.5rem;
+}
