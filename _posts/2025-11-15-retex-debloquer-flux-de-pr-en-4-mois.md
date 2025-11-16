@@ -11,6 +11,9 @@ published: true
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
+
+en_permalink: /en/how-we-unblocked-our-pr-flow-in-4-months/
+
 tldr: |
   - Une équipe compétente freinée par des PRs trop grosses et un goulot d’étranglement dans les relectures.
   - Solution simple : PRs plus petites, relectures partagées, et vue claire sur ce qui se passe.
@@ -89,7 +92,10 @@ Les PRs étaient devenues naturellement petites. Les relectures étaient devenue
 Le graphe des interactions ne ressemblait plus du tout à ce qu’il était.
 
 ![Collaboration on octofirst](/images/2025-11-octofirst-collaboration.png)
-<div class="caption">Le graphe des interactions de l'équipe sur Octofirst</div>
+<div class="caption">
+<div>Le graphe des interactions de l'équipe sur Octofirst, après 4 mois de changement de pratiques.</div> 
+<div>Les équipes collaborent bien, et les lead ne centralisent plus tout</div>
+</div>
 
 ## Aujourd’hui : une culture installée
 
@@ -103,8 +109,8 @@ J’ai construit des outils pour mesurer, analyser, comprendre. Pendant longtemp
 autour de moi, mais rien de plus. Je n’ai jamais pensé “faire un produit”. Je voulais juste comprendre ce que les équipes vivent réellement, au-delà des impressions.
 
 Et puis, petit à petit, OctoFirst a pris une forme qui me dépasse un peu : un outil qui n’est pas seulement là pour afficher des statistiques, 
-mais pour aider les équipes à voir ce qu’elles ne voient pas d’habitude. À comprendre leurs dynamiques internes. À changer leurs habitudes en douceur. 
-À retrouver de la fluidité.
+mais pour aider les équipes à voir ce qu’elles ne voient pas d’habitude. À comprendre leurs dynamiques internes. **À changer leurs habitudes en douceur.
+À retrouver de la fluidité.**
 
 Pour être honnête, c’est la première fois que je me dis : « Peut-être que ce que je construis peut aider vraiment davantage de monde. »
 
@@ -117,7 +123,7 @@ j’aimerais beaucoup que vous l’essayiez et que vous me disiez ce qui fonctio
 Il n’y a pas de stratégie cachée. Je cherche juste à améliorer un outil que je construis depuis longtemps, et qui commence 
 enfin à prendre la forme d’un produit réel.
 
-Si vous voulez jeter un œil ou m’aider à l’améliorer : ➡️ [app.octofirst.com](https://app.octofirst.com/)
+**Si vous voulez jeter un œil ou m’aider à l’améliorer : ➡️ [app.octofirst.com](https://app.octofirst.com/)**
 
 Et si vous avez envie d’en discuter, de comparer vos pratiques, ou de partager votre expérience, écrivez-moi. 
 C’est exactement grâce à ces échanges que cet outil progresse.

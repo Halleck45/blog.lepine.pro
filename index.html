@@ -38,7 +38,7 @@ title: Industrialisation et qualité logicielle
             <div class="relative">
                 {% if featured.image or featured.cover %}
                 <img
-                        src="images/cover-auto/cover-{{ featured.title|slugify: "ascii" }}.png"
+                        src="images/cover-auto/cover-{{ featured.title|slugify: "ascii" }}.webp"
                         alt="{{ featured.title | escape }}"
                         class="h-full w-full object-cover"
                         loading="lazy"
@@ -95,7 +95,7 @@ title: Industrialisation et qualité logicielle
         <a href="{{ post.url }}" class="group relative overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 p-6 card-tilt hover:no-underline">
             <div class="mb-4 auto w-full overflow-hidden rounded-xl bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50">
                 <img
-                        src="images/cover-auto/cover-{{ post.title|slugify: "ascii" }}.png"
+                        src="images/cover-auto/cover-{{ post.title|slugify: "ascii" }}.webp"
                         alt="{{ post.title | escape }}"
                         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                         loading="lazy"
