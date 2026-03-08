@@ -15,6 +15,24 @@ require 'rexml/document'
 
 module Jekyll
 
+  class Document
+    def full_path_to_source
+      path
+    end
+
+    def path_to_source
+      relative_path
+    end
+
+    def name
+      basename_with_ext
+    end
+
+    def location_on_server(my_url)
+      "#{my_url}#{url}"
+    end
+  end
+
   class Post
     attr_accessor :name
 
@@ -55,22 +73,10 @@ module Jekyll
     end
   end
 
-  # Recover from strange exception when starting server without --auto
-  class SitemapFile < StaticFile
-    def write(dest)
-      begin
-        super(dest)
-      rescue
-      end
-
-      true
-    end
-  end
-
   class SitemapGenerator < Generator
 
     # Config defaults
-    SITEMAP_FILE_NAME = "/sitemap.xml"
+    SITEMAP_FILE_NAME = "sitemap.xml"
     EXCLUDE = ["/atom.xml", "/feed.xml", "/feed/index.xml"]
     INCLUDE_POSTS = ["/index.html"]
     CHANGE_FREQUENCY_NAME = "change_frequency"
@@ -92,6 +98,8 @@ module Jekyll
       @config['priority_name'] = sitemap_config['priority_name'] || PRIORITY_NAME
       @config['exclude'] = sitemap_config['exclude'] || EXCLUDE
       @config['include_posts'] = sitemap_config['include_posts'] || INCLUDE_POSTS
+      @excluded_paths = @config['exclude'].map { |path| normalize_path(path) }
+      @included_post_paths = @config['include_posts'].map { |path| normalize_path(path) }
 
       sitemap = REXML::Document.new << REXML::XMLDecl.new("1.0", "UTF-8")
 
@@ -107,16 +115,13 @@ module Jekyll
       # Create destination directory if it doesn't exist yet. Otherwise, we cannot write our file there.
       Dir::mkdir(site.dest) if !File.directory? site.dest
 
-      # File I/O: create sitemap.xml file and write out pretty-printed XML
       filename = @config['filename']
-      file = File.new(File.join(site.dest, filename), "w")
       formatter = REXML::Formatters::Pretty.new(4)
       formatter.compact = true
-      formatter.write(sitemap, file)
-      file.close
-
-      # Keep the sitemap.xml file from being cleaned by Jekyll
-      site.static_files << Jekyll::SitemapFile.new(site, site.dest, "/", filename)
+      output = +""
+      formatter.write(sitemap, output)
+      site.instance_variable_set(:@generated_sitemap_xml, output)
+      site.instance_variable_set(:@generated_sitemap_filename, filename)
     end
 
     # Create url elements for all the posts and find the date of the latest one
@@ -124,8 +129,9 @@ module Jekyll
     # Returns last_modified_date of latest post
     def fill_posts(site, urlset)
       last_modified_date = nil
-      site.posts.each do |post|
-        if !excluded?(site, post.name)
+      posts = site.posts.respond_to?(:docs) ? site.posts.docs : site.posts
+      posts.each do |post|
+        if !excluded?(site, post.path_to_source)
           url = fill_url(site, post)
           urlset.add_element(url)
         end
@@ -146,7 +152,7 @@ module Jekyll
       site.pages.each do |page|
         if !excluded?(site, page.path_to_source)
           path = page.full_path_to_source
-          if File.exists?(path)
+          if File.exist?(path)
             url = fill_url(site, page)
             urlset.add_element(url)
           end
@@ -178,7 +184,7 @@ module Jekyll
           changefreq.text = change_frequency
           url.add_element(changefreq)
         else
-          puts "ERROR: Invalid Change Frequency In #{page_or_post.name}"
+          puts "ERROR: Invalid Change Frequency In #{display_name(page_or_post)}"
         end
       end
 
@@ -189,7 +195,7 @@ module Jekyll
           priority.text = page_or_post.data[@config['priority_name']]
           url.add_element(priority)
         else
-          puts "ERROR: Invalid Priority In #{page_or_post.name}"
+          puts "ERROR: Invalid Priority In #{display_name(page_or_post)}"
         end
       end
 
@@ -267,11 +273,24 @@ module Jekyll
     #
     # Returns boolean
     def excluded?(site, name)
-      @config['exclude'].include? name
+      @excluded_paths.include?(normalize_path(name))
     end
 
     def posts_included?(site, name)
-      @config['include_posts'].include? name
+      @included_post_paths.include?(normalize_path(name))
+    end
+
+    def normalize_path(path)
+      return "/" if path.nil? || path == ""
+      "/" + path.to_s.sub(%r{\A/+}, "")
+    end
+
+    def display_name(page_or_post)
+      if page_or_post.respond_to?(:name) && page_or_post.name
+        page_or_post.name
+      else
+        page_or_post.to_s
+      end
     end
 
     # Is the change frequency value provided valid according to the spec
@@ -293,5 +312,15 @@ module Jekyll
 
       false
     end
+  end
+
+  Hooks.register :site, :post_write do |site|
+    sitemap_content = site.instance_variable_get(:@generated_sitemap_xml)
+    sitemap_filename = site.instance_variable_get(:@generated_sitemap_filename)
+    next unless sitemap_content && sitemap_filename
+
+    filename = sitemap_filename.to_s.sub(%r{\A/+}, "")
+    destination_path = File.join(site.dest, filename)
+    File.write(destination_path, sitemap_content)
   end
 end

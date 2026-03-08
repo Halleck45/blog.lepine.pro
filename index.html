@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Architecture, qualité et industrialisation logicielle. Retours d'expérience par Jean-François Lépine
+description: Articles concrets sur la qualité logicielle, l'architecture PHP et l'industrialisation. Retours d'expérience terrain et pratiques applicables en équipe.
 ---
 
 <style>
@@ -13,6 +14,19 @@ title: Architecture, qualité et industrialisation logicielle. Retours d'expéri
     }
     .card-tilt{transition:transform .25s ease, box-shadow .25s ease}
     .card-tilt:hover{transform:translateY(-2px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+
+    .jfl-banner{margin:24px 0 48px;border:1px solid rgba(124,106,247,0.18);border-radius:12px;background:linear-gradient(135deg,rgba(124,106,247,0.06) 0%,rgba(74,222,128,0.04) 100%);overflow:hidden;display:grid;grid-template-columns:3px 1fr}
+    .jfl-banner__accent{background:linear-gradient(180deg,#7c6af7 0%,#4ade80 100%)}
+    .jfl-banner__body{padding:20px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .jfl-banner__text{flex:1;min-width:200px}
+    .jfl-banner__label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#6d5ce6;margin-bottom:4px}
+    .jfl-banner__title{font-size:15px;font-weight:600;color:#1a1a2e;line-height:1.4;margin:0 0 4px}
+    .jfl-banner__sub{font-size:13px;color:#555;margin:0;line-height:1.5}
+    .jfl-banner__sub strong{color:#333;font-weight:600}
+    .jfl-banner__cta{display:inline-flex;align-items:center;gap:6px;background:#6d5ce6;border:1px solid #6d5ce6;color:#fff;text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border-radius:6px;white-space:nowrap;transition:background .2s,border-color .2s;flex-shrink:0}
+    .jfl-banner__cta:hover{background:#5a4bd1;border-color:#5a4bd1}
+    .jfl-banner__cta svg{width:14px;height:14px;flex-shrink:0}
+    @media(max-width:560px){.jfl-banner__body{flex-direction:column;align-items:flex-start;gap:16px}}
 </style>
 
 
@@ -26,6 +40,27 @@ title: Architecture, qualité et industrialisation logicielle. Retours d'expéri
             Pratiques concrètes, outillage, perf, DX et retours d’expérience.
         </p>
     </header>
+
+    <div class="jfl-banner">
+        <div class="jfl-banner__accent"></div>
+        <div class="jfl-banner__body">
+            <div class="jfl-banner__text">
+                <p class="jfl-banner__label">Audit &amp; Formation</p>
+                <p class="jfl-banner__title">Votre codebase PHP mérite un regard expert.</p>
+                <p class="jfl-banner__sub">
+                    J'accompagne les équipes sur la <strong>qualité logicielle</strong>,
+                    l'<strong>architecture</strong> et les <strong>pratiques d'industrialisation</strong> —
+                    audits sur mesure et formations terrain.
+                </p>
+            </div>
+            <a href="https://lepine.pro" class="jfl-banner__cta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                Voir mes prestations
+            </a>
+        </div>
+    </div>
 
     {% assign posts = site.posts | where_exp: "p", "p.language != 'en'" %}
     {% if posts and posts.size > 0 %}

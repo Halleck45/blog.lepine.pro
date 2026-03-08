@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://blog.lepine.pro/sitemap.xml

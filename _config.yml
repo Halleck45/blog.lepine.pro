@@ -1,16 +1,14 @@
 # General Jekyll Config
 url: https://blog.lepine.pro
 #url: http://localhost:4000
-exclude: [LICENSE, CNAME, README.md, TODO.md, .gitignore, Makefile, Capfile, config]
+exclude: [LICENSE, CNAME, README.md, TODO.md, .gitignore, Makefile, Capfile, config, build]
 
 permalink: :title
 lsi: false # articles associés améliorés (lent)
 #markdown: rdiscount
 highlighter: true
-paginate: 10
 destination: build
-gems: [jekyll-paginate]
-plugins_dir: [jekyll-paginate]
+plugins_dir: [_plugins]
 
 # Theme customization - please change from the defaults!
 theme:
@@ -42,7 +40,7 @@ theme:
 
 
 sitemap:
-    file: "/sitemap.xml"
+    filename: "sitemap.xml"
     exclude:
         - "/atom.xml"
         - "/feed.xml"
