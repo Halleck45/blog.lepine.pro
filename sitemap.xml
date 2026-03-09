@@ -1,0 +1,33 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for page in site.pages %}
+  {% assign page_path = page.url | replace:'index.html','' %}
+  {% if page.sitemap == false %}
+    {% continue %}
+  {% endif %}
+  {% if page_path == '/sitemap.xml' or page_path == '/atom.xml' or page_path == '/feed.xml' or page_path == '/feed/index.xml' or page_path == '/site.json' or page_path contains '.json' %}
+    {% continue %}
+  {% endif %}
+  {% if page_path contains '/assets/' %}
+    {% continue %}
+  {% endif %}
+  <url>
+    <loc>{{ site.url }}{{ page_path }}</loc>
+    {% if page.date %}
+    <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+    {% endif %}
+  </url>
+{% endfor %}
+{% for post in site.posts %}
+  {% if post.sitemap == false %}
+    {% continue %}
+  {% endif %}
+  <url>
+    <loc>{{ site.url }}{{ post.url | replace:'index.html','' }}</loc>
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+  </url>
+{% endfor %}
+</urlset>

@@ -36,18 +36,3 @@ theme:
 
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: false
-
-
-
-sitemap:
-    filename: "sitemap.xml"
-    exclude:
-        - "/atom.xml"
-        - "/feed.xml"
-        - "/feed/index.xml"
-        - "/assets/css/all.css"
-        - "/site.json"
-    include_posts:
-        - "/index.html"
-    change_frequency_name: "change_frequency"
-    priority_name: "priority"
