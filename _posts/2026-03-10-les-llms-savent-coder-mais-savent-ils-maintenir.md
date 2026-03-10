@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Les LLMs savent coder. Mais savent-ils maintenir ?"
-cover: "cover-les-llms-savent-coder-mais-savent-ils-maintenir.webp"
+cover: "blogpost-llm-maintenance.webp"
 tags: ["IA", "qualité logicielle", "maintenabilité", "LLM", "benchmark"]
 categories: ["tech", "IA"]
 
