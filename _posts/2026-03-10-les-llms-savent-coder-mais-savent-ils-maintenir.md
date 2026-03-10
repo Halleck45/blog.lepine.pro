@@ -16,6 +16,14 @@ tldr: |
   - Les benchmarks actuels évaluent les LLMs sur des tâches isolées (snapshot), pas sur leur capacité à maintenir du code dans le temps.
   - Le benchmark SWE-CI mesure la maintenabilité sur des dizaines d'itérations successives : la plupart des modèles introduisent des régressions dans plus de 75 % des cas.
   - Les métriques de maintenabilité et la vision architecturale humaine deviennent d'autant plus essentielles à mesure qu'on délègue la production de code à l'IA.
+
+suggestions:
+  - title: "Encore un outil d'analyse statique. Oui, mais en mieux !"
+    link: /ast-metrics-analyse-statique/
+  - title: "Qualité logicielle : comment fixer les valeurs limites ?"
+    link: /bornes-pour-les-indicateurs-et-metriques/
+  - title: "Comment nous avons débloqué notre flux de PRs en 4 mois"
+    link: /retex-debloquer-flux-de-pr-en-4-mois/
 ---
 
 <style>
