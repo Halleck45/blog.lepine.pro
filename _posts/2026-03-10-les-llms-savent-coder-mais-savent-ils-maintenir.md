@@ -22,7 +22,7 @@ suggestions:
   - title: "Encore un outil d'analyse statique. Oui, mais en mieux !"
     link: /ast-metrics-analyse-statique/
   - title: "Qualité logicielle : comment fixer les valeurs limites ?"
-    link: /bornes-pour-les-indicateurs-et-metriques/
+    link: /industrialisation/bornes-pour-les-indicateurs-et-metriques/
   - title: "Comment nous avons débloqué notre flux de PRs en 4 mois"
     link: /retex-debloquer-flux-de-pr-en-4-mois/
 ---
