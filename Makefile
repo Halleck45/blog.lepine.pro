@@ -15,7 +15,7 @@ tldr:
 	php scripts/build-tldr.php
 
 server: clean
-	jekyll serve --watch --incremental --drafts --host
+	jekyll serve --watch --incremental --drafts --future --host --config _config.yml,_config_dev.yml
 
 install:
 	apt install -y jpegoptim optipng

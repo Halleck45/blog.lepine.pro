@@ -8,9 +8,9 @@ categories:
 tags:
   - Go
   - php
-status: publish
+status: draft
 type: post
-published: true
+published: false
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'
