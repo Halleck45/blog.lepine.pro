@@ -8,6 +8,7 @@ categories: ["tech", "IA"]
 status: publish
 type: post
 published: true
+en_permalink: /en/llms-can-code-but-can-they-maintain/
 meta:
   _edit_last: '1'
   _syntaxhighlighter_encoded: '1'

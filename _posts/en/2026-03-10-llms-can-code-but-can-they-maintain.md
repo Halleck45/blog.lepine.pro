@@ -15,6 +15,7 @@ meta:
 permalink: /en/:title/
 language: en
 canonical: /les-llms-savent-coder-mais-savent-ils-maintenir/
+fr_permalink: /les-llms-savent-coder-mais-savent-ils-maintenir/
 
 tldr: |
   - Current benchmarks evaluate LLMs on isolated tasks (snapshot), not on their ability to maintain code over time.
