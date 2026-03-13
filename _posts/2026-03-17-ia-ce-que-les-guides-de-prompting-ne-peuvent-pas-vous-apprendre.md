@@ -7,6 +7,7 @@ status: published
 published: true
 permalink: /fr/:title/
 language: fr
+en_permalink: /en/ai-what-prompting-guides-cant-teach-you/
 categories:
 - ia
 - prompting
