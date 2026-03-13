@@ -7,7 +7,7 @@ categories:
 - industrialisation
 tags:
 - docker
-- testabilité
+- test
 - behat
 status: publish
 type: post

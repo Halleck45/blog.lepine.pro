@@ -5,7 +5,7 @@ cover: "share-protobuf-php-en.png"
 categories:
 - php
 tags:
-- ProtoBuf
+- protobuf
 status: publish
 type: post
 published: true

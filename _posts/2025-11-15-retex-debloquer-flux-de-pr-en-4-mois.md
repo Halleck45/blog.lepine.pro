@@ -2,7 +2,7 @@
 layout: post
 title: "Comment nous avons débloqué notre flux de PRs en 4 mois"
 cover: ""
-tags: ["engineering", "culture", "pull-requests", "productivité", "retour-dexperience"]
+tags: ["engineering", "culture", "pull-requests", "productivité", "retour-experience"]
 categories: ["tech", "equipe"]
 
 status: publish

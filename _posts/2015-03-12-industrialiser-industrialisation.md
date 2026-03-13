@@ -6,7 +6,7 @@ cover: "cover-industrialisons-industrialisation.png"
 categories:
 - industrialisation
 tags:
-- PIC
+- ci
 - industrialisation
 status: publish
 type: post

@@ -11,9 +11,9 @@ categories:
 - ia
 - prompting
 tags:
-- IA
-- Prompting
-- LLM
+- ia
+- prompting
+- llm
 tldr: |
   - Un prompt de 8 mots bat des prompts complexes élaborés par 21 chercheurs, sur 700 exemples réels d'évaluation CECRL.
   - **Ajouter des informations que le modèle possède déjà dégrade les performances**.

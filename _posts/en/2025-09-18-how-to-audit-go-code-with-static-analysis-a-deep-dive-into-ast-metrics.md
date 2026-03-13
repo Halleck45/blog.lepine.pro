@@ -6,9 +6,9 @@ categories:
   - go
   - opensource
 tags:
-  - opensource
-  - go
-  - static analysis
+- open-source
+- go
+- static-analysis
 status: publish
 type: post
 published: true

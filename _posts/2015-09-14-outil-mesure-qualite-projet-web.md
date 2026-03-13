@@ -8,7 +8,7 @@ tags:
 - métrique
 - qualité
 - php
-- js
+- javascript
 status: publish
 type: post
 published: true

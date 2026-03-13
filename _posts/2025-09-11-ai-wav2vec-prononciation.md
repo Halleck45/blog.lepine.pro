@@ -5,10 +5,9 @@ cover: "cover-speech-embeddings-et-pronunciation-detection-construire-un-pipelin
 categories:
   - ai
 tags:
-  - ai
-  - opensource
-  - python
-  - speech
+- ia
+- open-source
+- python
 status: publish
 type: post
 published: true

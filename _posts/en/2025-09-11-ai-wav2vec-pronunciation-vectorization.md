@@ -5,9 +5,9 @@ cover: "cover-speech-vectorization-explained-building-a-local-ai-for-pronunciati
 categories:
   - ai
 tags:
-  - ai
-  - opensource
-  - python
+- ai
+- open-source
+- python
 status: publish
 type: post
 published: true

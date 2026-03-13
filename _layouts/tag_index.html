@@ -1,21 +1,39 @@
 ---
 layout: default
 ---
-<h2 class="post_title">{{page.title}}</h2>
-<ul>
-    {% for post in site.posts %}
-    {% for tag in post.tags %}
-    {% if tag == page.tag %}
-    <li class="archive_list">
-        <time style="color:#666;font-size:11px;" datetime='{{post.date | date: "%Y-%m-%d"}}'>{{post.date | date: "%m/%d/%y"}}</time> <a class="archive_list_article_link" href='{{post.url}}'>{{post.title}}</a>
-        <p class="summary">{{post.summary}}
-        <ul class="tag_list">
-            {% for tag in post.tags %}
-            <li class="inline archive_list"><a class="tag_list_link" href="/tag/{{ tag }}">{{ tag }}</a></li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endif %}
-    {% endfor %}
-    {% endfor %}
-</ul>
+<div class="p-4 md:pt-16 bg-white md:rounded-lg text-left">
+  <div class="mx-auto px-4 md:px-16">
+    <div class="flex items-center text-gray-500 mb-8">
+      <a href="/" class="mr-4 hover:opacity-75">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </a>
+      <span class="text-sm">Tag</span>
+    </div>
+
+    <h1 class="font-display text-4xl font-extrabold text-slate-900 mb-8">{{ page.tag }}</h1>
+
+    <div class="space-y-6">
+      {% for post in site.posts %}
+        {% for tag in post.tags %}
+          {% if tag == page.tag %}
+            <article class="border-b border-gray-100 pb-6">
+              <div class="flex items-baseline gap-3">
+                <time class="text-xs text-gray-400 whitespace-nowrap" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+                <a class="text-lg font-semibold text-slate-800 hover:text-green-600 transition-colors" href="{{ post.url }}">{{ post.title }}</a>
+              </div>
+              {% if post.tags.size > 0 %}
+              <div class="mt-2 flex flex-wrap gap-1">
+                {% for t in post.tags %}
+                  <a class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-xs transition-colors" href="/tag/{{ t | tagslug }}/">{{ t }}</a>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </article>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

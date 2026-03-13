@@ -6,7 +6,7 @@ cover: "share-oss-licenses-fichiers.png"
 categories:
 - Open Source
 tags:
-- Open Source
+- open-source
 status: publish
 type: post
 published: true

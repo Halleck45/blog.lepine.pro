@@ -6,9 +6,7 @@ categories:
 - industrialisation
 tags:
 - docker
-- testabilité
-- ihm
-- gemini
+- test
 status: publish
 type: post
 published: true

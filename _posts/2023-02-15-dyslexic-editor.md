@@ -6,7 +6,7 @@ categories:
 - javascript
 - opensource
 tags:
-- OpenSource
+- open-source
 status: publish
 type: post
 published: true

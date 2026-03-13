@@ -5,8 +5,8 @@ categories:
 - php
 - data
 tags:
-- ProtoBuf
-- Interopérabilité
+- protobuf
+- interopérabilité
 status: publish
 type: post
 published: true

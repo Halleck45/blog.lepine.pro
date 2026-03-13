@@ -5,7 +5,7 @@ cover: "cover-improve-cv.png"
 categories:
 - career
 tags:
-- Career
+- carrière
 status: publish
 type: post
 published: true

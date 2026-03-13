@@ -2,7 +2,7 @@
 layout: post
 title: "LLMs can code. But can they maintain?"
 cover: "blogpost-llm-maintenance.webp"
-tags: ["AI", "software quality", "maintainability", "LLM", "benchmark"]
+tags: ["ai", "quality", "llm", "benchmark"]
 categories: ["tech", "AI"]
 
 status: publish

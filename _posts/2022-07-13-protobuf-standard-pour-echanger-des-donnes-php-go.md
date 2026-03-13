@@ -5,8 +5,8 @@ cover: "share-protobuf-php.png"
 categories:
 - php
 tags:
-- ProtoBuf
-- Interopérabilité
+- protobuf
+- interopérabilité
 status: publish
 type: post
 published: true

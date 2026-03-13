@@ -6,8 +6,8 @@ categories:
 - quality
 - opensource
 tags:
-- OpenSource
-- Quality
+- open-source
+- quality
 status: publish
 type: post
 published: true

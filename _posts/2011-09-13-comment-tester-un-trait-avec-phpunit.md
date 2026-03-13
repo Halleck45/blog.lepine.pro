@@ -7,9 +7,8 @@ categories:
 - Ressources et tutos PHP
 tags:
 - php
-- php 5.4
-- test unitaire
-- Trait
+- test
+- trait
 status: publish
 type: post
 published: true

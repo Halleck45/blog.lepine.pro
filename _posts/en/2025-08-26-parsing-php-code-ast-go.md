@@ -7,9 +7,9 @@ categories:
   - php
   - opensource
 tags:
-  - Go
-  - php
-  - opensource
+- go
+- php
+- open-source
 status: publish
 type: post
 published: true

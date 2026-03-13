@@ -24,12 +24,13 @@ layout: default
       <div class="mr-2 text-xs">
         {{ page.date | date: "%Y-%m-%d" }}
       </div>
-      <!--<div class="ml-2 text-xs text-right">
-        <ul class="tag_list_in_post">{% for tag in page.tags %}
-            <li class="inline tag_list_item"><a class="hover:underline text-gray-500" href="/tag/{{ tag }}">#{{ tag }}</a></li>
-            {% endfor %}
-        </ul>
-      </div>-->
+      {% if page.tags.size > 0 %}
+      <div class="ml-auto text-xs flex flex-wrap gap-1">
+        {% for tag in page.tags %}
+          <a class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 transition-colors" href="/tag/{{ tag | tagslug }}/">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
 
     <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl text-left ">{{ page.title }}</h1>

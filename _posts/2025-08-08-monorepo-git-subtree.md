@@ -5,7 +5,7 @@ cover: "cover-monorepo.png"
 categories:
 - git
 tags:
-- Git
+- git
 status: publish
 type: post
 published: true
