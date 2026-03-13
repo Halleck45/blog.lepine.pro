@@ -156,3 +156,22 @@ font-optical-sizing: auto;
     text-align: center;
     margin-top: 0.5rem;
 }
+
+/* Pull quotes */
+#post blockquote {
+    border-left: 3px solid #c0392b;
+    padding: 1rem 0 1rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #111827;
+    line-height: 1.6;
+    background: none;
+    border-radius: 0;
+}
+#post blockquote p {
+    margin: 0;
+    color: #111827;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}

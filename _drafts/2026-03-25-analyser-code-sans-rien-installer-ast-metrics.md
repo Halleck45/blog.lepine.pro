@@ -3,8 +3,8 @@ layout: post
 type: post
 title: "Analyser du code sans rien installer : AST Metrics en ligne"
 excerpt: "j'ai publié analyze.ast-metrics.dev pour permettre de lancer une analyse AST Metrics sur n'importe quel dépôt open source, directement depuis le navigateur."
-status: published
-published: true
+status: draft
+published: false
 permalink: /fr/:title/
 language: fr
 categories:

@@ -71,17 +71,13 @@ description: Articles concrets sur la qualité logicielle, l'architecture PHP et
     <a href="{{ featured.url }}" class="group relative mb-12 block overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 card-tilt">
         <div class="grid md:grid-cols-2">
             <div class="relative">
-                {% if featured.image or featured.cover %}
                 <img
                         src="images/cover-auto/cover-{{ featured.title|slugify: "ascii" }}.webp"
                         alt="{{ featured.title | escape }}"
                         class="h-full w-full object-cover"
                         loading="lazy"
                 />
-                {% else %}
-                <!-- Fallback visuel -->
-                <div class="h-full min-h-64 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50"></div>
-                {% endif %}
+
                 <!-- Accent gradient -->
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/10"></div>
             </div>

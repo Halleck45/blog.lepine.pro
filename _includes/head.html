@@ -67,7 +67,7 @@
 <link rel="alternate" type="application/rss+xml" title="{{ site.theme.name }}" href="{{site.url}}/atom.xml" />
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-{% assign social_image = nil %}
+{% capture social_image %}{{ site.url }}/images/cover-auto/cover-{{ page.title | slugify: "ascii" }}.webp{% endcapture %}
 {% if page and page.cover and page.cover != "" %}
   {% assign social_image = site.url | append: "/images/cover/" | append: page.cover %}
 {% endif %}

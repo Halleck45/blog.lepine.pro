@@ -4,7 +4,7 @@ title: "Les LLMs savent coder. Mais savent-ils maintenir ?"
 cover: "blogpost-llm-maintenance.webp"
 tags: ["IA", "qualité logicielle", "maintenabilité", "LLM", "benchmark"]
 categories: ["tech", "IA"]
-
+excerpt: "Les retours d'une étude sur la maintenance de code par des LLMs."
 status: publish
 type: post
 published: true

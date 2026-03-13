@@ -143,7 +143,7 @@ tldr: |
   overflow: hidden;
 }
 .swe-bar-fill {
-  height: 100%;
+  height: 100%;                                                                                                                                 
   border-radius: 3px;
   transition: width 0.8s ease;
 }
