@@ -1,39 +1,65 @@
 ---
 layout: default
 ---
-<div class="p-4 md:pt-16 bg-white md:rounded-lg text-left">
-  <div class="mx-auto px-4 md:px-16">
-    <div class="flex items-center text-gray-500 mb-8">
-      <a href="/" class="mr-4 hover:opacity-75">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-        </svg>
-      </a>
-      <span class="text-sm">Tag</span>
-    </div>
+<style>
+  .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-tilt{transition:transform .25s ease, box-shadow .25s ease}
+  .card-tilt:hover{transform:translateY(-2px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+</style>
 
-    <h1 class="font-display text-4xl font-extrabold text-slate-900 mb-8">{{ page.tag }}</h1>
+<div class="mx-auto max-w-6xl px-6 py-6 md:py-12">
+  <div class="flex items-center text-gray-500 mb-8">
+    <a href="/" class="mr-4 hover:opacity-75">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      </svg>
+    </a>
+    <span class="text-sm">Tag</span>
+  </div>
 
-    <div class="space-y-6">
-      {% for post in site.posts %}
-        {% for tag in post.tags %}
-          {% if tag == page.tag %}
-            <article class="border-b border-gray-100 pb-6">
-              <div class="flex items-baseline gap-3">
-                <time class="text-xs text-gray-400 whitespace-nowrap" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-                <a class="text-lg font-semibold text-slate-800 hover:text-green-600 transition-colors" href="{{ post.url }}">{{ post.title }}</a>
-              </div>
-              {% if post.tags.size > 0 %}
-              <div class="mt-2 flex flex-wrap gap-1">
-                {% for t in post.tags %}
-                  <a class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full px-2 py-0.5 text-xs transition-colors" href="/tag/{{ t | tagslug }}/">{{ t }}</a>
-                {% endfor %}
-              </div>
-              {% endif %}
-            </article>
-          {% endif %}
-        {% endfor %}
+  <h1 class="font-display text-4xl font-extrabold text-slate-900 mb-10">{{ page.tag }}</h1>
+
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {% for post in site.posts %}
+      {% for tag in post.tags %}
+        {% if tag == page.tag %}
+        <a href="{{ post.url }}" class="group relative overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 p-6 card-tilt hover:no-underline">
+          <div class="mb-4 w-full overflow-hidden rounded-xl bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50">
+            <img
+              src="/images/cover-auto/cover-{{ post.title | slugify: "latin" }}.webp"
+              alt="{{ post.title | escape }}"
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <time datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%d %b %Y" }}
+            </time>
+            {% if post.tags.size > 0 %}
+            <span aria-hidden="true">•</span>
+            <div class="flex flex-wrap gap-1">
+              {% for t in post.tags limit:3 %}
+              <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-gray-600">{{ t | truncate: 16 }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <h3 class="text-lg font-semibold leading-snug group-hover:text-gray-900">
+            {{ post.title }}
+          </h3>
+          <p class="mt-2 text-gray-600 line-clamp-2">
+            {{ post.excerpt | truncatewords: 30 | strip_html | strip_newlines | strip }}
+          </p>
+
+          <div class="mt-4 flex items-center text-sm font-medium text-gray-700">
+            Lire →
+          </div>
+        </a>
+        {% endif %}
       {% endfor %}
-    </div>
+    {% endfor %}
   </div>
 </div>
