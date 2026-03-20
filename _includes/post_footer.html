@@ -9,15 +9,18 @@
     {% assign related_post = site.posts | where: "url", suggestion.link | first %}
     <a href="{{ suggestion.link }}"
        class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-amber-200 hover:shadow-lg hover:no-underline">
-      <div class="h-36 w-full overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50">
-        {% assign cover_slug = related_post.title | default: suggestion.title | slugify: "ascii" %}
+      <div class="h-44 w-full overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-emerald-50">
+        {% assign cover_slug = related_post.title | default: suggestion.title | slugify: "latin" %}
         <img src="/images/cover-auto/cover-{{ cover_slug }}.webp"
              alt="{{ suggestion.title }}"
-             class="h-full w-full object-cover opacity-80 transition duration-200 group-hover:scale-105 group-hover:opacity-100"
+             class="h-full w-full object-cover object-top opacity-85 transition duration-200 group-hover:scale-105 group-hover:opacity-100"
              loading="lazy">
       </div>
       <div class="flex flex-1 flex-col justify-between p-4">
         <p class="text-sm font-semibold leading-snug text-slate-800 group-hover:text-amber-700">{{ suggestion.title }}</p>
+        {% if suggestion.description %}
+        <p class="mt-1.5 text-xs leading-relaxed text-slate-500 line-clamp-2">{{ suggestion.description }}</p>
+        {% endif %}
         <span class="mt-3 inline-flex items-center gap-1 text-xs font-medium text-amber-600">
           Lire l'article
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3 transition-transform duration-150 group-hover:translate-x-0.5">
