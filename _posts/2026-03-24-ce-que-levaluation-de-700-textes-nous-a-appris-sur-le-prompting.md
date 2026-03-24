@@ -452,3 +452,5 @@ Les guides de prompting donnent des techniques. La recherche explique pourquoi c
 
 Pour écrire des prompts qui fonctionnent à l'échelle, il faut comprendre ce qui se passe dans l'attention du modèle. Savoir ce qu'il sait déjà, ce qu'il ne sait pas, et où se situe le point de basculement. Et ça, ça ne s'apprend que par l'expérimentation. En se trompant sur 700 exemples et en comprenant pourquoi.
 
+Si vous voulez systématiser cette expérimentation, des outils comme [promptfoo](https://github.com/promptfoo/promptfoo) ou le [Playground d'OpenAI](https://platform.openai.com/playground) permettent de comparer des variantes de prompts sur un jeu de données, de mesurer les régressions entre versions, et de trouver ce fameux seuil de basculement pour chaque modèle.
+
