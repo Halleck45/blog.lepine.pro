@@ -444,6 +444,21 @@ Le troisième, c'est le test sur volume. Un prompt qui fonctionne sur 10 exemple
 Et enfin, quand un prompt contient plusieurs contraintes, un rappel en fin de prompt (« assure-toi de respecter toutes les contraintes ci-dessus ») peut réduire le taux d'omission. C'est un palliatif, pas une solution, mais il fonctionne sur les profils de dégradation linéaire.
 
 
+## Mise à jour : la piste de la répétition du prompt
+
+Suite à la publication de cet article, [Xiaoou Wang](https://www.linkedin.com/in/xiaoouwang/) (Ingénieur en humanités numériques, Université Côte d'Azur) m'a suggéré une approche complémentaire que je n'avais pas couverte : la **répétition du prompt**.
+
+L'idée vient d'un paper de Google Research : [Prompt Repetition Improves Non-Reasoning LLMs](https://arxiv.org/abs/2512.14982) (Leviathan, Kalman, Matias, 2025). Le principe est simple : au lieu d'envoyer `<QUERY>`, on envoie `<QUERY><QUERY>`. On répète le prompt tel quel.
+
+Le mécanisme exploite une propriété des transformers causaux. Dans un modèle classique, les tokens passés ne peuvent pas « voir » les tokens futurs. Le début du prompt est traité sans le contexte de la fin. En répétant le prompt, chaque token de la seconde copie peut attendre à *tous* les tokens de la première. On corrige le biais directionnel sans modifier le contenu.
+
+Les résultats sont nets : sur 7 modèles (Gemini, GPT, Claude, Deepseek) et 7 benchmarks, la répétition gagne dans 47 cas sur 70, avec **zéro défaite** (test de McNemar). Et contrairement à d'autres techniques comme le Chain of Thought, la répétition n'augmente ni la latence ni le nombre de tokens générés. Le surcoût se limite au prefill, qui est parallélisable.
+
+C'est une approche qui s'inscrit bien dans ce que nous avons vu. Là où l'instruction dilution nous dit de ne pas ajouter de bruit, la répétition ne modifie pas le contenu : elle renforce le signal existant en donnant au modèle une seconde passe d'attention sur les mêmes informations. Les chercheurs notent d'ailleurs que les modèles de raisonnement entraînés par RL apprennent souvent à répéter eux-mêmes des parties du prompt dans leur chaîne de pensée. La répétition externalise ce comportement dans le prefill.
+
+Je ne l'ai pas encore testée personnellement sur mes données, mais les benchmarks sont solides et la technique est triviale à déployer. C'est une piste que je compte explorer, et qui mérite d'être connue.
+
+
 ## Conclusion
 
 L'instruction dilution n'est pas une intuition. C'est un phénomène mesurable, reproductible, et la recherche commence à bien le comprendre. Au-delà d'un certain seuil, ajouter de l'information à un prompt dégrade les performances du modèle. Ce seuil dépend du modèle, de la tâche, et de la nature de l'information ajoutée.
