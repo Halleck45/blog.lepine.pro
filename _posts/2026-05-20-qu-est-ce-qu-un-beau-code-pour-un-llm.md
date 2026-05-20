@@ -6,6 +6,7 @@ description: "Une étude refactorise 230 snippets Java cinq fois de suite avec G
 date: 2026-04-22
 tags: [ia, qualité, llm, refactoring]
 cover: blogpost-llm-beautiful-code.webp
+social_image: cover-llm-code-beau-pourquoi-converge.webp
 no_toc: false
 tldr: |
   - GPT-5.1 a une **signature stylistique stable** : dans cette expérience, il pousse les snippets vers un style proche de *Clean Code*, quel que soit le code de départ.

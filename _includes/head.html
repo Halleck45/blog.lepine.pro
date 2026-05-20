@@ -68,7 +68,9 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 {% capture social_image %}{{ site.url }}/images/cover-auto/cover-{{ page.title | slugify: "latin" }}.webp{% endcapture %}
-{% if page and page.cover and page.cover != "" %}
+{% if page and page.social_image and page.social_image != "" %}
+  {% assign social_image = site.url | append: "/images/cover/" | append: page.social_image %}
+{% elsif page and page.cover and page.cover != "" %}
   {% assign social_image = site.url | append: "/images/cover/" | append: page.cover %}
 {% endif %}
 
