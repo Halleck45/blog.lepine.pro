@@ -1,0 +1,8 @@
+<!-- Ancien bloc "Mon livre" de la sidebar (archivé). Pour le réactiver : {% include cta_book_sidebar.html %} -->
+<a href="https://amzn.to/4b0yTwC" class="mt-4 flex items-center gap-3 rounded-xl border border-pink-200 bg-gradient-to-r from-pink-50 to-white p-3 transition hover:shadow-md hover:no-underline group">
+    <img src="/images/livre-cover.jpg" alt="Mon livre" class="h-14 rounded-lg shadow-sm" loading="lazy">
+    <div class="min-w-0">
+        <p class="text-xs font-bold text-slate-800 group-hover:text-pink-700">{% if page and page.language == "en" %}My book{% else %}Mon livre{% endif %}</p>
+        <p class="text-[10px] leading-snug text-slate-500 mt-0.5">Qualité logicielle pour les développeurs</p>
+    </div>
+</a>

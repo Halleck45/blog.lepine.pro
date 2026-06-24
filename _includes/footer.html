@@ -1,33 +1,21 @@
-<div class="mx-auto max-w-2xl text-center mb-8">
-  <div class="rounded-2xl border border-slate-200 bg-white px-6 py-8 shadow-sm">
-    <div class="flex justify-center mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-8 text-amber-500">
-        <path d="M3.75 3a.75.75 0 0 0-.75.75v.5c0 .414.336.75.75.75H4c6.075 0 11 4.925 11 11v.25c0 .414.336.75.75.75h.5a.75.75 0 0 0 .75-.75V16C17 8.82 11.18 3 4 3h-.25Z" />
-        <path d="M3 8.75A.75.75 0 0 1 3.75 8H4a8 8 0 0 1 8 8v.25a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75V16a6 6 0 0 0-6-6h-.25A.75.75 0 0 1 3 9.25v-.5ZM7 15a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
-      </svg>
-    </div>
-    <p class="text-lg font-bold text-slate-900">
-      {% if page and page.language == "en" %}Stay up to date{% else %}Restez informé{% endif %}
-    </p>
-    <p class="mt-2 text-sm text-slate-600">
-      {% if page and page.language == "en" %}Follow new articles via RSS feed — no spam, just quality content.{% else %}Suivez les nouveaux articles via le flux RSS — pas de spam, que du contenu.{% endif %}
-    </p>
-    <div class="mt-4 flex justify-center gap-3">
-      <a href="/atom.xml" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 hover:no-underline transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4">
-          <path d="M3.75 3a.75.75 0 0 0-.75.75v.5c0 .414.336.75.75.75H4c6.075 0 11 4.925 11 11v.25c0 .414.336.75.75.75h.5a.75.75 0 0 0 .75-.75V16C17 8.82 11.18 3 4 3h-.25Z" />
-          <path d="M3 8.75A.75.75 0 0 1 3.75 8H4a8 8 0 0 1 8 8v.25a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1-.75-.75V16a6 6 0 0 0-6-6h-.25A.75.75 0 0 1 3 9.25v-.5ZM7 15a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
-        </svg>
-        {% if page and page.language == "en" %}Subscribe via RSS{% else %}S'abonner au flux RSS{% endif %}
-      </a>
-    </div>
-  </div>
-</div>
-
 <div class="text-black text-xs text-center my-8">
   <p>
     © {{ site.theme.name }}, 2010 - {{ 'now'  | date: "%Y" }}
+    <span class="mx-1.5 text-slate-300">·</span>
+    <a href="/atom.xml" class="text-slate-500 hover:text-amber-600 hover:no-underline">{% if page and page.language == "en" %}RSS feed{% else %}Flux RSS{% endif %}</a>
   </p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+
+<!-- Tracking des clics sur les cartes CTA (OctoFirst / Malt) vers GA4 -->
+<script>
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el || typeof gtag !== 'function') return;
+    gtag('event', 'cta_click', {
+      cta_id: el.getAttribute('data-cta'),
+      link_url: el.href
+    });
+  });
+</script>
