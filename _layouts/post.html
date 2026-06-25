@@ -81,20 +81,16 @@ layout: default
               {% endif %}
               of this article here
             </blockquote>
-          {% else %}
-            {% assign has_canonical = page.canonical %}
-            {% assign has_en_permalink = page.en_permalink %}
-
-            {% if has_canonical or has_en_permalink %}
+          {% endif %}
+        {% else %}
+          {% if page.en_permalink != nil or page.canonical != nil %}
             <blockquote class="ml-2 mt-2">
-              You will find the
-              <a class="hover:underline" href="{% if has_en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">
-                🇬🇧 english version of this article here
-              </a>
+              Vous trouverez la
+              <a class="hover:underline" href="{% if page.en_permalink %}{{ page.en_permalink }}{% else %}{{ page.canonical }}{% endif %}">version 🇬🇧 anglaise</a>
+              de cet article ici
             </blockquote>
-            {% endif %}
           {% endif %}
-          {% endif %}
+        {% endif %}
         </div>
       <div>
 
@@ -242,12 +238,13 @@ layout: default
     }
   }
 
-  // 3. Table of contents
+  // 3. Table of contents (only for long articles: >= 3 headings AND >= 1600 words / ~8 min read)
   if (post) {
     var headings = post.querySelectorAll('h2, h3');
+    var tocWords = post.innerText.trim().split(/\s+/).length;
     var tocList = document.getElementById('toc-list');
     var tocNav = document.getElementById('toc');
-    if (headings.length >= 3 && tocList && tocNav) {
+    if (headings.length >= 3 && tocWords >= 1600 && tocList && tocNav) {
       headings.forEach(function(h, i) {
         if (!h.id) h.id = 'heading-' + i;
         var li = document.createElement('li');
