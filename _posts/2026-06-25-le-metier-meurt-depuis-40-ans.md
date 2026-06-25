@@ -1,7 +1,7 @@
 ---
 layout: post
 type: post
-title: "Le métier meurt depuis 40 ans. Et il ne s'est jamais aussi bien porté."
+title: "Le métier de développeur meurt depuis 40 ans. Et il ne s'est jamais aussi bien porté."
 excerpt: "Une opinion assumée : ce que l'IA détruit (produire du code à la main) n'a jamais été le cœur du métier. Elle re-sépare l'analyste du programmeur, confie le code à la machine, et nous repousse vers notre centre : comprendre, structurer, fiabiliser."
 description: "L'IA ne tue pas le métier de développeur. Elle re-sépare l'analyste et le programmeur, confie le code à la machine, et nous repousse vers notre centre. Une opinion assumée."
 date: 2026-06-25

@@ -1,7 +1,7 @@
 ---
 layout: post
 type: post
-title: "The job has been dying for 40 years. And it has never been healthier."
+title: "The developer's craft has been dying for 40 years. And it has never been healthier."
 excerpt: "An owned opinion: what AI destroys (producing code by hand) was never the heart of the craft. It re-splits the analyst from the programmer, hands the code to the machine, and pushes us back toward our center: to understand, structure, make reliable."
 description: "AI doesn't kill the developer's craft. It re-splits the analyst and the programmer, hands the code to the machine, and pushes us back toward our center. An owned opinion."
 date: 2026-06-25
