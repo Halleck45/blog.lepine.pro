@@ -1,7 +1,7 @@
 ---
 layout: post
 type: post
-title: "Mesurer la complexité d'un code source : quid de la complexité des appels LLM ?"
+title: "Quand la complexité du code vit dans le prompt"
 excerpt: "Un fichier « vert » dans PhpMetrics, mais corrigé tous les mois : l'analyse statique se trompait. Dans une application qui intègre un LLM, la moitié de la logique vit dans le prompt, invisible aux analyseurs. Un papier récent le mesure sur 118 composants."
 description: "Nos métriques de complexité mesurent le code. Mais dans une application qui intègre un LLM, la logique a déménagé dans le prompt. Ce qu'un papier de 2026 change à notre façon de mesurer la qualité."
 date: 2026-07-17
@@ -19,16 +19,6 @@ tldr: |
   - Contre-intuitif : plus un prompt pose de **garde-fous explicites**, plus il est *facile* à maintenir.
 ---
 
-<style>
-    .fluo {
-        background-image: linear-gradient(transparent 45%, #fde047 45%, #fde047 92%, transparent 92%);
-        box-decoration-break: clone;
-        -webkit-box-decoration-break: clone;
-        padding: 0 0.12em;
-        font-weight: 600;
-    }
-</style>
-
 Il y a quelques semaines, je suis tombé sur un fichier que je croyais connaître. Un composant de notre stack, quelque chose qui orchestre un appel à un LLM. Rien de spectaculaire à l'écran : deux ou trois conditions, une boucle, un peu de parsing en sortie. Si vous le passiez dans AstMetrics, il ressortirait vert. **Complexité cyclomatique basse. Rien à signaler, passez votre chemin**
 
 **Sauf que ce fichier avait un historique Git qui racontait une tout autre histoire.** Une activité anormalement élevée : des bugfix à répétition, mois après mois, sur les mêmes vingt lignes.
@@ -36,6 +26,29 @@ Il y a quelques semaines, je suis tombé sur un fichier que je croyais connaîtr
 <span class="fluo">L'analyse statique disait « ce code est simple ». La réalité du terrain disait exactement le contraire.</span>
 
 Et pour cause : ce fichier contenait très peu de code. L'essentiel, ce qui pesait vraiment, **c'était un prompt.** Plusieurs dizaines de lignes d'instructions en langage naturel adressées à un LLM.
+
+Concrètement, prenons ce code simplifié :
+
+```python
+PROMPT = """
+Tu es un assistant de tri des demandes clients.
+
+- Si la demande concerne une facture, route-la vers le service comptable.
+- Si le message est ambigu, pose UNE question de clarification, pas plus.
+- Si le client semble mécontent, adopte un ton d'excuse et propose un geste commercial.
+- Si la demande sort de ton périmètre, ne réponds pas : renvoie {"escalade": true}.
+- Ne promets jamais de remboursement au-delà de 50 euros.
+... (trente autres lignes de règles de ce genre)
+"""
+
+def traiter_demande(message):
+    reponse = llm.completer(systeme=PROMPT, message=message)
+    return json.loads(reponse)
+```
+
+Deux lignes de code. Une complexité cyclomatique de 1. Vert partout. Et pourtant, toutes les décisions que prend ce composant (les conditions, les garde-fous, les cas particuliers) sont là, dans la chaîne de caractères que l'analyseur traverse sans jamais la lire.
+
+**Alors, comment mesurer la complexité d'un composant logiciel dont la logique vit dans un prompt ?**
 
 ## Le postulat que personne ne remet en question
 

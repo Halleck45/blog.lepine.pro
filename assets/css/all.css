@@ -175,3 +175,12 @@ font-optical-sizing: auto;
     font-size: 1.15rem;
     line-height: 1.6;
 }
+
+/* Surligneur fluo pour les phrases-clés */
+#post .fluo {
+    background-image: linear-gradient(transparent 45%, #fde047 45%, #fde047 92%, transparent 92%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 0.12em;
+    font-weight: 600;
+}

@@ -21,16 +21,6 @@ tldr: |
   - There is an identity crisis, and it's legitimate. But it comes from having confused *producing code* with *doing engineering*.
 ---
 
-<style>
-    .fluo {
-        background-image: linear-gradient(transparent 45%, #fde047 45%, #fde047 92%, transparent 92%);
-        box-decoration-break: clone;
-        -webkit-box-decoration-break: clone;
-        padding: 0 0.12em;
-        font-weight: 600;
-    }
-</style>
-
 I've been hesitating to write this post for a good year. Not because the subject is hard, but because it **departs from my habits here**. Usually, I share things you can verify: measurements, protocols, lessons from experience. Here, I'm simply going to give an **opinion**. Owned as such.
 
 A colleague shared [an article](https://www.businessinsider.com/ai-creating-identity-crisis-for-software-engineers-coders-2026-3) this week about the **identity crisis of software engineers** in the face of AI. My first reaction was: "I know exactly who feels that way around me." My second, more honest one: "for me, it's the exact opposite."

@@ -19,16 +19,6 @@ tldr: |
   - Il y a une crise d'identité, et elle est légitime. Mais elle vient de ce qu'on a confondu *produire du code* avec *faire de l'ingénierie*.
 ---
 
-<style>
-    .fluo {
-        background-image: linear-gradient(transparent 45%, #fde047 45%, #fde047 92%, transparent 92%);
-        box-decoration-break: clone;
-        -webkit-box-decoration-break: clone;
-        padding: 0 0.12em;
-        font-weight: 600;
-    }
-</style>
-
 Ça fait une bonne année que j'hésite à écrire ce billet. Pas parce que le sujet est difficile, mais parce qu'il **s'écarte de mes habitudes ici**. D'ordinaire, je partage des choses qu'on peut vérifier : des mesures, des protocoles, des retours d'expérience. Là, je vais simplement donner une **opinion**. Assumée comme telle.
 
 Un collègue a partagé [un article](https://www.businessinsider.com/ai-creating-identity-crisis-for-software-engineers-coders-2026-3) cette semaine sur la **crise d'identité des ingénieurs logiciels** face à l'IA. Ma première réaction a été : « je sais exactement qui ressent ça autour de moi ». Ma deuxième, plus honnête : « chez moi, c'est l'inverse exact ».
