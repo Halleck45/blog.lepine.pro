@@ -142,7 +142,14 @@ AST Metrics already dissects the structure of the code. It sees method calls, at
 
 The question this paper poses to me, very concretely: what would an analyzer look like that treats the prompt as a first-class artifact? One that could count, in a Symfony codebase riddled with LLM calls, the `n_llm_calls`, the `inject_surf`, the density of conditions in the prompts? Does it even make sense to talk about a "prompt AST"?
 
-I don't have the answer. But I do know the paper's corpus is entirely in Python (some LangChain, some MetaGPT, some autogen). None of that exists for the PHP ecosystem. And that's precisely the kind of gap my tools are used to filling.
+<del>I don't have the answer. But I do know the paper's corpus is entirely in Python (some LangChain, some MetaGPT, some autogen). None of that exists for the PHP ecosystem. And that's precisely the kind of gap my tools are used to filling.</del>
+
+**Update**: since this post was published, I built that analyzer, it's called [promptcc](https://github.com/Halleck45/promptcc) and it applies the paper's metrics to the prompts found in source code (Python, TypeScript, JavaScript and PHP). It computes decision density, injection surface, explicit guardrails. And it can fail a CI build when a prompt crosses a complexity threshold.
+
+<figure class="my-6">
+  <img src="{{site.url}}/images/2026-07-promptcc-explorer.webp" alt="The promptcc explorer: a prompt from the aider project with a high branching score, broken down into signals (decision points, density, injection channels, guardrails)" class="rounded-lg border border-gray-200 w-full" />
+  <figcaption class="text-xs text-gray-400 mt-2 font-mono">promptcc - Explorer. Every prompt found in the code gets a branching score, broken down into signals: decisions, injection, guardrails.</figcaption>
+</figure>
 
 ## What the paper doesn't settle
 
@@ -154,6 +161,6 @@ And one hundred and eighteen components, in a single language, is a start. **A f
 
 What remains is the essential part, and that one won't move: <span class="fluo">we changed the material without changing the instrument.</span> We keep measuring the code with rules designed for a world where all the behavior lived in the code. That world no longer quite exists.
 
-I think back to my green file, the one the Git history contradicted. We don't need to throw out cyclomatic complexity (it still measures very well what it knows how to measure). The problem is that part of the program has left its field of vision. The next generation of quality tools (perhaps the next version of mine) will have to learn to read the layer that took over.
+I think back to my green file, the one the Git history contradicted. We don't need to throw out cyclomatic complexity (it still measures very well what it knows how to measure). The problem is that part of the program has left its field of vision. The next generation of quality tools <del>(perhaps the next version of mine)</del> will have to learn to read the layer that took over. That's what [promptcc](https://github.com/Halleck45/promptcc) sets out to do.
 
 I'm left with one question, and I don't have the answer. <span class="fluo">If logic keeps migrating toward natural language, what exactly are we measuring when we measure the quality of a piece of software?</span>

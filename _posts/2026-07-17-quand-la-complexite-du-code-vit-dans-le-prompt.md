@@ -8,6 +8,7 @@ date: 2026-07-17
 status: publish
 published: true
 language: fr
+en_permalink: /en/when-code-complexity-lives-in-the-prompt/
 categories: [tech, IA]
 tags: [ia, qualité, métriques, llm, phpmetrics]
 no_toc: false
@@ -139,7 +140,14 @@ AST Metrics décortique déjà la structure du code. Il voit les appels de méth
 
 La question que ce papier me pose, très concrètement : à quoi ressemblerait un analyseur qui traite le prompt comme un artefact de première classe ? Qui saurait compter, dans une codebase Symfony truffée d'appels à un LLM, le `n_llm_calls`, l'`inject_surf`, la densité de conditions dans les prompts ? Est-ce que ça a un sens de parler d'un « AST du prompt » ?
 
-Je n'ai pas la réponse. Mais je sais que le corpus du papier est entièrement en Python (du LangChain, du MetaGPT, de l'autogen). Rien de tout ça n'existe pour l'écosystème PHP. Et c'est précisément le genre de trou que mes outils ont l'habitude de combler.
+<del>Je n'ai pas la réponse. Mais je sais que le corpus du papier est entièrement en Python (du LangChain, du MetaGPT, de l'autogen). Rien de tout ça n'existe pour l'écosystème PHP. Et c'est précisément le genre de trou que mes outils ont l'habitude de combler.</del>
+
+**Mise à jour** : depuis la publication de ce billet, j'ai développé cet analyseur, il s'appelle [promptcc](https://github.com/Halleck45/promptcc) et il applique les métriques du papier aux prompts trouvés dans le code source (Python, TypeScript, JavaScript et PHP). Il calcule la densité de décisions, la surface d'injection, les garde-fous explicites. Et il peut faire échouer une CI quand un prompt dépasse un seuil de complexité.
+
+<figure class="my-6">
+  <img src="{{site.url}}/images/2026-07-promptcc-explorer.webp" alt="L'explorateur de promptcc : un prompt du projet aider avec un score de branchement élevé, décomposé en signaux (points de décision, densité, canaux d'injection, garde-fous)" class="rounded-lg border border-gray-200 w-full" />
+  <figcaption class="text-xs text-gray-400 mt-2 font-mono">promptcc - Explorer. Chaque prompt trouvé dans le code reçoit un score de branchement, décomposé en signaux : décisions, injection, garde-fous.</figcaption>
+</figure>
 
 ## Ce que le papier ne règle pas
 
@@ -151,6 +159,6 @@ Et cent dix-huit composants, dans un seul langage, c'est un début. **Une premi�
 
 Reste l'essentiel, qui lui ne bougera pas : <span class="fluo">on a changé de matériau sans changer d'instrument.</span> On continue de mesurer le code avec des règles pensées pour un monde où tout le comportement vivait dans le code. Ce monde-là n'existe plus tout à fait.
 
-Je repense à mon fichier vert, celui que l'historique Git contredisait. On n'a pas besoin de jeter la Complexité cyclomatique (elle mesure toujours très bien ce qu'il sait mesurer). Le problème, c'est qu'une partie du programme a quitté son champ de vision. La prochaine génération d'outils de qualité (peut-être la prochaine version des miens) devra apprendre à lire la couche qui a pris le pouvoir.
+Je repense à mon fichier vert, celui que l'historique Git contredisait. On n'a pas besoin de jeter la Complexité cyclomatique (elle mesure toujours très bien ce qu'il sait mesurer). Le problème, c'est qu'une partie du programme a quitté son champ de vision. La prochaine génération d'outils de qualité <del>(peut-être la prochaine version des miens)</del> devra apprendre à lire la couche qui a pris le pouvoir. C'est ce que [promptcc](https://github.com/Halleck45/promptcc) commence à faire.
 
 Il me reste une question, et je n'ai pas la réponse. <span class="fluo">Si la logique continue de migrer vers le langage naturel, qu'est-ce qu'on mesure, au juste, quand on mesure la qualité d'un logiciel ?</span>
