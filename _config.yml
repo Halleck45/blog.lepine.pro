@@ -10,6 +10,10 @@ highlighter: true
 destination: build
 plugins_dir: [_plugins]
 
+# Rotation des CTA : probabilité (0 à 1) d'afficher le CTA "Sponsoring GitHub"
+# a la place d'OctoFirst (sidebar + bas d'article). 0.5 = 1 fois sur 2, 0 = jamais, 1 = toujours.
+sponsor_rotation_ratio: 0.5
+
 # Theme customization - please change from the defaults!
 theme:
   # Color for top bar, links, etc

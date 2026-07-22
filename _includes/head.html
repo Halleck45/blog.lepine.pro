@@ -1,6 +1,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<!-- Rotation CTA (OctoFirst / Sponsoring GitHub) : décidée avant le rendu, donc sans clignotement.
+     Ratio configurable via sponsor_rotation_ratio dans _config.yml. Sans JS : OctoFirst reste affiché. -->
+<style>
+  html.cta-sponsor [data-cta-variant="octofirst"] { display: none; }
+  html.cta-sponsor [data-cta-variant="sponsor"] { display: flex; }
+</style>
+<script>
+  (function () {
+    var ratio = parseFloat('{{ site.sponsor_rotation_ratio | default: 0.5 }}');
+    if (isNaN(ratio)) ratio = 0.5;
+    if (Math.random() < ratio) document.documentElement.classList.add('cta-sponsor');
+  })();
+</script>
+
 {% assign page_title = page.title | default: site.theme.tagline %}
 <title>{{ site.theme.name }} - {{ page_title }}</title>
 <meta name="author" content="{{ site.theme.name }}" />
