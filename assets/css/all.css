@@ -31,11 +31,14 @@ font-optical-sizing: auto;
     color: #4a5565;
 }
 
-#post p a {
+#post p a, #post li a {
     color: #0369a1;
-}
-#post p a:hover {
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+#post p a:hover, #post li a:hover {
+    text-decoration-thickness: 2px;
 }
 #post strong {
     font-weight: bold;
@@ -86,6 +89,16 @@ font-optical-sizing: auto;
     padding: 1em;
     white-space: pre;
     overflow-x: auto;
+}
+
+#post :not(pre) > code {
+    font-size: 0.875em;
+    color: #0f172a;
+    background-color: #eef2f7;
+    border: 1px solid #dde3ea;
+    border-radius: 0.3em;
+    padding: 0.1em 0.35em;
+    overflow-wrap: anywhere;
 }
 
 .post_social {
@@ -182,5 +195,13 @@ font-optical-sizing: auto;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     padding: 0 0.12em;
+    font-weight: 600;
+}
+/* Section navigator: headings stay clear of the floating pill when reached by anchor */
+#post h2, #post h3 {
+    scroll-margin-top: 4.5rem;
+}
+#toc-list a.toc-active {
+    color: #d97706; /* amber-600 */
     font-weight: 600;
 }
