@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1156" height="908" viewBox="0 0 1156 908" font-family="SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13">
+  <rect width="1156" height="908" rx="10" fill="#1b1f27"/>
+  <circle cx="20" cy="18" r="6" fill="#ff5f57"/><circle cx="40" cy="18" r="6" fill="#febc2e"/><circle cx="60" cy="18" r="6" fill="#28c840"/>
+  <text x="24.0" y="54" xml:space="preserve"><tspan fill="#8a93a3">$ </tspan><tspan fill="#d6dbe5">cribelo --base b2f83dc</tspan></text>
+  <text y="80" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">cribelo</tspan><tspan x="86.4" fill="#8a93a3">· 34 files changed vs b2f83dc (merge-base b2f83dc)</tspan></text>
+  <text y="112" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">Read 13 of 34 changed files, about 45 min.</tspan></text>
+  <text y="144" xml:space="preserve"><tspan x="484.2" fill="#8a93a3">lines to read closely               lines to glance at</tspan></text>
+  <text y="164" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">1</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/library_reach.go</tspan><tspan x="437.4" fill="#58a6ff" font-weight="bold">new</tspan><tspan x="484.2" fill="#d6dbe5">30-35,</tspan><tspan x="538.8" fill="#d6dbe5">66-265</tspan><tspan x="765.0" fill="#d6dbe5">16-26,</tspan><tspan x="819.6" fill="#d6dbe5">39-57</tspan></text>
+  <text y="184" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">2</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/library_conformance_test.go</tspan><tspan x="437.4" fill="#8a93a3">test</tspan><tspan x="484.2" fill="#d6dbe5">98-140</tspan><tspan x="765.0" fill="#d6dbe5">25-93</tspan></text>
+  <text y="204" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">3</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/library_reach_test.go</tspan><tspan x="437.4" fill="#8a93a3">test</tspan><tspan x="484.2" fill="#d6dbe5">10-63,</tspan><tspan x="538.8" fill="#d6dbe5">85-144</tspan><tspan x="765.0" fill="#d6dbe5">67-80</tspan></text>
+  <text y="224" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">4</tspan><tspan x="70.8" fill="#79c0ff">internal/engine/util.go</tspan><tspan x="484.2" fill="#d6dbe5">85-112</tspan></text>
+  <text y="244" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">5</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/file_dependency_analyzer.go</tspan><tspan x="484.2" fill="#d6dbe5">97-101,</tspan><tspan x="546.6" fill="#d6dbe5">122-127,</tspan><tspan x="616.8" fill="#d6dbe5">141,</tspan><tspan x="655.8" fill="#d6dbe5">152,</tspan><tspan x="694.8" fill="#d6dbe5">+4</tspan><tspan x="718.2" fill="#d6dbe5">more</tspan><tspan x="765.0" fill="#d6dbe5">22-27</tspan></text>
+  <text y="264" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">6</tspan><tspan x="70.8" fill="#79c0ff">internal/engine/php/deps/resolver.go</tspan><tspan x="437.4" fill="#58a6ff" font-weight="bold">new</tspan><tspan x="484.2" fill="#d6dbe5">25-43,</tspan><tspan x="538.8" fill="#d6dbe5">57-69</tspan><tspan x="765.0" fill="#d6dbe5">15-22,</tspan><tspan x="819.6" fill="#d6dbe5">46-51,</tspan><tspan x="874.2" fill="#d6dbe5">75-76</tspan></text>
+  <text y="284" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">7</tspan><tspan x="70.8" fill="#79c0ff">internal/engine/php/deps/resolver_test.go</tspan><tspan x="437.4" fill="#8a93a3">test</tspan><tspan x="484.2" fill="#d6dbe5">11-54</tspan></text>
+  <text y="304" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">8</tspan><tspan x="70.8" fill="#79c0ff">internal/engine/java/deps/resolver.go</tspan><tspan x="484.2" fill="#d6dbe5">46-48,</tspan><tspan x="538.8" fill="#d6dbe5">65-71</tspan><tspan x="765.0" fill="#d6dbe5">line</tspan><tspan x="804.0" fill="#d6dbe5">61</tspan></text>
+  <text y="324" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">9</tspan><tspan x="70.8" fill="#79c0ff">internal/engine/java/deps/resolver_test.go</tspan><tspan x="437.4" fill="#8a93a3">test</tspan><tspan x="484.2" fill="#d6dbe5">9-13</tspan></text>
+  <text y="344" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">10</tspan><tspan x="70.8" fill="#79c0ff">internal/command/who_uses_command.go</tspan><tspan x="437.4" fill="#58a6ff" font-weight="bold">new</tspan><tspan x="484.2" fill="#d6dbe5">52-241</tspan><tspan x="765.0" fill="#d6dbe5">25-48</tspan></text>
+  <text y="364" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">11</tspan><tspan x="70.8" fill="#79c0ff">internal/command/who_uses_command_test.go</tspan><tspan x="437.4" fill="#8a93a3">test</tspan><tspan x="484.2" fill="#d6dbe5">17-114</tspan></text>
+  <text y="384" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">12</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/community_aggregator.go</tspan><tspan x="484.2" fill="#d6dbe5">346-360</tspan><tspan x="765.0" fill="#d6dbe5">82,</tspan><tspan x="796.2" fill="#d6dbe5">340</tspan></text>
+  <text y="404" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">13</tspan><tspan x="70.8" fill="#79c0ff">internal/analyzer/community_graph.go</tspan><tspan x="484.2" fill="#d6dbe5">112,</tspan><tspan x="523.2" fill="#d6dbe5">217,</tspan><tspan x="562.2" fill="#d6dbe5">233,</tspan><tspan x="601.2" fill="#d6dbe5">250,</tspan><tspan x="640.2" fill="#d6dbe5">+1</tspan><tspan x="663.6" fill="#d6dbe5">more</tspan><tspan x="765.0" fill="#d6dbe5">line</tspan><tspan x="804.0" fill="#d6dbe5">86</tspan></text>
+  <text y="436" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">Why these files</tspan></text>
+  <text y="456" xml:space="preserve"><tspan x="297.0" fill="#8a93a3">complexity  used by    commits 90d        clone  test changed</tspan></text>
+  <text y="476" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">1</tspan><tspan x="70.8" fill="#79c0ff">library_reach.go</tspan><tspan x="343.8" fill="#d6dbe5">17</tspan><tspan x="437.4" fill="#d6dbe5">83</tspan><tspan x="523.2" fill="#d6dbe5">3</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="466" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="305.7" y="466" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="313.5" y="466" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="321.3" y="466" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="466" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="466" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="399.3" y="466" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="407.1" y="466" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="414.9" y="466" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="422.7" y="466" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="477.3" y="466" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="485.1" y="466" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="492.9" y="466" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="466" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="466" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="496" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">4</tspan><tspan x="70.8" fill="#79c0ff">util.go</tspan><tspan x="343.8" fill="#d6dbe5">10</tspan><tspan x="437.4" fill="#d6dbe5">111</tspan><tspan x="523.2" fill="#d6dbe5">6,</tspan><tspan x="546.6" fill="#d6dbe5">3</tspan><tspan x="562.2" fill="#d6dbe5">fixes</tspan><tspan x="679.2" fill="#ff7b72">✗</tspan></text>
+  <rect x="297.9" y="486" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="305.7" y="486" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="313.5" y="486" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="321.3" y="486" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="486" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="486" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="399.3" y="486" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="407.1" y="486" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="414.9" y="486" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="422.7" y="486" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="477.3" y="486" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="485.1" y="486" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="492.9" y="486" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="500.7" y="486" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="486" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="516" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">5</tspan><tspan x="70.8" fill="#79c0ff">file_dependency_analyzer.go</tspan><tspan x="343.8" fill="#d6dbe5">44</tspan><tspan x="437.4" fill="#d6dbe5">83</tspan><tspan x="523.2" fill="#d6dbe5">4,</tspan><tspan x="546.6" fill="#d6dbe5">1</tspan><tspan x="562.2" fill="#d6dbe5">fix</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="305.7" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="313.5" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="321.3" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="329.1" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="391.5" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="399.3" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="407.1" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="414.9" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="422.7" y="506" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="477.3" y="506" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="485.1" y="506" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="492.9" y="506" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="506" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="506" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="536" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">6</tspan><tspan x="70.8" fill="#79c0ff">php/deps/resolver.go</tspan><tspan x="343.8" fill="#d6dbe5">9</tspan><tspan x="437.4" fill="#d6dbe5">1</tspan><tspan x="523.2" fill="#d6dbe5">1</tspan><tspan x="624.6" fill="#d6dbe5">84%</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="526" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="305.7" y="526" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="313.5" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="321.3" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="526" width="6" height="11" rx="1.5" fill="#3fb950"/>
+  <rect x="399.3" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="407.1" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="414.9" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="422.7" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="477.3" y="526" width="6" height="11" rx="1.5" fill="#3fb950"/>
+  <rect x="485.1" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="492.9" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="526" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="556" xml:space="preserve"><tspan x="47.4" fill="#ffffff" font-weight="bold">8</tspan><tspan x="70.8" fill="#79c0ff">java/deps/resolver.go</tspan><tspan x="343.8" fill="#d6dbe5">11</tspan><tspan x="437.4" fill="#d6dbe5">1</tspan><tspan x="523.2" fill="#d6dbe5">3,</tspan><tspan x="546.6" fill="#d6dbe5">1</tspan><tspan x="562.2" fill="#d6dbe5">fix</tspan><tspan x="624.6" fill="#d6dbe5">100%</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="546" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="305.7" y="546" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="313.5" y="546" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="321.3" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="546" width="6" height="11" rx="1.5" fill="#3fb950"/>
+  <rect x="399.3" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="407.1" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="414.9" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="422.7" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="477.3" y="546" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="485.1" y="546" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="492.9" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="546" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="576" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">10</tspan><tspan x="70.8" fill="#79c0ff">who_uses_command.go</tspan><tspan x="343.8" fill="#d6dbe5">18</tspan><tspan x="437.4" fill="#d6dbe5">3</tspan><tspan x="523.2" fill="#d6dbe5">3,</tspan><tspan x="546.6" fill="#d6dbe5">1</tspan><tspan x="562.2" fill="#d6dbe5">fix</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="566" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="305.7" y="566" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="313.5" y="566" width="6" height="11" rx="1.5" fill="#f0883e"/>
+  <rect x="321.3" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="566" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="399.3" y="566" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="407.1" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="414.9" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="422.7" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="477.3" y="566" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="485.1" y="566" width="6" height="11" rx="1.5" fill="#d29922"/>
+  <rect x="492.9" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="566" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="596" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">12</tspan><tspan x="70.8" fill="#79c0ff">community_aggregator.go</tspan><tspan x="343.8" fill="#d6dbe5">5</tspan><tspan x="437.4" fill="#d6dbe5">83</tspan><tspan x="523.2" fill="#d6dbe5">11,</tspan><tspan x="554.4" fill="#d6dbe5">2</tspan><tspan x="570.0" fill="#d6dbe5">fixes</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="586" width="6" height="11" rx="1.5" fill="#3fb950"/>
+  <rect x="305.7" y="586" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="313.5" y="586" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="321.3" y="586" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="329.1" y="586" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="391.5" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="399.3" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="407.1" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="414.9" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="422.7" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="477.3" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="485.1" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="492.9" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="500.7" y="586" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="508.5" y="586" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="616" xml:space="preserve"><tspan x="39.6" fill="#ffffff" font-weight="bold">13</tspan><tspan x="70.8" fill="#79c0ff">community_graph.go</tspan><tspan x="343.8" fill="#d6dbe5">51</tspan><tspan x="437.4" fill="#d6dbe5">83</tspan><tspan x="523.2" fill="#d6dbe5">2</tspan><tspan x="679.2" fill="#3fb950">✓</tspan></text>
+  <rect x="297.9" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="305.7" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="313.5" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="321.3" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="329.1" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="391.5" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="399.3" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="407.1" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="414.9" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="422.7" y="606" width="6" height="11" rx="1.5" fill="#ff7b72"/>
+  <rect x="477.3" y="606" width="6" height="11" rx="1.5" fill="#3fb950"/>
+  <rect x="485.1" y="606" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="492.9" y="606" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="500.7" y="606" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <rect x="508.5" y="606" width="6" height="11" rx="1.5" fill="#3a4150"/>
+  <text y="648" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">Totals</tspan><tspan x="86.4" fill="#d6dbe5">688 lines to read closely, 280 to glance at</tspan><tspan x="429.6" fill="#8a93a3">(20 and 60 lines a minute)</tspan></text>
+  <text y="668" xml:space="preserve"><tspan x="24.0" fill="#8a93a3">Set aside in the whole change: 11 import hunks.</tspan></text>
+  <text y="700" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">Worth knowing</tspan><tspan x="141.0" fill="#8a93a3">true by construction, not predicted</tspan></text>
+  <text y="720" xml:space="preserve"><tspan x="39.6" fill="#79c0ff">internal/analyzer/aggregator.go</tspan><tspan x="297.0" fill="#d6dbe5">internal/analyzer depends on internal/engine/php/deps for the first time</tspan></text>
+  <text y="740" xml:space="preserve"><tspan x="39.6" fill="#79c0ff">internal/engine/typescript/deps/resolver.go</tspan><tspan x="390.6" fill="#d6dbe5">internal/engine/typescript/deps depends on internal/engine/typescript/module for the first time</tspan></text>
+  <text y="760" xml:space="preserve"><tspan x="39.6" fill="#79c0ff">internal/analyzer/library_reach.go</tspan><tspan x="320.4" fill="#d6dbe5">15 of 161 changed lines not run by any test, according to pr196-coverage.out</tspan></text>
+  <text y="780" xml:space="preserve"><tspan x="39.6" fill="#79c0ff">internal/command/who_uses_command.go</tspan><tspan x="336.0" fill="#d6dbe5">49 of 162 changed lines not run by any test, according to pr196-coverage.out</tspan></text>
+  <text y="800" xml:space="preserve"><tspan x="39.6" fill="#79c0ff">internal/engine/util.go</tspan><tspan x="234.6" fill="#d6dbe5">25 of 25 changed lines not run by any test, according to pr196-coverage.out</tspan></text>
+  <text y="832" xml:space="preserve"><tspan x="24.0" fill="#ffffff" font-weight="bold">Skip</tspan><tspan x="63.0" fill="#8a93a3">(21)</tspan></text>
+  <text y="852" xml:space="preserve"><tspan x="39.6" fill="#8a93a3">10 ranked lower · 7 tests only · 4 no measurable change    cribelo skip</tspan></text>
+  <text y="884" xml:space="preserve"><tspan x="24.0" fill="#8a93a3">Weights: generic, not yet calibrated on this repository (run: cribelo calibrate)</tspan></text>
+</svg>
