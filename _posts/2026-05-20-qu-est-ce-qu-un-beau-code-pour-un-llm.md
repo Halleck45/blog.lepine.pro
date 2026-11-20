@@ -3,9 +3,13 @@ layout: post
 title: "Qu'est-ce qu'un beau code, pour un LLM ?"
 excerpt: "Une étude refactorise 230 snippets Java cinq fois de suite avec GPT-5.1. Résultat : le modèle a une signature stylistique stable, ne sait pas s'arrêter, et impose son style à la codebase sans qu'on s'en rende compte."
 description: "Une étude refactorise 230 snippets Java cinq fois de suite avec GPT-5.1. Les résultats révèlent une signature stylistique nette - et un effet de bord inattendu."
-date: 2026-04-22
+date: 2026-05-20
+status: publish
+published: true
+language: fr
+en_permalink: /en/what-does-beautiful-code-look-like-to-an-llm/
+categories: [tech, IA]
 tags: [ia, qualité, llm, refactoring]
-cover: blogpost-llm-beautiful-code.webp
 social_image: cover-llm-code-beau-pourquoi-converge.webp
 no_toc: false
 tldr: |
