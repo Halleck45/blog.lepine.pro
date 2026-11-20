@@ -8,6 +8,7 @@ date: 2026-11-09
 status: publish
 published: true
 language: fr
+en_permalink: /en/reviewing-ai-written-pull-requests-where-do-you-start/
 social_image: "cribelo-social.png"
 categories: [tech, IA]
 tags: [pull-requests, revue de code, ia, qualité, métriques, ast-metrics, open-source]
