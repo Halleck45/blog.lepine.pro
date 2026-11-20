@@ -12,6 +12,8 @@ if [ -z "${OPENAI_API_KEY:-}" ]; then
 fi
 
 TITLE="$1"
+# Space-separated list, tried in order until one exists.
+MODELS="${OPENAI_IMAGE_MODEL:-gpt-image-2 gpt-image-1.5 gpt-image-1}"
 SLUG=$(echo "$TITLE" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')
 OUTPUT_DIR="$(cd "$(dirname "$0")/.." && pwd)/images/cover-auto"
 PNG_FILE="${OUTPUT_DIR}/cover-${SLUG}.png"
@@ -29,21 +31,28 @@ Composition équilibrée, style professionnel, cohérent avec un blog sur l'indu
 
 echo "Generating cover image for: ${TITLE}"
 
-RESPONSE=$(curl -s https://api.openai.com/v1/images/generations \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer ${OPENAI_API_KEY}" \
-    -d "$(jq -n \
-        --arg prompt "$PROMPT" \
-        '{
-            model: "gpt-image-1",
-            prompt: $prompt,
-            n: 1,
-            size: "1024x1024",
-            quality: "high"
-        }'
-    )")
+for MODEL in $MODELS; do
+    echo "Trying model: ${MODEL}"
+    RESPONSE=$(curl -s https://api.openai.com/v1/images/generations \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+        -d "$(jq -n \
+            --arg prompt "$PROMPT" \
+            --arg model "$MODEL" \
+            '{
+                model: $model,
+                prompt: $prompt,
+                n: 1,
+                size: "1024x1024",
+                quality: "high"
+            }'
+        )")
+    # Only fall through to the next model when this one is unknown.
+    echo "$RESPONSE" | jq -e '.error.param == "model"' >/dev/null 2>&1 || break
+    echo "Model ${MODEL} unavailable: $(echo "$RESPONSE" | jq -r '.error.message')"
+done
 
-# gpt-image-1 returns base64 in data[0].b64_json
+# gpt-image-* returns base64 in data[0].b64_json
 B64=$(echo "$RESPONSE" | jq -r '.data[0].b64_json // empty')
 
 if [ -n "$B64" ]; then

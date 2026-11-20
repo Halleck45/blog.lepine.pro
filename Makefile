@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build covers covers-dry
 build: optimize tldr jekyll
 
 jekyll:
@@ -11,6 +11,12 @@ optimize:
 	optipng images/cover-auto/* ||true
 	cd images/cover-auto && mogrify -format webp *.png
 	jpegoptim images/*  ||true
+covers:
+	./scripts/generate-missing-covers.sh
+
+covers-dry:
+	./scripts/generate-missing-covers.sh --dry-run
+
 tldr:
 	php scripts/build-tldr.php
 
